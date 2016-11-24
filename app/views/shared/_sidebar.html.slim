@@ -2,23 +2,23 @@
 #sidebar-menu.main_menu_side.hidden-print.main_menu
   .menu_section
     ul.nav.side-menu
-      li
-        a href="#"
+      li#home
+        a href="#{root_path}"
           i.fa.fa-home
           | Home
-      li
-        a href="#"
+      li#customers
+        a href="#{customers_path}"
           i.fa.fa-group
           | Customers
-      li
+      li#suppliers
         a href="#"
           i.fa.fa-group
           | Suppliers
-      li
+      li#employees
         a
           i.fa.fa-user
           | Employees
-      li
+      li#transactions
         a
           i.fa.fa-exchange
           | &nbsp;
@@ -34,7 +34,7 @@
              a href="#" Expenses
            li
              a href="#" Accounts
-      li
+      li#reports
         a href="#"
           i.fa.fa-bar-chart
           | Reports

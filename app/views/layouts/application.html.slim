@@ -11,13 +11,13 @@ html lang="en"
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-  body.nav-md.footer_fixed
+  body.nav-md.footer_fixed id="#{params[:controller]}"
     .container.body
       .main_container
         .col-md-3.left_col.menu_fixed
           .left_col.scroll-view
             .navbar.nav_title style="border: 0;"
-              a.site_title href="<%= root_path %>"
+              a.site_title href="#{ root_path }"
                 i.fa.fa-calculator
                 | Accounting
 
