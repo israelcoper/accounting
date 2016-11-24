@@ -1,0 +1,32 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Employees
+  
+    .title_right
+      button.btn.btn-default.pull-right type="button" Add employee
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          .table-responsive
+            table.table.table-striped.jambo_table
+              thead
+                tr.headings
+                  th.column-title Name
+                  th.column-title Phone
+                  th.column-title.no-link.last
+                    span.nobr Action
+              tbody
+                tr
+                  td John Smith
+                  td
+                  td Edit
+                tr
+                  td Foo Bar
+                  td
+                  td Edit
+
+

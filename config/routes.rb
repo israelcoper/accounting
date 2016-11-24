@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :employees, only: [:index]
   resources :suppliers, only: [:index]
   resources :customers, only: [:index]
   root 'home#index'
