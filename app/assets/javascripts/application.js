@@ -15,5 +15,14 @@
 //= require turbolinks
 //= require jquery.turbolinks
 //= require bootstrap
+//= require fastclick
+//= require nprogress
+//= require nprogress-turbolinks
 //= require custom
 //= require_tree .
+
+NProgress.configure({
+  showSpinner: false,
+  ease: 'ease',
+  speed: 500
+});

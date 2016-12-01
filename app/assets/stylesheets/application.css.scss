@@ -11,6 +11,9 @@
  * file per style scope.
  *
  *= require override
+ *= require nprogress
+ *= require nprogress-bootstrap
+ *= require nprogress-turbolinks5
  *= require custom
  *= require_tree .
  *= require_self

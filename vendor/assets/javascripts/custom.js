@@ -5,7 +5,8 @@
  */
 
 // Sidebar
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
+
     var CURRENT_URL = window.location.href.split('?')[0],
         $BODY = $('body'),
         $MENU_TOGGLE = $('#menu_toggle'),

@@ -83,6 +83,7 @@ GEM
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
+    fastclick-rails (1.0.1)
     ffaker (2.3.0)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
@@ -114,6 +115,7 @@ GEM
     multi_json (1.12.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    nprogress-rails (0.2.0.2)
     pg (0.19.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -252,11 +254,13 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   factory_girl_rails
+  fastclick-rails
   ffaker
   font-awesome-sass
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  nprogress-rails
   pg (~> 0.15)
   pry-rails
   quiet_assets
