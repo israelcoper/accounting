@@ -1,0 +1,25 @@
+.form.login_form
+  section.login_content
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      h1 Sign in
+      div
+        = f.text_field :username, autofocus: false, class: "form-control", placeholder: "Username" 
+    
+      div
+        = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password"
+
+      div
+        = f.submit "Signin", class: "btn btn-default submit"
+
+      .clearfix
+
+      .separator
+        p class="change_link"
+          | New to site?
+          | &nbsp;
+          = link_to "Create Account", signup_path, class: "to_register"
+
+        .clearfix
+        br
+
+        = render 'shared/login_footer'   

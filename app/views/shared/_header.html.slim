@@ -9,7 +9,7 @@
       ul.nav.navbar-nav.navbar-right
         li class=""
           a.user-profile.dropdown-toggle href="javascript:;" data-toggle="dropdown" aria-expanded="false"
-            | John Doe
+            = current_user.full_name
             | &nbsp;
             span.fa.fa-angle-down
           ul.dropdown-menu.dropdown-usermenu.pull-right
@@ -18,6 +18,6 @@
             li
               a href="javascript:;" Manage Users
             li
-              a href="javascript:;"
+              a href="#{ destroy_user_session_path }" data-method="delete"
                 i.fa.fa-sign-out.pull-right
                 | Log Out

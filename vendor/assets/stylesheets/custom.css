@@ -3269,6 +3269,7 @@ a.hiddenanchor {
   top: 0px;
   width: 100%; }
 
+/**
 .registration_form {
   z-index: 21;
   opacity: 0;
@@ -3284,7 +3285,7 @@ a.hiddenanchor {
 
 #signup:target ~ .login_wrapper .login_form, #signin:target ~ .login_wrapper .registration_form {
   animation-name: fadeOutLeft; }
-
+ 
 .animate {
   -webkit-animation-duration: 0.5s;
   -webkit-animation-timing-function: ease;
@@ -3301,6 +3302,7 @@ a.hiddenanchor {
   animation-duration: 0.5s;
   animation-timing-function: ease;
   animation-fill-mode: both; }
+**/
 
 /** /login **/
 /** signup **/

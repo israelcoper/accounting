@@ -1,0 +1,38 @@
+.form.account_form
+  section.login_content
+    = form_for(@account) do |f|
+      h1 Create account
+
+      div
+        = f.text_field :name, class: "form-control", placeholder: "Business name"
+
+      = f.fields_for :address, OpenStruct.new(f.object.address) do |address|
+        div
+          = address.text_field :address, class: "form-control", placeholder: "Address"
+
+        div
+          = address.text_field :city, class: "form-control", placeholder: "City"
+
+        div
+          = address.text_field :province, class: "form-control", placeholder: "Province"
+
+        div
+          = address.text_field :country, class: "form-control", placeholder: "Country"
+
+        div
+          = address.text_field :postal_code, class: "form-control", placeholder: "Postal code"
+
+        div
+          = address.text_field :business_phone, class: "form-control", placeholder: "Business phone"
+
+        div
+          = f.submit "Submit", class: "btn btn-default submit"
+
+      .clearfix
+
+      .separator
+
+      .clearfix
+
+      = render 'shared/login_footer'
+

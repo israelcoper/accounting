@@ -1,0 +1,37 @@
+.form.registration_form
+  section.login_content
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      h1 Sign up
+
+      = devise_error_messages!
+
+      div
+        = f.text_field :first_name, autofocus: false, class: "form-control", placeholder: "First name" 
+
+      div
+        = f.text_field :last_name, autofocus: false, class: "form-control", placeholder: "Last name" 
+   
+      div
+        = f.text_field :username, autofocus: false, class: "form-control", placeholder: "Username" 
+    
+      div
+        = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password"
+
+      div
+        = f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Password Confirmation"
+    
+      div
+        = f.submit "Submit", class: "btn btn-default submit"
+
+      .clearfix
+
+      .separator
+        p class="change_link"
+          | Already a member ?
+          | &nbsp;
+          = link_to "Log in", signin_path
+
+        .clearfix
+        br
+
+        = render 'shared/login_footer'   

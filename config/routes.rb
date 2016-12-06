@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
+
+  resources :accounts
   resources :employees, only: [:index]
   resources :suppliers, only: [:index]
   resources :customers, only: [:index]
+
+  as :user do
+    get "/signup", to: "registrations#new"
+    get "/signin", to: "sessions#new"
+  end
+  devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
+
   root 'home#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
