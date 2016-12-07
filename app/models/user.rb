@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
 
   belongs_to :account
 
+  validates :username, :first_name, :last_name, :role, presence: true
+
+  after_initialize :set_default_role, :if => :new_record?
+
   def email_required?
     false
   end
@@ -20,4 +24,10 @@ class User < ActiveRecord::Base
   def full_name
     [first_name, last_name].join " "
   end
+
+  protected
+  def set_default_role
+    self.role ||= Role.fetch(2)
+  end
+
 end

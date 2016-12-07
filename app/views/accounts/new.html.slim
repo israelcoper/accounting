@@ -3,6 +3,17 @@
     = form_for(@account) do |f|
       h1 Create account
 
+      - if @account.errors.any?
+        #error_explanation
+          h5
+            = pluralize(@account.errors.count, "error")
+            | &nbsp;
+            | prohibited this account from being saved:
+
+          ul
+            - @account.errors.full_messages.each do |message|
+              li= message
+
       div
         = f.text_field :name, class: "form-control", placeholder: "Business name"
 

@@ -25,3 +25,11 @@ body .container {
   margin-top: 45px !important;
   margin-bottom: 0 !important;
 }
+
+#error_explanation ul {
+  list-style-type: square;
+}
+
+#error_explanation ul li {
+  color: red;
+}

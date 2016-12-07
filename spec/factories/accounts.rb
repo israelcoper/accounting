@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :account do
-    name "MyString"
-    address ""
+    name  { FFaker::Company.name }
+    address { Hash.new }
   end
 end

@@ -14,7 +14,7 @@ class AccountsController < ApplicationController
       redirect_to root_path
     else
       flash[:error] = "Something went wrong"
-      render :new
+      render :new, layout: 'account'
     end
   end
 
