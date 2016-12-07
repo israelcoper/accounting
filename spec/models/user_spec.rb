@@ -14,6 +14,7 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of :first_name }
     it { should validate_presence_of :last_name }
     it { should validate_presence_of :role }
+    it { should validate_uniqueness_of :username }
 
     describe "password" do
       let(:user) { build(:user, password: nil, password_confirmation: nil) }

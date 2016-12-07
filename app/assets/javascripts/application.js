@@ -18,7 +18,9 @@
 //= require fastclick
 //= require nprogress
 //= require nprogress-turbolinks
+//= require bootstrapValidator.min
 //= require custom
+//= require_tree ./forms
 //= require_tree .
 
 NProgress.configure({

@@ -1,6 +1,6 @@
 .form.account_form
   section.login_content
-    = form_for(@account) do |f|
+    = form_for(@account, html: { id: 'form-account' }) do |f|
       h1 Create account
 
       - if @account.errors.any?
@@ -9,34 +9,33 @@
             = pluralize(@account.errors.count, "error")
             | &nbsp;
             | prohibited this account from being saved:
-
           ul
             - @account.errors.full_messages.each do |message|
               li= message
 
-      div
+      .form-group
         = f.text_field :name, class: "form-control", placeholder: "Business name"
 
       = f.fields_for :address, OpenStruct.new(f.object.address) do |address|
-        div
+        .form-group
           = address.text_field :address, class: "form-control", placeholder: "Address"
 
-        div
+        .form-group
           = address.text_field :city, class: "form-control", placeholder: "City"
 
-        div
+        .form-group
           = address.text_field :province, class: "form-control", placeholder: "Province"
 
-        div
+        .form-group
           = address.text_field :country, class: "form-control", placeholder: "Country"
 
-        div
+        .form-group
           = address.text_field :postal_code, class: "form-control", placeholder: "Postal code"
 
-        div
+        .form-group
           = address.text_field :business_phone, class: "form-control", placeholder: "Business phone"
 
-        div
+        .form-group
           = f.submit "Submit", class: "btn btn-default submit"
 
       .clearfix

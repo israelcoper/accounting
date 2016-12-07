@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   belongs_to :account
 
   validates :username, :first_name, :last_name, :role, presence: true
+  validates :username, uniqueness: true
 
   after_initialize :set_default_role, :if => :new_record?
 
