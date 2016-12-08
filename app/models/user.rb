@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   Role = %w{ admin accountant user }
 
+  scope :non_admin, -> { where.not(role: "admin") }
+
   belongs_to :account
 
   validates :username, :first_name, :last_name, :role, presence: true

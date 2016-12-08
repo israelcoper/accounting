@@ -3,7 +3,7 @@ var forms = forms || {};
 forms.validate_registration = (function() {
   return {
     init: function() {
-      var $form = $('#form-registration');
+      var $form = $('#form-registration, #form-user');
       var regex = new RegExp("(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[^a-zA-Z])");
 
       if ( $form.length ) {

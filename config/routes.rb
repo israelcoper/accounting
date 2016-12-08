@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
 
+  resources :users
   resources :accounts, only: [:new, :create, :edit, :update, :show]
   resources :employees, only: [:index]
   resources :suppliers, only: [:index]
   resources :customers, only: [:index]
 
   as :user do
-    get "/signup", to: "registrations#new"
-    get "/signin", to: "sessions#new"
+    get "signup", to: "registrations#new", as: "signup"
+    post "signup", to: "registrations#create"
+    get "signin", to: "sessions#new", as: "signin"
+    post "signin", to: "sessions#create"
+    delete "signout", to: "sessions#destroy", as: "signout"
   end
+
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
 
   root 'home#index'

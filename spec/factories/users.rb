@@ -21,5 +21,14 @@ FactoryGirl.define do
     factory :normal do
       role { User::Role.fetch(2) }
     end
+
+    factory :invalid_user do
+      username nil
+      password nil
+      password_confirmation nil
+      first_name nil
+      last_name nil
+    end
   end
+
 end

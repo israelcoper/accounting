@@ -16,8 +16,8 @@
             li
               = link_to "Company Information", account_path(current_user.account)
             li
-              a href="javascript:;" Manage Users
+              = link_to "Manage Users", users_path
             li
-              a href="#{ destroy_user_session_path }" data-method="delete"
+              a href="#{ signout_path }" data-method="delete"
                 i.fa.fa-sign-out.pull-right
                 | Log Out

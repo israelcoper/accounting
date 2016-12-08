@@ -39,6 +39,15 @@ RSpec.describe User, type: :model do
   end
 
   context "class methods" do
+    describe "non_admin" do
+      let(:admin) { create(:admin) }
+      let(:accountant) { create(:accountant) }
+      let(:normal) { create(:normal) }
+
+      it "returns not admin users" do
+        expect(User.non_admin).to eq([accountant, normal])
+      end
+    end
   end
 
   context "instance methods" do

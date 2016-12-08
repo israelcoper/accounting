@@ -1,0 +1,23 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Users
+  
+    .title_right
+      = link_to "Add user", new_user_path, class: "btn btn-primary pull-right"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          table.table.table-striped.projects
+            thead
+              tr
+                th style="width: 30%" Name
+                th Username
+                th Role
+                th style="width: 30%" Actions
+            tbody
+              = render @users
+
