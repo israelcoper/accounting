@@ -1,0 +1,37 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Company Information
+  
+    .title_right
+      = link_to "Edit", edit_account_path(@account), class: "btn btn-default pull-right"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          .row
+            .col-xs-12
+              p.lead= @account.name
+              .table-responsive
+                table.table
+                  tbody
+                    tr
+                      th Address
+                      td= @account.address["address"]
+                    tr
+                      th City
+                      td= @account.address["city"]
+                    tr
+                      th Province
+                      td= @account.address["province"]
+                    tr
+                      th Country
+                      td= @account.address["country"]
+                    tr
+                      th Postal Code
+                      td= @account.address["postal_code"]
+                    tr
+                      th Business Phone
+                      td= @account.address["business_phone"]

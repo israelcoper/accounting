@@ -33,3 +33,9 @@ body .container {
 #error_explanation ul li {
   color: red;
 }
+
+.center {
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+}

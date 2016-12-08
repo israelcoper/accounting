@@ -14,7 +14,7 @@
             span.fa.fa-angle-down
           ul.dropdown-menu.dropdown-usermenu.pull-right
             li
-              a href="javascript:;" Company Information
+              = link_to "Company Information", account_path(current_user.account)
             li
               a href="javascript:;" Manage Users
             li

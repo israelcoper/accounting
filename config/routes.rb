@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :accounts
+  resources :accounts, only: [:new, :create, :edit, :update, :show]
   resources :employees, only: [:index]
   resources :suppliers, only: [:index]
   resources :customers, only: [:index]

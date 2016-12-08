@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   skip_before_action :current_user_has_account!
+  before_action :find_account, only: [:show, :edit, :update]
 
   def new
     @account = Account.new
@@ -18,11 +19,30 @@ class AccountsController < ApplicationController
     end
   end
 
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @account.update_attributes account_params
+      flash[:notice] = "Company information updated successfully"
+      redirect_to account_path(@account)
+    else
+      render :edit
+    end
+  end
+
   protected
 
   def account_params
     params.require(:account).permit(:name).tap do |whitelist|
       whitelist[:address] = params[:account][:address]
     end
+  end
+
+  def find_account
+    @account ||= Account.find(params[:id])
   end
 end
