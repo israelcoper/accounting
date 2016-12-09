@@ -7,15 +7,15 @@
           i.fa.fa-home
           | Home
       li#customers
-        a href="#{customers_path}"
+        a href="#{account_customers_path(current_account)}"
           i.fa.fa-group
           | Customers
       li#suppliers
-        a href="#{suppliers_path}"
+        a href="#{account_suppliers_path(current_account)}"
           i.fa.fa-group
           | Suppliers
       li#employees
-        a href="#{employees_path}"
+        a href="#{account_employees_path(current_account)}"
           i.fa.fa-user
           | Employees
       li#transactions

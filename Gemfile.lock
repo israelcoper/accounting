@@ -135,6 +135,8 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     public_suffix (2.0.4)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.5)
@@ -280,6 +282,7 @@ DEPENDENCIES
   nprogress-rails
   pg (~> 0.15)
   pry-rails
+  pundit
   quiet_assets
   rails (= 4.2.6)
   rspec-collection_matchers

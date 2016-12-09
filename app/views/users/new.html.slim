@@ -8,4 +8,5 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          = render 'form'
+          = form_for @user, url: account_users_path(current_account, @user), html: { id: "form-user", class: "form-horizontal form-label-left" } do |f|
+            = render partial: 'form', locals: { f: f }

@@ -1,7 +1,7 @@
 module UsersHelper
 
   def role_options
-    User::Role.map {|role| [role.capitalize, role]}
+    User.roles.keys.reject {|key| key.eql?("admin")}.map {|key| [key.capitalize, key]}
   end
 
 end

@@ -10,7 +10,7 @@ RSpec.describe SuppliersController, type: :controller do
 
     describe "GET #index" do
       it "returns http success" do
-        get :index
+        get :index, { account_id: user.account_id }
         expect(response).to have_http_status(:success)
       end
     end

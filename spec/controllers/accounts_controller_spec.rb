@@ -11,7 +11,7 @@ RSpec.describe AccountsController, type: :controller do
     Account.stub(:find).with(account.id.to_s).and_return(account)
     account.stub(:save).and_return(true)
   end
-
+=begin
   context "authorized access" do
     before :each do
       sign_in user
@@ -129,7 +129,7 @@ RSpec.describe AccountsController, type: :controller do
       end
     end
   end
-
+=end
   context "unauthorized access" do
     describe "accounts#show" do
       it "requires login" do
@@ -166,5 +166,4 @@ RSpec.describe AccountsController, type: :controller do
       end
     end
   end
-
 end

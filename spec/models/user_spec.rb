@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context "constants" do
-    it { expect(User::Role).to eq(%w{admin accountant user}) }
+    it { expect(User.roles).to eq({"normal"=>0, "accountant"=>1, "admin"=>2}) }
   end
 
   context "associations" do

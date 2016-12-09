@@ -2,39 +2,45 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = current_user.account.users.non_admin
+    authorize User
+    @users = current_account.users.non_admin
   end
 
   def new
     @user = User.new
+    authorize @user
   end
   
   def create
     @user = User.new(user_params)
+    authorize @user
     @user.account = current_user.account
     if @user.save
       flash[:notice] = "#{@user.full_name} was successfully created"
-      redirect_to edit_user_path(@user)
+      redirect_to edit_account_user_path(current_account, @user)
     else
       render :new
     end
   end
 
   def edit
+    authorize @user
   end
 
   def update
+    authorize @user
     if @user.update(user_params)
       flash[:notice] = "#{@user.full_name} was successfully updated"
-      redirect_to edit_user_path(@user)
+      redirect_to edit_account_user_path(current_account, @user)
     else
       render :edit
     end
   end
 
   def destroy
+    authorize @user
     @user.destroy
-    redirect_to users_path, notice: "#{@user.full_name} was successfully deleted"
+    redirect_to account_users_path(current_account), notice: "#{@user.full_name} was successfully deleted"
   end
 
   protected

@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :users
-  resources :accounts, only: [:new, :create, :edit, :update, :show]
-  resources :employees, only: [:index]
-  resources :suppliers, only: [:index]
-  resources :customers, only: [:index]
+  resources :accounts, only: [:new, :create, :edit, :update, :show] do
+    resources :users
+    resources :employees, only: [:index]
+    resources :suppliers, only: [:index]
+    resources :customers, only: [:index]
+  end
 
   as :user do
     get "signup", to: "registrations#new", as: "signup"
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
 
-  root 'home#index'
+  root "home#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

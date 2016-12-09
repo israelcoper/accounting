@@ -11,15 +11,15 @@ FactoryGirl.define do
     last_name { FFaker::Name.last_name }
 
     factory :admin do
-      role { User::Role.fetch(0) }
+      role 2
     end
 
     factory :accountant do
-      role { User::Role.fetch(1) }
+      role 1
     end
 
     factory :normal do
-      role { User::Role.fetch(2) }
+      role 0
     end
 
     factory :invalid_user do

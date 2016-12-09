@@ -16,7 +16,7 @@
             li
               = link_to "Company Information", account_path(current_user.account)
             li
-              = link_to "Manage Users", users_path
+              = link_to "Manage Users", account_users_path(current_account)
             li
               a href="#{ signout_path }" data-method="delete"
                 i.fa.fa-sign-out.pull-right

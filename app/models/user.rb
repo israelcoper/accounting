@@ -5,16 +5,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [:username]
 
-  Role = %w{ admin accountant user }
+  enum role: [:normal, :accountant, :admin]
 
-  scope :non_admin, -> { where.not(role: "admin") }
+  scope :non_admin, -> { where.not(role: 2) }
 
   belongs_to :account
 
   validates :username, :first_name, :last_name, :role, presence: true
   validates :username, uniqueness: true
-
-  after_initialize :set_default_role, :if => :new_record?
 
   def email_required?
     false
@@ -29,8 +27,4 @@ class User < ActiveRecord::Base
   end
 
   protected
-  def set_default_role
-    self.role ||= Role.fetch(2)
-  end
-
 end

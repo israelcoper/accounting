@@ -11,7 +11,7 @@ class AccountsController < ApplicationController
     @account = Account.new account_params
     if @account.save
       flash[:notice] = "Welcome"
-      current_user.update_attributes(role: User::Role.fetch(0), account: @account)
+      current_user.update_attributes(role: User.roles["admin"], account: @account)
       redirect_to root_path
     else
       flash[:error] = "Something went wrong"
@@ -20,12 +20,15 @@ class AccountsController < ApplicationController
   end
 
   def show
+    authorize @account
   end
 
   def edit
+    authorize @account
   end
 
   def update
+    authorize @account
     if @account.update_attributes account_params
       flash[:notice] = "Company information updated successfully"
       redirect_to account_path(@account)

@@ -10,11 +10,11 @@ tr
       i class="fa fa-folder"
       | &nbsp;
       | Activity
-    a href="#{ edit_user_path(user) }" class="btn btn-info btn-xs"
+    a href="#{ edit_account_user_path(current_account, user) }" class="btn btn-info btn-xs"
       i class="fa fa-pencil"
       | &nbsp;
       | Edit
-    a href="#{ user_path(user) }" class="btn btn-danger btn-xs" data-method="delete" data-confirm="Are you sure?"
+    a href="#{ account_user_path(current_account, user) }" class="btn btn-danger btn-xs" data-method="delete" data-confirm="Are you sure?"
       i class="fa fa-trash-o"
       | &nbsp;
       | Delete
