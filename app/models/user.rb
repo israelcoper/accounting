@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates :username, :first_name, :last_name, :role, presence: true
   validates :username, uniqueness: true
 
+  paginates_per 10
+
   def email_required?
     false
   end

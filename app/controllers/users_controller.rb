@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     authorize User
-    @users = current_account.users.non_admin
+    @users = current_account.users.non_admin.page(params[:page])
   end
 
   def new

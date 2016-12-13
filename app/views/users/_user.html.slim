@@ -5,7 +5,7 @@ tr
     small= "Created #{ user.created_at.to_formatted_s(:long_ordinal) }"
   td= user.username
   td= user.role.capitalize
-  td
+  td style="text-align: right;"
     a href="javascript:;" class="btn btn-primary btn-xs"
       i class="fa fa-folder"
       | &nbsp;

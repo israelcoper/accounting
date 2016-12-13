@@ -17,7 +17,10 @@
                 th style="width: 30%" Name
                 th Username
                 th Role
-                th style="width: 30%" Actions
+                th style="width: 30%; text-align: right;" Actions
             tbody
               = render @users
+
+          .pull-right
+            = paginate @users, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
 
