@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include PgSearch
   include UserPersonHelper
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -16,6 +17,8 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
 
   paginates_per 10
+
+  pg_search_scope :search, against: [:first_name, :last_name, :username]
 
   def email_required?
     false

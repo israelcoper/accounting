@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   def index
     authorize User
     @users = current_account.users.non_admin.page(params[:page])
+    if params[:search].present?
+      @users = @users.search(params[:search])
+    end
   end
 
   def new
