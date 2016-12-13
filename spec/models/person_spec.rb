@@ -21,4 +21,16 @@ RSpec.describe Person, type: :model do
       expect(person.full_name).to eq "John Smith"
     end
   end
+
+  context "class methods" do
+    describe "customers" do
+      let(:john) { create(:customer) }
+      let(:mark) { create(:customer) }
+      let(:ryan) { create(:supplier) }
+
+      it "returns person_type equals to customers" do
+        expect(Person.customers).to eq([john, mark])
+      end
+    end
+  end
 end

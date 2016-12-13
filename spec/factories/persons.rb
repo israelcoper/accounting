@@ -22,6 +22,9 @@ FactoryGirl.define do
     end
 
     factory :invalid_person do
+      first_name nil
+      last_name nil
+      phone nil
     end
   end
 end

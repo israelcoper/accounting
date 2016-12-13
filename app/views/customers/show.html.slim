@@ -1,0 +1,114 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3= @customer.full_name
+  
+    .title_right
+      = link_to "Edit", edit_account_customer_path(current_account, @customer), class: "btn btn-default pull-right"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          .row
+            .col-xs-12
+              ul id="myTab" class="nav nav-tabs" role="tablist"
+                li role="presentation" class="active"
+                  a href="#transaction" role="tab" id="transaction-tab" data-toggle="tab" aria-expanded="true" Transaction List
+                li role="presentation" class=""
+                  a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" Profile
+
+              br
+
+              div id="myTabContent" class="tab-content"
+                div role="tabpanel" class="tab-pane fade active in" id="transaction"
+                  .row
+                    .col-xs-12
+                      table.table.table-striped
+                        thead
+                          tr
+                            th Date
+                            th Type
+                            th Number
+                            th Due Date
+                            th Balance
+                            th Total
+                            th Status
+                            th style="width: 20%; text-align: right;" Action
+                        tbody
+                          tr
+                            td 12/13/2016
+                            td Invoice
+                            td 1001
+                            td 12/15/2016
+                            td PHP0.00
+                            td PHP50.00
+                            td
+                              span.label.label-success Paid
+                            td style="text-align: right;"
+                              a href="javascript:;" Print
+                          tr
+                            td 12/13/2016
+                            td Payment
+                            td
+                            td 12/13/2016
+                            td PHP0.00
+                            td PHP50.00
+                            td
+                              span.label.label-success Closed
+                            td style="text-align: right;"
+                          tr
+                            td 12/01/2016
+                            td Invoice
+                            td 1002
+                            td 12/10/2016
+                            td PHP40.00
+                            td PHP100.00
+                            td
+                              span.label.label-info Partial
+                            td style="text-align: right;"
+                              a href="javascript:;" Receive payment
+
+                div role="tabpanel" class="tab-pane fade" id="profile"
+                  .row
+                    .col-xs-6
+                      .table-responsive
+                        table.table
+                          tbody
+                            tr
+                              th First name
+                              td= @customer.first_name
+                            tr
+                              th Middle name
+                              td= @customer.middle_name
+                            tr
+                              th Last name
+                              td= @customer.last_name
+                            tr
+                              th Phone
+                              td= @customer.phone
+                            tr
+                              th Mobile
+                              td= @customer.mobile
+
+                    .col-xs-6
+                      .table-responsive
+                        table.table
+                          tbody
+                            tr
+                              th Address
+                              td= @customer.address.fetch("address")
+                            tr
+                              th City
+                              td= @customer.address.fetch("city")
+                            tr
+                              th Province
+                              td= @customer.address.fetch("province")
+                            tr
+                              th Country
+                              td= @customer.address.fetch("country")
+                            tr
+                              th Postal code
+                              td= @customer.address.fetch("postal_code")
+

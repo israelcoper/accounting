@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     authorize @user
-    @user.account = current_user.account
+    @user.account = current_account
     if @user.save
       flash[:notice] = "#{@user.full_name} was successfully created"
       redirect_to edit_account_user_path(current_account, @user)
