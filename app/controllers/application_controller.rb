@@ -11,13 +11,13 @@ class ApplicationController < ActionController::Base
   protected
 
     def current_account
-      @account ||= current_user.account
+      @current_account ||= current_user.account
     end
     helper_method :current_account
 
     def current_account?
       if params[:controller].eql?("accounts")
-        params[:id].to_i == current_user.account_id
+        params[:id].to_i == current_account.id
       else
         params[:account_id].to_i == current_account.id
       end
