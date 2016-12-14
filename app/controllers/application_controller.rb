@@ -40,6 +40,10 @@ class ApplicationController < ActionController::Base
       signin_path
     end
 
+    def page
+      params[:page] ||= 1
+    end
+
   private
 
     def user_not_authorized

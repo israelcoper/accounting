@@ -2,7 +2,10 @@ class SuppliersController < ApplicationController
   before_action :find_supplier, only: [:show, :edit, :update, :destroy]
 
   def index
-    @suppliers = current_account.persons.suppliers
+    @suppliers = current_account.persons.suppliers.page(page)
+    if params[:search].present?
+      @suppliers = current_account.persons.suppliers.search(params[:search]).page(page)
+    end
   end
 
   def show
