@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     authorize User
     @users = current_account.users.non_admin.page(params[:page])
     if params[:search].present?
-      @users = @users.search(params[:search])
+      @users = current_account.users.non_admin.search(params[:search]).page(params[:page])
     end
   end
 

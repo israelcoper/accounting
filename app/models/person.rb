@@ -1,4 +1,5 @@
 class Person < ActiveRecord::Base
+  include PgSearch
   include UserPersonHelper
 
   self.table_name = "persons"
@@ -11,4 +12,8 @@ class Person < ActiveRecord::Base
   belongs_to :account
 
   validates :first_name, :last_name, :phone, presence: true
+
+  paginates_per 10
+
+  pg_search_scope :search, against: [:first_name, :last_name]
 end

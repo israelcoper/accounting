@@ -2,7 +2,10 @@ class CustomersController < ApplicationController
   before_action :find_customer, only: [:show, :edit, :update, :destroy]
 
   def index
-    @customers = current_account.persons.customers
+    @customers = current_account.persons.customers.page(params[:page])
+    if params[:search].present?
+      @customers = current_account.persons.customers.search(params[:search]).page(params[:page])
+    end
   end
 
   def show
