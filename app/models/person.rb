@@ -6,6 +6,7 @@ class Person < ActiveRecord::Base
   enum person_type: [:customer, :supplier, :employee]
 
   scope :customers, -> { where(person_type: 0) }
+  scope :suppliers, -> { where(person_type: 1) }
 
   belongs_to :account
 

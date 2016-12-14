@@ -4,32 +4,20 @@
       h3 Suppliers
   
     .title_right
-      button.btn.btn-primary.pull-right type="button" New supplier
+      = link_to "New supplier", new_account_supplier_path(current_account), class: "btn btn-primary pull-right"
 
 - content_for :content do
   .row
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          .table-responsive
-            table.table.table-striped.jambo_table
-              thead
-                tr.headings
-                  th.column-title Supplier
-                  th.column-title Phone
-                  th.column-title Open Balance
-                  th.column-title.no-link.last
-                    span.nobr Action
-              tbody
-                tr
-                  td John Smith
-                  td
-                  td PHP100.00
-                  td Make payment
-                tr
-                  td Foo Bar
-                  td
-                  td PHP0.00
-                  td Create bill
-
+          table.table.table-striped
+            thead
+              tr
+                th style="width: 30%" Supplier
+                th style="width: 30%;" Phone
+                th Open Balance
+                th.action style="width: 20%;" Action
+            tbody
+              = render partial: "supplier"
 

@@ -1,0 +1,12 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Edit supplier
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          = form_for @supplier, url: account_supplier_path(current_account, @supplier), html: { id: "form-supplier", class: "form-horizontal form-label-left" } do |f|
+            = render partial: 'form', locals: { f: f }

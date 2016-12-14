@@ -39,3 +39,7 @@ body .container {
   margin: auto;
   padding: 10px;
 }
+
+.action {
+  text-align: right;
+}

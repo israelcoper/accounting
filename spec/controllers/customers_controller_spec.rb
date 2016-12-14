@@ -40,7 +40,7 @@ RSpec.describe CustomersController, type: :controller do
         expect(response).to have_http_status(:success)
       end
 
-      it "assigns a new user" do
+      it "assigns a new customer" do
         expect(assigns(:customer)).to be_new_record
         expect(assigns(:customer)).to be_a_new(Person)
       end
@@ -81,7 +81,7 @@ RSpec.describe CustomersController, type: :controller do
 
       context "with invalid attributes" do
         before :each do
-          post :create, { account_id: user.account_id, person: attributes_for(:invalid_user) }
+          post :create, { account_id: user.account_id, person: attributes_for(:invalid_person) }
         end
 
         it "does not save the new customer" do

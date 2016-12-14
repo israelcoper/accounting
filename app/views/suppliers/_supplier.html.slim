@@ -1,0 +1,7 @@
+- @suppliers.each do |supplier|
+  tr
+    td= link_to supplier.full_name, account_supplier_path(current_account, supplier)
+    td= supplier.phone
+    td
+    td.action
+      a href="javascript:;" Create bill

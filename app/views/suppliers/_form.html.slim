@@ -1,0 +1,79 @@
+- if @supplier.errors.any?
+  #error_explanation.center
+    h5
+      = pluralize(@supplier.errors.count, "error")
+      | &nbsp;
+      | prohibited this account from being saved:
+    ul
+      - @supplier.errors.full_messages.each do |message|
+        li= message
+
+.row
+  .col-md-6
+    .form-group
+      label.control-label.col-md-3.col-sm-3
+        | First name
+        | &nbsp;
+        span.required *
+      .col-md-9.col-sm-9.col-xs-12
+        = f.text_field :first_name, class: "form-control col-md-7 col-xs-12"
+    
+    .form-group
+      label.control-label.col-md-3.col-sm-3 Middle name
+      .col-md-9.col-sm-9.col-xs-12
+        = f.text_field :middle_name, class: "form-control col-md-7 col-xs-12"
+    
+    .form-group
+      label.control-label.col-md-3.col-sm-3
+        | Last name
+        | &nbsp;
+        span.required *
+      .col-md-9.col-sm-9.col-xs-12
+        = f.text_field :last_name, class: "form-control col-md-7 col-xs-12"
+    
+    .form-group
+      label.control-label.col-md-3.col-sm-3
+        | Phone
+        | &nbsp;
+        span.required *
+      .col-md-9.col-sm-9.col-xs-12
+        = f.text_field :phone, class: "form-control col-md-7 col-xs-12"
+    
+    .form-group
+      label.control-label.col-md-3.col-sm-3 Mobile
+      .col-md-9.col-sm-9.col-xs-12
+        = f.text_field :mobile, class: "form-control col-md-7 col-xs-12"
+
+  .col-md-6
+    = f.fields_for :address, OpenStruct.new(f.object.address) do |address|
+      .form-group
+        label.control-label.col-md-3.col-sm-3 Address
+        .col-md-9.col-sm-9.col-xs-12
+          = address.text_field :address, class: "form-control"
+    
+      .form-group
+        label.control-label.col-md-3.col-sm-3 City
+        .col-md-9.col-sm-9.col-xs-12
+          = address.text_field :city, class: "form-control"
+    
+      .form-group
+        label.control-label.col-md-3.col-sm-3 Province
+        .col-md-9.col-sm-9.col-xs-12
+          = address.text_field :province, class: "form-control"
+    
+      .form-group
+        label.control-label.col-md-3.col-sm-3 Country
+        .col-md-9.col-sm-9.col-xs-12
+          = address.text_field :country, class: "form-control"
+    
+      .form-group
+        label.control-label.col-md-3.col-sm-3 Postal code
+        .col-md-9.col-sm-9.col-xs-12
+          = address.text_field :postal_code, class: "form-control"
+
+.ln_solid
+
+.form-group.pull-right style="padding-right: 10px;"
+  = link_to "Cancel", account_suppliers_path, class: "btn btn-default"
+  = f.submit "Submit", class: "btn btn-primary"
+
