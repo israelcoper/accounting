@@ -8,6 +8,7 @@ class Person < ActiveRecord::Base
 
   scope :customers, -> { where(person_type: 0) }
   scope :suppliers, -> { where(person_type: 1) }
+  scope :employees, -> { where(person_type: 2) }
 
   belongs_to :account
 

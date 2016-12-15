@@ -1,0 +1,6 @@
+- @employees.each do |employee|
+  tr
+    td= link_to employee.full_name, "javascript:;"
+    td= employee.phone
+    td.action= link_to "Edit", edit_account_employee_path(current_account, employee)
+

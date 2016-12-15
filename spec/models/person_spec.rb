@@ -23,23 +23,28 @@ RSpec.describe Person, type: :model do
   end
 
   context "scopes" do
-    describe "customers" do
-      let(:john) { create(:customer) }
-      let(:mark) { create(:customer) }
-      let(:ryan) { create(:supplier) }
+    let(:john) { create(:customer) }
+    let(:mark) { create(:customer) }
+    let(:ryan) { create(:supplier) }
+    let(:bran) { create(:supplier) }
+    let(:lore) { create(:employee) }
+    let(:bane) { create(:employee) }
 
+    describe "customers" do
       it "returns person_type equals to customer" do
         expect(Person.customers).to eq([john, mark])
       end
     end
 
     describe "suppliers" do
-      let(:foo) { create(:supplier) }
-      let(:bar) { create(:supplier) }
-      let(:ban) { create(:customer) }
-
       it "returns person_type equals to supplier" do
-        expect(Person.suppliers).to eq([foo, bar])
+        expect(Person.suppliers).to eq([ryan, bran])
+      end
+    end
+
+    describe "employees" do
+      it "returns person_type equals to employee" do
+        expect(Person.employees).to eq([lore, bane])
       end
     end
   end

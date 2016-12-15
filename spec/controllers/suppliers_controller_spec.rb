@@ -31,6 +31,20 @@ RSpec.describe SuppliersController, type: :controller do
       end
     end
 
+    describe "suppliers#show" do
+      before :each do
+        get :show, account_id: user.account_id, id: supplier.id
+      end
+      
+      it "assigns the requested supplier to @supplier" do
+        expect(assigns(:supplier)).to eq supplier
+      end
+
+      it "render the :show template" do
+        expect(response).to render_template :show
+      end
+    end
+
     describe "suppliers#new" do
       before :each do
         get :new, { account_id: user.account_id }
@@ -138,6 +152,13 @@ RSpec.describe SuppliersController, type: :controller do
       end
     end
 
+    describe "suppliers#show" do
+      it "requires login" do
+        get :show, { account_id: user.account_id, id: supplier.id }
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
     describe "suppliers#new" do
       it "requires login" do
         get :new, { account_id: user.account_id }
@@ -147,21 +168,21 @@ RSpec.describe SuppliersController, type: :controller do
 
     describe "suppliers#edit" do
       it "requires login" do
-        get :edit, { account_id: user.account_id, id: user.id }
+        get :edit, { account_id: user.account_id, id: supplier.id }
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     describe "suppliers#create" do
       it "requires login" do
-        post :create, { account_id: user.account_id, user: attributes_for(:user) }
+        post :create, { account_id: user.account_id, user: attributes_for(:supplier) }
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     describe "suppliers#update" do
       it "requires login" do
-        put :update, { account_id: user.account_id, id: user.id, user: valid_attributes }
+        put :update, { account_id: user.account_id, id: supplier.id, user: valid_attributes }
         expect(response).to redirect_to new_user_session_path
       end
     end

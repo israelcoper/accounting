@@ -4,29 +4,19 @@
       h3 Employees
   
     .title_right
-      button.btn.btn-default.pull-right type="button" Add employee
+      = link_to "Add employee", new_account_employee_path(current_account), class: "btn btn-default pull-right"
 
 - content_for :content do
   .row
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          .table-responsive
-            table.table.table-striped.jambo_table
-              thead
-                tr.headings
-                  th.column-title Name
-                  th.column-title Phone
-                  th.column-title.no-link.last
-                    span.nobr Action
-              tbody
-                tr
-                  td John Smith
-                  td
-                  td Edit
-                tr
-                  td Foo Bar
-                  td
-                  td Edit
-
+          table.table.table-striped
+            thead
+              tr
+                th style="width: 30%" Employee
+                th Phone
+                th.action style="width: 30%;" Action
+            tbody
+              = render partial: "employee"
 
