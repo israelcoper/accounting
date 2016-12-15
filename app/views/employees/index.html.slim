@@ -11,6 +11,17 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
+          .col-md-5.col-sm-5.col-xs-12.pull-right style="padding-right: 0;"
+            = form_tag account_employees_path(current_account), method: "GET" do
+              .input-group
+                input.form-control type="text" name="search" placeholder="Search" value="#{ params[:search] }"
+                span.input-group-btn
+                  button.btn.btn-default type="submit"
+                    span.glyphicon.glyphicon-search
+
+          .clearfix
+          .ln_solid style="margin: inherit;"
+
           table.table.table-striped
             thead
               tr
@@ -19,4 +30,7 @@
                 th.action style="width: 30%;" Action
             tbody
               = render partial: "employee"
+
+          .pull-right
+            = paginate @employees, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
 
