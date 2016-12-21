@@ -19,6 +19,14 @@
   .col-md-6.col-sm-6.col-xs-12
     = f.text_field :name, class: "form-control col-md-7 col-xs-12"
 
+.form-group
+  label.control-label.col-md-3.col-sm-3.col-xs-12
+    | Description
+    | &nbsp;
+    span.required
+  .col-md-6.col-sm-6.col-xs-12
+    = f.text_area :description, class: "form-control col-md-7 col-xs-12"
+
 = render partial: product_type, locals: { f: f }
 
 .ln_solid
