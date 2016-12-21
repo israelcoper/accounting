@@ -1,0 +1,12 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 New product
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          = form_for @product, url: account_products_path(current_account, @product), html: { id: "form-product", class: "form-horizontal form-label-left" } do |f|
+            = render partial: 'form', locals: { f: f }

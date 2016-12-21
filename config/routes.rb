@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :accounts, only: [:new, :create, :edit, :update, :show] do
+    resources :products
     resources :users
     resources :employees
     resources :suppliers

@@ -1,0 +1,29 @@
+- if @product.errors.any?
+  #error_explanation.center
+    h5
+      = pluralize(@product.errors.count, "error")
+      | &nbsp;
+      | prohibited this account from being saved:
+    ul
+      - @product.errors.full_messages.each do |message|
+        li= message
+
+.form-group
+  = f.hidden_field :product_type, value: product_type
+
+.form-group
+  label.control-label.col-md-3.col-sm-3.col-xs-12
+    | Name
+    | &nbsp;
+    span.required *
+  .col-md-6.col-sm-6.col-xs-12
+    = f.text_field :name, class: "form-control col-md-7 col-xs-12"
+
+= render partial: product_type, locals: { f: f }
+
+.ln_solid
+
+.form-group
+  .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+    = link_to "Cancel", account_products_path(current_account), class: "btn btn-default"
+    = f.submit "Submit", class: "btn btn-primary"

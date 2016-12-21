@@ -4,6 +4,7 @@ RSpec.describe Account, type: :model do
   context "associations" do
     it { should have_many :users }
     it { should have_many :persons }
+    it { should have_many :products }
   end
 
   context "validations" do

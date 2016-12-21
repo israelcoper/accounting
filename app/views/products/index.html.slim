@@ -1,0 +1,30 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Products
+  
+    .title_right
+      .dropdown.pull-right
+        button.btn.btn-primary.dropdown-toggle id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          | Add product
+          | &nbsp;
+          span class="caret"
+        ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
+          li= link_to "Rice", new_account_product_path(current_account, { product_type: "rice" })
+          li= link_to "Grocery items", "javascript:;"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          table.table.table-striped.projects
+            thead
+              tr
+                th style="width: 30%" Name
+                th Type
+                th Cost
+                th.action style="width: 30%;" Actions
+            tbody
+              = render @products
+
