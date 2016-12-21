@@ -66,16 +66,18 @@ RSpec.describe ProductsController, type: :controller do
 
     describe "products#create" do
       context "with valid attributes" do
-        before :each do
-          post :create, { account_id: user.account_id, product: attributes_for(:product) }
-        end
+        context "rice product" do
+          before :each do
+            post :create, { account_id: user.account_id, product: attributes_for(:rice) }
+          end
 
-        it "creates a new product" do
-          expect(Product.exists?(assigns(:product).id)).to be_truthy
-        end
+          it "creates a new product" do
+            expect(Product.exists?(assigns(:product).id)).to be_truthy
+          end
 
-        it "redirects to the new product" do
-          expect(response).to redirect_to account_products_path(user.account_id)
+          it "redirects to the new product" do
+            expect(response).to redirect_to account_products_path(user.account_id)
+          end
         end
       end
 

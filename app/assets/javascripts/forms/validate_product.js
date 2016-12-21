@@ -20,6 +20,57 @@ forms.validate_product = (function() {
                   message: 'The product name is required'
                 }
               }
+            },
+            'product[fields][average_kilo_per_sack]': {
+              validators: {
+                notEmpty: {
+                  message: 'The average kilo per sack is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                }
+              }
+            },
+            'product[fields][number_of_sack]': {
+              validators: {
+                notEmpty: {
+                  message: 'The number of sack is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                },
+                callback: {
+                  message: 'Number of sack does not match with the number of kilo over average kilo per sack',
+                  callback: function(value, validator, $field) {
+                    var average_kilo_per_sack = $('input#product_fields_average_kilo_per_sack').val();
+                    var number_of_kilo = $('input#product_fields_number_of_kilo').val();
+
+                    var number_of_sack = Math.ceil(number_of_kilo / average_kilo_per_sack);
+
+                    return value == number_of_sack;
+                  }
+                }
+              }
+            },
+            'product[fields][number_of_kilo]': {
+              validators: {
+                notEmpty: {
+                  message: 'The number of kilo is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                }
+              }
+            },
+            'product[fields][price_per_kilo]': {
+              validators: {
+                notEmpty: {
+                  message: 'The price per kilo is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                }
+              }
             }
           }
         }).on('success.form.bv', function(e) {

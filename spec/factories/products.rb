@@ -7,6 +7,12 @@ FactoryGirl.define do
 
     factory :rice do
       product_type 0
+      fields { {
+        "average_kilo_per_sack" => 50,
+        "number_of_sack" => 10,
+        "number_of_kilo" => 500,
+        "price_per_kilo" => 25
+      } }
     end
 
     factory :invalid_product do
