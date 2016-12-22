@@ -79,6 +79,20 @@ RSpec.describe ProductsController, type: :controller do
             expect(response).to redirect_to account_products_path(user.account_id)
           end
         end
+
+        context "grocery item product" do
+          before :each do
+            post :create, { account_id: user.account_id, product: attributes_for(:grocery_item) }
+          end
+
+          it "creates a new product" do
+            expect(Product.exists?(assigns(:product).id)).to be_truthy
+          end
+
+          it "redirects to the new product" do
+            expect(response).to redirect_to account_products_path(user.account_id)
+          end
+        end
       end
 
       context "with invalid attributes" do

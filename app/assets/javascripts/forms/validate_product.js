@@ -71,6 +71,26 @@ forms.validate_product = (function() {
                   message: 'Please enter a valid integer'
                 }
               }
+            },
+            'product[fields][price]': {
+              validators: {
+                notEmpty: {
+                  message: 'The price is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                }
+              }
+            },
+            'product[fields][quantity]': {
+              validators: {
+                notEmpty: {
+                  message: 'The quantity is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                }
+              }
             }
           }
         }).on('success.form.bv', function(e) {

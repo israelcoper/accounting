@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params.merge(account: current_account, product_type: Product.product_types[product_type]))
+    @product = Product.new(product_params.merge(account: current_account))
     if @product.save
       flash[:notice] = "#{@product.name} was successfully created"
       redirect_to account_products_path(current_account)
@@ -40,8 +40,8 @@ class ProductsController < ApplicationController
   protected
 
   # current default product type
-  def product_type
-    params[:product_type] ||= "rice"
+  def product_type(product_type)
+    params[:product_type].present? ? params[:product_type] : product_type
   end
   helper_method :product_type
 

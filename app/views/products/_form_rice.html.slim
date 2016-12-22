@@ -1,0 +1,22 @@
+= f.fields_for :fields, OpenStruct.new(f.object.fields) do |field|
+  .form-group
+    label.control-label.col-md-3.col-sm-3.col-xs-12 Price per kilo *
+    .col-md-6.col-sm-6.col-xs-12
+      = field.text_field :price_per_kilo, class: "form-control"
+
+  .form-group
+    label.control-label.col-md-3.col-sm-3.col-xs-12 Average kilo per sack *
+    .col-md-6.col-sm-6.col-xs-12
+      = field.text_field :average_kilo_per_sack, class: "form-control"
+
+  .form-group
+    label.control-label.col-md-3.col-sm-3.col-xs-12 Number of kilo *
+    .col-md-6.col-sm-6.col-xs-12
+      = field.text_field :number_of_kilo, class: "form-control"
+
+  .form-group
+    label.control-label.col-md-3.col-sm-3.col-xs-12 Number of sack *
+    .col-md-6.col-sm-6.col-xs-12
+      = field.text_field :number_of_sack, class: "form-control"
+
+

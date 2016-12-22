@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
 
   context "constants" do
-    it { expect(Product.product_types).to eq({"rice"=>0}) }
+    it { expect(Product.product_types).to eq({"rice"=>0, "grocery_item"=>1}) }
   end
 
   context "associations" do
@@ -18,6 +18,9 @@ RSpec.describe Product, type: :model do
     it { should validate_numericality_of :number_of_sack }
     it { should validate_numericality_of :number_of_kilo }
     it { should validate_numericality_of :price_per_kilo }
+
+    # it { should validate_numericality_of :price }
+    # it { should validate_numericality_of :quantity }
   end
 
 end
