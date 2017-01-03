@@ -4,6 +4,7 @@ FactoryGirl.define do
 
     name { FFaker::Product.product_name }
     description "Some description"
+    cost "100"
     fields { Hash.new }
 
     factory :rice do

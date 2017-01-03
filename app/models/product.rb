@@ -10,6 +10,7 @@ class Product < ActiveRecord::Base
 
   validates :product_type, presence: true
   validates :name, presence: true
+  validates :cost, numericality: true
   validates :number_of_sack, :number_of_kilo, :average_kilo_per_sack, :price_per_kilo, numericality: true, if: Proc.new {|p| p.rice? }
   validates :price, :quantity, numericality: true, if: Proc.new {|p| p.grocery_item? }
 

@@ -14,6 +14,8 @@ RSpec.describe Product, type: :model do
     it { should validate_presence_of :product_type }
     it { should validate_presence_of :name }
 
+    it { should validate_numericality_of :cost }
+
     it { should validate_numericality_of :average_kilo_per_sack }
     it { should validate_numericality_of :number_of_sack }
     it { should validate_numericality_of :number_of_kilo }

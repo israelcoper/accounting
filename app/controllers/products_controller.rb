@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
   helper_method :product_type
 
   def product_params
-    params.require(:product).permit(:product_type, :name, :description).tap do |whitelist|
+    params.require(:product).permit(:product_type, :name, :description, :cost).tap do |whitelist|
       whitelist[:fields] = params[:product][:fields]
     end
   end

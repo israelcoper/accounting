@@ -27,6 +27,7 @@
   .col-md-6.col-sm-6.col-xs-12
     = f.text_area :description, class: "form-control col-md-7 col-xs-12"
 
+= render partial: "form_cost", locals: { f: f }
 = render partial: "form_#{product_type(@product.product_type)}", locals: { f: f }
 
 .ln_solid

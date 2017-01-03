@@ -21,6 +21,16 @@ forms.validate_product = (function() {
                 }
               }
             },
+            'product[cost]': {
+              validators: {
+                notEmpty: {
+                  message: 'The cost is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                }
+              }
+            },
             'product[fields][average_kilo_per_sack]': {
               validators: {
                 notEmpty: {
