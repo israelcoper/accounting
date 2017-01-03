@@ -16,3 +16,4 @@ production:
   database: <%= ENV['ACCOUNTING_DATABASE'] %>
   username: <%= ENV['ACCOUNTING_DATABASE_USERNAME'] %>
   password: <%= ENV['ACCOUNTING_DATABASE_PASSWORD'] %>
+
