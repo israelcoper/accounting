@@ -1,0 +1,33 @@
+<tr>
+  <td class="product_name">
+    <span>{{ name }}</span>
+    <input type="hidden" name="transaction[items_attributes][][product_id]" class="transaction_item_product_id" value="{{id}}" />
+  </td>
+  <td class="product_desc">
+    <small>{{ description }}</small>
+  </td>
+  <td class="remaining_sack">
+    <span>{{ fields.number_of_sack }}</span>
+  </td>
+  <td class="remaining_kilo">
+    <span>{{ fields.number_of_kilo }}</span>
+  </td>
+  <td class="price_per_kilo">
+    <span>{{ fields.price_per_kilo }}</span>
+    <input type="hidden" name="transaction[items_attributes][][rate]" value="{{fields.price_per_kilo}}" />
+  </td>
+  <td class="number_of_kilo">
+    <div class="form-group">
+      <input type="text" class="form-control" name="transaction[items_attributes][][quantity]" value="" />
+    </div>
+  </td>
+  <td class="amount">
+    <span></span>
+    <input type="hidden" name="transaction[items_attributes][][amount]" value="" />
+  </td>
+  <td class="action">
+    <a href="#" class="remove-item">
+      <span class="glyphicon glyphicon-trash"></span>
+    </a>
+  </td>
+</tr>

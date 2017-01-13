@@ -1,0 +1,39 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Sales Transactions
+  
+    .title_right
+      .dropdown.pull-right
+        button.btn.btn-primary.dropdown-toggle id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          | New transaction
+          | &nbsp;
+          span class="caret"
+        ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
+          li= link_to "Invoice", invoice_account_transactions_path(current_account, { product_type: "rice" }), id: "invoice"
+          li= link_to "Payment", "javascript:;"
+
+      .pull-right style="margin: 10px 5px;"
+        = select_tag "product_type", options_for_select([['Rice', 'rice']]), class: "form-control", style: "width: 150px;"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          table.table.table-striped
+            thead
+              tr
+                th Date
+                th Type
+                th No.
+                th Customer
+                th Due Date
+                th Balance
+                th Total
+                th Status
+                th.action style="width: 20%;" Actions
+            tbody
+              = render partial: 'sale'
+
+

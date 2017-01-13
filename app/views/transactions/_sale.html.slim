@@ -1,0 +1,12 @@
+- @sales.each do |sale|
+  tr
+    td= format_date sale.transaction_date
+    td= sale.transaction_type
+    td= sale.transaction_number
+    td= sale.person.try :full_name
+    td= format_date sale.due_date
+    td= sale.balance
+    td= sale.total
+    td
+      span.label.label-default=sale.status
+    td.action= action_sales(sale.status)

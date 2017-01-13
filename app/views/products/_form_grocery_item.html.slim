@@ -7,6 +7,11 @@
   .form-group
     label.control-label.col-md-3.col-sm-3.col-xs-12 Quantity *
     .col-md-6.col-sm-6.col-xs-12
-      = field.text_field :quantity, class: "form-control"
+      - if action_name == ("edit" || "update")
+        = f.text_field :quantity, class: "form-control", readonly: true
+      - else
+        = f.text_field :quantity, class: "form-control"
+
+
 
 

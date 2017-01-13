@@ -16,6 +16,9 @@ gem 'jquery-turbolinks'
 gem 'fastclick-rails'
 gem 'nprogress-rails'
 gem 'bootstrap-validator-rails'
+gem 'bootstrap-datepicker-rails'
+gem 'select2-rails'
+gem 'handlebars_assets'
 
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc

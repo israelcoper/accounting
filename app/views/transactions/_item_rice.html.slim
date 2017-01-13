@@ -1,0 +1,22 @@
+.row
+  .col-md-6
+    h4 Item details
+  .col-md-6.form-group.pull-right
+    = select_tag "product", options_for_select(current_account.products.rice.map {|product| [product.name, product.id]}), { prompt: "Choose a product", class: "form-control", data: { accountid: current_account.id } }
+
+.row
+  .col-md-12
+    table.table.table-bordered
+      thead
+        tr
+          th style="width: 10%;" Product
+          th style="width: 25%;" Desc
+          th Remaining sack
+          th Remaining kilo
+          th Price per kilo
+          th style="width: 15%;" Number of kilo
+          th Amount
+          th
+      tbody#items
+
+

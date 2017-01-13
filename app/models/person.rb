@@ -11,6 +11,7 @@ class Person < ActiveRecord::Base
   scope :employees, -> { where(person_type: 2) }
 
   belongs_to :account
+  has_many :transactions
 
   validates :first_name, :last_name, :phone, presence: true
 

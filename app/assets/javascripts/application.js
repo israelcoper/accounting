@@ -19,8 +19,12 @@
 //= require nprogress
 //= require nprogress-turbolinks
 //= require bootstrapValidator.min
+//= require select2
+//= require bootstrap-datepicker
+//= require handlebars.runtime
 //= require custom
 //= require_tree ./forms
+//= require_tree ./templates
 //= require_tree .
 
 NProgress.configure({

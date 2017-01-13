@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
   resources :accounts, only: [:new, :create, :edit, :update, :show] do
+    resources :transactions do
+      collection do
+        get "sales"
+        get "invoice"
+      end
+    end
     resources :products
     resources :users
     resources :employees

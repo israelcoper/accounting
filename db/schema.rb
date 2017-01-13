@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103080221) do
+ActiveRecord::Schema.define(version: 20170113024244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20170103080221) do
     t.hstore   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.decimal  "amount",         precision: 5, scale: 2, default: 0.0
+    t.integer  "transaction_id"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.integer  "product_id"
+    t.integer  "quantity",                               default: 0
+    t.decimal  "rate",           precision: 5, scale: 2, default: 0.0
   end
 
   create_table "persons", force: :cascade do |t|
@@ -46,6 +56,24 @@ ActiveRecord::Schema.define(version: 20170103080221) do
     t.datetime "updated_at",               null: false
     t.text     "description"
     t.integer  "cost"
+    t.integer  "income"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string   "transaction_type"
+    t.string   "transaction_number"
+    t.datetime "transaction_date"
+    t.datetime "due_date"
+    t.text     "notes"
+    t.string   "status"
+    t.decimal  "payment",            precision: 5, scale: 2, default: 0.0
+    t.decimal  "balance",            precision: 5, scale: 2, default: 0.0
+    t.decimal  "total",              precision: 5, scale: 2, default: 0.0
+    t.integer  "account_id"
+    t.integer  "person_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
   end
 
   create_table "users", force: :cascade do |t|

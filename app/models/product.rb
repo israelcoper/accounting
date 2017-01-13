@@ -6,6 +6,8 @@ class Product < ActiveRecord::Base
   
   enum product_type: [:rice, :grocery_item]
 
+  scope :rice, -> { where(product_type: 0) }
+
   belongs_to :account
 
   validates :product_type, presence: true
