@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
   def update_product_rice
     self.product.fields["number_of_kilo"] = (product.fields["number_of_kilo"].to_i - quantity).to_s
     self.product.fields["number_of_sack"] = (product.fields["number_of_kilo"].to_i / product.fields["average_kilo_per_sack"].to_f).to_s
-    self.product.income = amount
+    self.product.income += amount
     self.product.save
   end
 end

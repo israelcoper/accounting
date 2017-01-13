@@ -26,8 +26,9 @@ forms.validate_product = (function() {
                 notEmpty: {
                   message: 'The cost is required'
                 },
-                integer: {
-                  message: 'Please enter a valid integer'
+                numeric: {
+                  message: 'Please enter a valid integer',
+                  decimalSeparator: '.'
                 }
               }
             },
