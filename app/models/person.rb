@@ -16,6 +16,7 @@ class Person < ActiveRecord::Base
   has_many :transactions
 
   validates :first_name, :last_name, :phone, presence: true
+  # Change uniqueness validation
   validates :first_name, :last_name, uniqueness: { scope: [:account_id, :person_type] }
 
   paginates_per 10

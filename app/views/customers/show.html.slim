@@ -37,38 +37,16 @@
                             th Status
                             th style="width: 20%; text-align: right;" Action
                         tbody
-                          tr
-                            td 12/13/2016
-                            td Invoice
-                            td 1001
-                            td 12/15/2016
-                            td PHP0.00
-                            td PHP50.00
-                            td
-                              span.label.label-success Paid
-                            td style="text-align: right;"
-                              a href="javascript:;" Print
-                          tr
-                            td 12/13/2016
-                            td Payment
-                            td
-                            td 12/13/2016
-                            td PHP0.00
-                            td PHP50.00
-                            td
-                              span.label.label-success Closed
-                            td style="text-align: right;"
-                          tr
-                            td 12/01/2016
-                            td Invoice
-                            td 1002
-                            td 12/10/2016
-                            td PHP40.00
-                            td PHP100.00
-                            td
-                              span.label.label-info Partial
-                            td style="text-align: right;"
-                              a href="javascript:;" Receive payment
+                          - @customer.transactions.each do |t|
+                            tr
+                              td= format_date(t.transaction_date)
+                              td= t.transaction_type
+                              td= t.transaction_number
+                              td= format_date(t.due_date)
+                              td= number_to_currency(t.balance, unit: "PHP")
+                              td= number_to_currency(t.total, unit: "PHP")
+                              td= transaction_status(t.status)
+                              td.action= action_sales(t.status)
 
                 div role="tabpanel" class="tab-pane fade" id="profile"
                   .row

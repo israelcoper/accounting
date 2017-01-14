@@ -5,6 +5,21 @@ module TransactionsHelper
     date.strftime "%m/%d/%Y"
   end
 
+  def transaction_status(status)
+    return nil if status.nil?
+    label = case status
+            when Transaction::Status[0]
+              "label label-default"
+            when Transaction::Status[1]
+              "label label-success"
+            when Transaction::Status[2]
+              "label label-info"
+            else
+              "label label-success"
+            end
+    content_tag :span, status, class: label
+  end
+
   def action_sales(status)
     return nil if status.nil?
     case status

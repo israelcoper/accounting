@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
 
   def sales
-    @sales = Transaction.sales
+    @sales = current_account.transactions.sales
   end
 
   def invoice
