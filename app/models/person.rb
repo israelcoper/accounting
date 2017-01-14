@@ -6,6 +6,8 @@ class Person < ActiveRecord::Base
 
   enum person_type: [:customer, :supplier, :employee]
 
+  default_scope { order(first_name: "ASC") }
+
   scope :customers, -> { where(person_type: 0) }
   scope :suppliers, -> { where(person_type: 1) }
   scope :employees, -> { where(person_type: 2) }
@@ -14,6 +16,7 @@ class Person < ActiveRecord::Base
   has_many :transactions
 
   validates :first_name, :last_name, :phone, presence: true
+  validates :first_name, :last_name, uniqueness: { scope: [:account_id, :person_type] }
 
   paginates_per 10
 

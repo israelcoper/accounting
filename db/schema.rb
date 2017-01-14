@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113091342) do
+ActiveRecord::Schema.define(version: 20170114083206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,17 +25,17 @@ ActiveRecord::Schema.define(version: 20170113091342) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.decimal  "amount",         precision: 5, scale: 2, default: 0.0
+    t.decimal  "amount",         precision: 16, scale: 2, default: 0.0
     t.integer  "transaction_id"
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "product_id"
-    t.integer  "quantity",                               default: 0
-    t.decimal  "rate",           precision: 5, scale: 2, default: 0.0
+    t.integer  "quantity",                                default: 0
+    t.decimal  "rate",           precision: 8,  scale: 2, default: 0.0
   end
 
   create_table "persons", force: :cascade do |t|
-    t.integer  "person_type", default: 0, null: false
+    t.integer  "person_type",                          default: 0,   null: false
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
@@ -43,8 +43,9 @@ ActiveRecord::Schema.define(version: 20170113091342) do
     t.string   "mobile"
     t.hstore   "address"
     t.integer  "account_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.decimal  "balance",     precision: 16, scale: 2, default: 0.0
   end
 
   create_table "products", force: :cascade do |t|
@@ -66,14 +67,14 @@ ActiveRecord::Schema.define(version: 20170113091342) do
     t.datetime "due_date"
     t.text     "notes"
     t.string   "status"
-    t.decimal  "payment",            precision: 5, scale: 2, default: 0.0
-    t.decimal  "balance",            precision: 5, scale: 2, default: 0.0
-    t.decimal  "total",              precision: 5, scale: 2, default: 0.0
+    t.decimal  "payment",            precision: 16, scale: 2, default: 0.0
+    t.decimal  "balance",            precision: 16, scale: 2, default: 0.0
+    t.decimal  "total",              precision: 16, scale: 2, default: 0.0
     t.integer  "account_id"
     t.integer  "person_id"
     t.integer  "parent_id"
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
   end
 
   create_table "users", force: :cascade do |t|

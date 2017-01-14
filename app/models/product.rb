@@ -6,6 +6,8 @@ class Product < ActiveRecord::Base
   
   enum product_type: [:rice, :grocery_item]
 
+  default_scope { order(name: "ASC") }
+
   scope :rice, -> { where(product_type: 0) }
 
   belongs_to :account

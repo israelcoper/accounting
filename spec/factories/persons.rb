@@ -7,6 +7,7 @@ FactoryGirl.define do
     last_name { FFaker::Name.last_name }
     phone { FFaker::PhoneNumber.phone_number }
     mobile { FFaker::PhoneNumberDE.mobile_phone_number }
+    balance 0.0
     address { Hash.new }
 
     factory :customer do

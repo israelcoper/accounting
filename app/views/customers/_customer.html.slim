@@ -2,6 +2,6 @@
   tr
     td= link_to customer.full_name, account_customer_path(current_account, customer)
     td= customer.phone
-    td
+    td= number_to_currency(customer.balance, unit: "PHP")
     td.action
       a href="javascript:;" Receive Payment

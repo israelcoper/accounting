@@ -24,19 +24,19 @@ RSpec.describe Account, type: :model do
 
     describe "customers" do
       it "returns person_type equals to customer" do
-        expect(account.customers).to eq [john, mark]
+        expect(account.customers).to match_array [john, mark]
       end
     end
 
     describe "suppliers" do
       it "returns person_type equals to supplier" do
-        expect(account.suppliers).to eq [ryan, bran]
+        expect(account.suppliers).to match_array [ryan, bran]
       end
     end
 
      describe "employees" do
       it "returns person_type equals to employee" do
-        expect(account.employees).to eq [lore, bane]
+        expect(account.employees).to match_array [lore, bane]
       end
     end
   end

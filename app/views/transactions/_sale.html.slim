@@ -5,8 +5,8 @@
     td= sale.transaction_number
     td= sale.person.try :full_name
     td= format_date sale.due_date
-    td= sale.balance
-    td= sale.total
+    td= number_to_currency(sale.balance, unit: "PHP")
+    td= number_to_currency(sale.total, unit: "PHP")
     td
       span.label.label-default=sale.status
     td.action= action_sales(sale.status)

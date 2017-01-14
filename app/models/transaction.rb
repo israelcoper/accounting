@@ -16,6 +16,8 @@ class Transaction < ActiveRecord::Base
   before_save :generate_transaction_number, if: Proc.new {|t| t.new_record? && t.transaction_type == TransactionTypes[0]}
   before_save :sales_default_status, if: Proc.new {|t| t.new_record? && t.transaction_type == TransactionTypes[0]}
 
+  after_save :add_balance_to_person, if: Proc.new {|t| t.transaction_type == TransactionTypes[0]}
+
   protected
 
   def generate_transaction_number
@@ -24,6 +26,11 @@ class Transaction < ActiveRecord::Base
 
   def sales_default_status
     self.status = Status[0]
+  end
+
+  def add_balance_to_person
+    self.person.balance += balance
+    self.person.save
   end
 
 end

@@ -111,7 +111,7 @@ RSpec.describe CustomersController, type: :controller do
     describe "customers#update" do
       context "with valid attributes" do
         it "locates the requested customer" do
-          customer.stub(:update).with(valid_attributes.except!(:person_type).stringify_keys) { true }
+          customer.stub(:update).with(valid_attributes.except!(:person_type, :balance).stringify_keys) { true }
           put :update, { account_id: user.account_id, id: customer.id, person: valid_attributes }
           expect(assigns(:customer)).to eq customer
         end
@@ -124,7 +124,7 @@ RSpec.describe CustomersController, type: :controller do
 
       context "with invalid attributes" do
         before :each do
-          customer.stub(:update).with(invalid_attributes.stringify_keys) { false }
+          customer.stub(:update).with(invalid_attributes.except!(:balance).stringify_keys) { false }
           patch :update, { account_id: user.account_id, id: customer.id, person: invalid_attributes }
         end
 

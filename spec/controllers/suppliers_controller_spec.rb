@@ -111,7 +111,7 @@ RSpec.describe SuppliersController, type: :controller do
     describe "suppliers#update" do
       context "with valid attributes" do
         it "locates the requested supplier" do
-          supplier.stub(:update).with(valid_attributes.except!(:person_type).stringify_keys) { true }
+          supplier.stub(:update).with(valid_attributes.except!(:person_type, :balance).stringify_keys) { true }
           put :update, { account_id: user.account_id, id: supplier.id, person: valid_attributes }
           expect(assigns(:supplier)).to eq supplier
         end
@@ -124,7 +124,7 @@ RSpec.describe SuppliersController, type: :controller do
 
       context "with invalid attributes" do
         before :each do
-          supplier.stub(:update).with(invalid_attributes.stringify_keys) { false }
+          supplier.stub(:update).with(invalid_attributes.except!(:balance).stringify_keys) { false }
           patch :update, { account_id: user.account_id, id: supplier.id, person: invalid_attributes }
         end
 
