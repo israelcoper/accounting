@@ -1,5 +1,12 @@
 class TransactionsController < ApplicationController
 
+  def show
+    @transaction = Transaction.find params[:id]
+    respond_to do |format|
+      format.json { render json: @transaction }
+    end
+  end
+
   def sales
     @sales = current_account.transactions.sales
   end
@@ -17,6 +24,7 @@ class TransactionsController < ApplicationController
     end
 
     if @transaction.save
+      @transaction.add_balance_to_customer
       flash[:notice] = "Transaction was successfully created"
       redirect_to sales_account_transactions_path(current_account)
     else
@@ -24,10 +32,31 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def payment
+    @transaction = Transaction.new
+  end
+
+  def payment_receive
+    @transaction = Transaction.new transaction_params.merge(account: current_account)
+
+    if @transaction.payment.blank? || !(@transaction.payment > 0)
+      flash[:error] = "You must select an invoice number and enter payment amount"
+      render :payment and return
+    end
+
+    if @transaction.save
+      @transaction.deduct_balance_of_customer
+      flash[:notice] = "Payment was successfull created"
+      redirect_to sales_account_transactions_path(current_account)
+    else
+      render :payment
+    end
+  end
+
   protected
 
   def transaction_params
-    params.require(:transaction).permit(:transaction_type, :transaction_date, :due_date, :notes, :payment, :balance, :total, :person_id,
+    params.require(:transaction).permit(:transaction_type, :transaction_date, :due_date, :notes, :payment, :balance, :total, :person_id, :parent_id,
                                         items_attributes: [:id, :product_id, :name, :description, :quantity, :rate, :amount, :_destroy]
     )
   end

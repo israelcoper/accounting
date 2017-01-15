@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :find_customer, only: [:show, :edit, :update, :destroy]
+  before_action :find_customer, only: [:show, :edit, :update, :destroy, :transactions]
 
   def index
     @customers = current_account.customers.page(page)
@@ -38,6 +38,11 @@ class CustomersController < ApplicationController
   end
 
   def destroy
+  end
+
+  def transactions
+    @transactions = @customer.transactions.invoice
+    render json: @transactions
   end
 
   protected

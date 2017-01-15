@@ -1,0 +1,69 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Payment
+
+    .title_right
+      = link_to "Cancel", sales_account_transactions_path(current_account), class: "btn btn-default pull-right"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          = form_for @transaction, url: payment_receive_account_transactions_path(current_account), html: { id: 'form-transaction', class: 'form-payment' } do |f|
+            .row
+              .col-md-4.form-group
+                label.control-label Customer
+                = f.select :person_id, options_for_select(current_account.customers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control" }
+
+              .col-md-4.form-group
+                label.control-label Payment date
+                = f.text_field :transaction_date, class: "form-control", placeholder: "Payment date"
+                = f.hidden_field :due_date, value: ""
+
+            .ln_solid
+
+            .row
+              .col-md-6
+                h4 Transaction
+              .col-md-6.form-group.pull-right
+                select name="invoice_number" id="invoice_number" class="form-control" data-accountid="#{current_account.id}"
+            
+            .row
+              .col-md-12
+                table.table.table-bordered
+                  thead
+                    tr
+                      th style="width: 45%;" Desc
+                      th Due Date
+                      th Original Amount
+                      th Open Balance
+                      th Payment
+                  tbody#transaction
+
+
+            br
+
+            .row
+              .col-md-6
+                = f.hidden_field :transaction_type, value: Transaction::TransactionTypes[1]
+                = f.hidden_field :parent_id, value: params[:parent_id]
+
+              .col-md-6
+                .row
+                  .col-md-6
+                  .col-md-6
+                    .row
+                      .col-md-6
+                        span Amount
+                      .col-md-6
+                        span#transaction_payment PHP0.00
+
+            .ln_solid
+
+            .row
+              .col-md-12
+                .pull-right
+                  = f.submit "Save", class: "btn btn-primary"
+

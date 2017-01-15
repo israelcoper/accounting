@@ -8,4 +8,4 @@
     td= number_to_currency(sale.balance, unit: "PHP")
     td= number_to_currency(sale.total, unit: "PHP")
     td= transaction_status(sale.status)
-    td.action= action_sales(sale.status)
+    td.action= sales_action(sale.status, parent_id: sale.id, person_id: sale.person.id)

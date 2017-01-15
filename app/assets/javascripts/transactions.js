@@ -1,7 +1,13 @@
 $(document).on('turbolinks:load', function(e) {
 
-  // form append item
+  // append item
   forms.append_item.init();
+
+  // append quantity rice (invoice)
+  forms.append_quantity_rice.init();
+
+  // append form payment
+  forms.append_form_payment.init();
 
   // form validation
   forms.validate_transaction.init();
@@ -15,6 +21,10 @@ $(document).on('turbolinks:load', function(e) {
     {
       'selector': 'select#product',
       'placeholder': 'Choose a product'
+    },
+    {
+      'selector': 'select#invoice_number',
+      'placeholder': 'Select invoice number'
     }
   ];
 
@@ -33,6 +43,7 @@ $(document).on('turbolinks:load', function(e) {
   }).on('changeDate', function(e) {
     var selector = $(this);
     $("#form-transaction").bootstrapValidator('revalidateField', selector.attr('name'));
+    $("#transaction_due_date").val($(this).val());
   });
 
   $("input#transaction_due_date").datepicker({
@@ -42,66 +53,68 @@ $(document).on('turbolinks:load', function(e) {
     var selector = $(this);
     $("#form-transaction").bootstrapValidator('revalidateField', selector.attr('name'));
   });
+});
 
-  // Product: Rice
-  // add quantity
-  $(document).on("keyup keypress", "input[name='transaction[items_attributes][][quantity]']", function(e) {
-    var parent = $(this).parent().parent().parent();
-    var quantity = $(this).val();
-    var remaining_quantity = parent.find("td.remaining_kilo span").text();
-    var rate = parent.find("td.price_per_kilo span").text(); 
-    var total = parseInt(quantity) * parseInt(rate);
-    var amount = 0.0;
-    var span_text = "PHP0.00";
+function dateFormat(date,format) {
+  var date = new Date(date);
+  var day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
 
-    parent.find("td.amount span").text("");
-    parent.find("td.amount input[name='transaction[items_attributes][][amount]']").val("");
+  if (date.getDate() < 10 ) {
+    day = "0" + date.getDate();
+  }
 
-    $("span#transaction_total, span#transaction_balance").text(span_text);
-    $("input#transaction_total, input#transaction_balance").val(amount);
+  if (date.getMonth() < 10) {
+    month = date.getMonth() + 1;
+    month = "0" + month;
+  }
 
-    // TODO: quantity validation to accept integers only -- note: disable submit button if user input is NaN and display error message
+  switch(format) {
+    case "yyyy-mm-dd":
+      date = [year, month, day].join("-");
+      break;
+    case "mm/dd/yyyy":
+      date = [month, day, year].join("/");
+      break;
+    default:
+  }
+  return date;
+}
 
-    if (e.which == 13) {
-      // validate if value is positive integer
-      if (/^\d+$/.test(total)) {
-        parent.find("td.amount span").text(total);
-        parent.find("td.amount input[name='transaction[items_attributes][][amount]']").val(total);
-
-        // collect all amount values
-        var listing = $("td.amount input[name='transaction[items_attributes][][amount]']");
-        var amount_values = $.map(listing, function(v,i) { if ($.isNumeric($(v).val())) { return parseInt($(v).val()) } });
-
-        if (amount_values.length > 0) {
-          amount = amount_values.reduce(function(x,y) { return x + y });
-          span_text = "PHP" + amount;
-        }
-
-        $("span#transaction_total, span#transaction_balance").text(span_text);
-        $("input#transaction_total, input#transaction_balance").val(amount);
-
-        // validate if quantity does not exceed remaining quantity
-        if (parseInt(quantity) > parseInt(remaining_quantity)) {
-          $(this).parent().addClass("has-error");
-          if ($(this).parent().find("small").length == 0) {
-            $(this).parent().append("<small class='help-block'>Quantity exceeds the remaining count of this item</small>");
-          }
-          $("input[type='submit']").attr("disabled", "disabled");
-        } else {
-          if ( $(this).parent().hasClass("has-error") ) {
-            $(this).parent().removeClass("has-error");
-            $(this).parent().find("small").remove();
-          }
-
-          if ( !$("tbody#items .form-group").hasClass("has-error") && (parseInt($("input#transaction_balance").val()) > 0) ) {
-            $("input[type='submit']").removeAttr("disabled");
-          }
-        }
-      }
-
-      e.preventDefault();
-      return false;
+function appendOptionToSelectInvoiceNumber(account_id, person_id) {
+  $.ajax({
+    url: ["/accounts", account_id, "customers", person_id, "transactions.json"].join("/"),
+    data: {},
+    success: function(data) {
+      $("select#invoice_number").append("<option></option>");
+      $.each(data, function(index, object) {
+        $("select#invoice_number").append("<option value='"+object.id+"'>"+object.transaction_number+"</option>");
+      });
+    },
+    error: function() {
+      console.log("Something went wrong!")
     }
   });
+}
 
-});
+function appendTransaction(account_id, parent_id) {
+  $.ajax({
+    url: ["/accounts", account_id, "transactions", parent_id+".json"].join("/"),
+    data: {},
+    success: function(data) {
+      context = {
+        current_date: dateFormat(new Date(), "yyyy-mm-dd"),
+        transaction_number: data.transaction_number,
+        transaction_date:  dateFormat(data.transaction_date, "mm/dd/yyyy"),
+        due_date: dateFormat(data.due_date, "mm/dd/yyyy"),
+        total: data.total,
+        balance: data.balance
+      };
+      $("tbody#transaction").append(HandlebarsTemplates['items/append_transaction'](context))
+    },
+    error: function() {
+      console.log("Something went wrong!")
+    }
+  }); 
+}

@@ -5,13 +5,17 @@ Rails.application.routes.draw do
       collection do
         get "sales"
         get "invoice"
+        get "payment"
+        post  "payment_receive"
       end
     end
     resources :products
     resources :users
     resources :employees
     resources :suppliers
-    resources :customers
+    resources :customers do
+      get "transactions", on: :member
+    end
   end
 
   as :user do

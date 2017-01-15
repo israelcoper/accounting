@@ -11,7 +11,7 @@
           span class="caret"
         ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
           li= link_to "Invoice", invoice_account_transactions_path(current_account, { product_type: "rice" }), id: "invoice"
-          li= link_to "Payment", "javascript:;"
+          li= link_to "Payment", payment_account_transactions_path(current_account)
 
       .pull-right style="margin: 10px 5px;"
         = select_tag "product_type", options_for_select([['Rice', 'rice']]), class: "form-control", style: "width: 150px;"
@@ -32,7 +32,7 @@
                 th Balance
                 th Total
                 th Status
-                th.action style="width: 20%;" Actions
+                th.action style="width: 15%;" Actions
             tbody
               = render partial: 'sale'
 

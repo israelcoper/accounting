@@ -13,4 +13,8 @@ RSpec.describe Transaction, type: :model do
     it { should have_many :children }
     it { should have_many :items }
   end
+
+  context "validation" do
+    it { validate_numericality_of(:balance).allow_nil }
+  end
 end

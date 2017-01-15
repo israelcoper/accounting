@@ -4,6 +4,18 @@
       h3= @customer.full_name
   
     .title_right
+      .dropdown.pull-right
+        button.btn.btn-primary.dropdown-toggle id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          | New transaction
+          | &nbsp;
+          span class="caret"
+        ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
+          li= link_to "Invoice", invoice_account_transactions_path(current_account, { product_type: "rice", person_id: @customer.id }), id: "invoice"
+          li= link_to "Payment", payment_account_transactions_path(current_account, { parent_id: nil, person_id: @customer.id })
+
+      .pull-right style="margin: 10px 5px;"
+        = select_tag "product_type", options_for_select([['Rice', 'rice']]), class: "form-control", style: "width: 150px;"
+
       = link_to "Edit", edit_account_customer_path(current_account, @customer), class: "btn btn-default pull-right"
 
 - content_for :content do
@@ -46,7 +58,7 @@
                               td= number_to_currency(t.balance, unit: "PHP")
                               td= number_to_currency(t.total, unit: "PHP")
                               td= transaction_status(t.status)
-                              td.action= action_sales(t.status)
+                              td.action= sales_action(t.status, parent_id: t.id, person_id: @customer.id)
 
                 div role="tabpanel" class="tab-pane fade" id="profile"
                   .row
@@ -90,3 +102,18 @@
                               th Postal code
                               td= @customer.address.fetch("postal_code")
 
+          .ln_solid
+
+          .row
+            .col-md-6
+            .col-md-6
+              .row
+                .col-md-3
+                .col-md-9
+                  .row
+                    .col-md-8
+                      .pull-right
+                        label OPEN BALANCE
+                    .col-md-4
+                      .pull-right
+                        span= number_to_currency(@customer.balance, unit: "PHP")
