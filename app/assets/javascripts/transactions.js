@@ -3,11 +3,17 @@ $(document).on('turbolinks:load', function(e) {
   // append item
   forms.append_item.init();
 
-  // append quantity rice (invoice)
-  forms.append_quantity_rice.init();
+  // append quantity rice || grocery_item (invoice)
+  switch ($("select#product").data("product-type")) {
+    case "grocery_item":
+      forms.append_quantity_grocery.init();
+      break;
+    default:
+      forms.append_quantity_rice.init();
+  }
 
-  // append form payment
-  forms.append_form_payment.init();
+  // append invoice
+  forms.append_invoice.init();
 
   // form validation
   forms.validate_transaction.init();
@@ -53,6 +59,17 @@ $(document).on('turbolinks:load', function(e) {
     var selector = $(this);
     $("#form-transaction").bootstrapValidator('revalidateField', selector.attr('name'));
   });
+
+  // change href of invoice link
+  $("select#product_type").on("change", function(e) {
+    var type = $(this).val();
+    var href = $("a#invoice").attr("href");
+  
+    href = href.replace(/product_type=.+/, 'product_type='+type);
+  
+    $("a#invoice").attr("href", href);
+  });
+
 });
 
 function dateFormat(date,format) {

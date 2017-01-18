@@ -4,13 +4,26 @@ forms.append_item = (function() {
   var attrs = {
     'selector': 'select#product',
     'listing': 'tbody#items',
-    'template': 'items/append_item'
+    'template_rice': 'items/append_item_rice',
+    'template_grocery': 'items/append_item_grocery'
   };
 
   var appendItem = function() {
     $(attrs.selector).on('change', function() {
       var account_id  = $(this).data("accountid");
       var product_id  = $(this).find('option:selected').val();
+      var product_type = $(this).data('product-type');
+      var template;
+
+      switch (product_type) {
+        case "rice":
+          template = attrs.template_rice;
+          break;
+        case "grocery_item":
+          template = attrs.template_grocery;
+          break;
+        default:
+      }
 
       $.ajax({
         url: ["/accounts", account_id, "products", product_id].join("/"),
@@ -22,7 +35,7 @@ forms.append_item = (function() {
           listing = $.map(listing, function(v,i) { return $(v).val(); });
 
           if ( (product_id != '') && ($.inArray(product_id, listing) === -1) ) {
-            $(attrs.listing).append(HandlebarsTemplates[attrs.template](context));
+            $(attrs.listing).append(HandlebarsTemplates[template](context));
           }
         },
         error: function() {

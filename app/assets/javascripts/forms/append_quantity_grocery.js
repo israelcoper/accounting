@@ -1,13 +1,13 @@
 // TODO: REFACTOR
 var forms = forms || {};
 
-forms.append_quantity_rice = (function() {
-  var appendQuantityRice = function() {
+forms.append_quantity_grocery = (function() {
+  var appendQuantityGrocery = function() {
     $(document).on("keyup keypress", "input[name='transaction[items_attributes][][quantity]']", function(e) {
       var parent = $(this).parent().parent().parent();
       var quantity = $(this).val();
-      var remaining_quantity = parent.find("td.remaining_kilo span").text();
-      var rate = parent.find("td.price_per_kilo span").text(); 
+      var remaining_quantity = parent.find("td.quantity_in_hand span").text();
+      var rate = parent.find("td.rate span").text(); 
       var total = parseInt(quantity) * parseInt(rate);
       var amount = 0.0;
       var span_text = "PHP0.00";
@@ -65,7 +65,7 @@ forms.append_quantity_rice = (function() {
 
   return {
     init: function() {
-      appendQuantityRice();
+      appendQuantityGrocery();
     }
   }
 }());

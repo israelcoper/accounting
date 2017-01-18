@@ -14,7 +14,7 @@
           li= link_to "Payment", payment_account_transactions_path(current_account)
 
       .pull-right style="margin: 10px 5px;"
-        = select_tag "product_type", options_for_select([['Rice', 'rice']]), class: "form-control", style: "width: 150px;"
+        = select_tag "product_type", options_for_select(Product.product_types.keys.map {|key| [key.humanize,key]}), class: "form-control", style: "width: 150px;"
 
 - content_for :content do
   .row

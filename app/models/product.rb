@@ -9,6 +9,7 @@ class Product < ActiveRecord::Base
   default_scope { order(name: "ASC") }
 
   scope :rice, -> { where(product_type: 0) }
+  scope :groceries, -> { where(product_type: 1) }
 
   belongs_to :account
 

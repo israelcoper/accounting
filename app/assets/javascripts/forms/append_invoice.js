@@ -1,7 +1,7 @@
 var forms = forms || {};
 
-forms.append_form_payment = (function() {
-  var appendFormPayment = function() {
+forms.append_invoice = (function() {
+  var appendInvoice = function() {
     if ($('form.form-payment').length > 0) {
       var account_id = $("select#invoice_number").data("accountid");
       var parent_id  = $("#transaction_parent_id").val();
@@ -79,7 +79,7 @@ forms.append_form_payment = (function() {
 
   return {
     init: function() {
-      appendFormPayment();
+      appendInvoice();
     }
   }
 }());
