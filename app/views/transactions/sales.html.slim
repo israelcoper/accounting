@@ -36,4 +36,6 @@
             tbody
               = render partial: 'sale'
 
+          .pull-right
+            = paginate @sales, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
 

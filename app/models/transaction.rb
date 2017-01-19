@@ -24,6 +24,8 @@ class Transaction < ActiveRecord::Base
 
   validates :balance, numericality: true, allow_blank: true
 
+  paginates_per 10
+
   def add_balance_to_customer
     self.person.balance += balance
     self.person.save

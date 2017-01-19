@@ -9,6 +9,7 @@ class CustomersController < ApplicationController
   end
 
   def show
+    @transactions = @customer.transactions.page(page)
   end
 
   def new

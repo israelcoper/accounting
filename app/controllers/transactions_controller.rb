@@ -8,7 +8,7 @@ class TransactionsController < ApplicationController
   end
 
   def sales
-    @sales = current_account.transactions.sales
+    @sales = current_account.transactions.sales.page(page)
   end
 
   def invoice
