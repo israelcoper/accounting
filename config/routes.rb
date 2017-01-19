@@ -7,6 +7,9 @@ Rails.application.routes.draw do
         get "invoice"
         get "payment"
         post  "payment_receive"
+        get "purchases"
+        get "purchase"
+        post "purchased"
       end
     end
     resources :products

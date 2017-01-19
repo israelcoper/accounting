@@ -1,0 +1,12 @@
+- @purchases.each do |purchase|
+  tr
+    td= format_date purchase.transaction_date
+    td= purchase.transaction_type
+    td= purchase.transaction_number
+    td= purchase.person.try :full_name
+    td= format_date purchase.due_date
+    td= number_to_currency(purchase.balance, unit: "PHP")
+    td= number_to_currency(purchase.total, unit: "PHP")
+    td= transaction_status(purchase.status)
+    td.action= purchases_action(purchase.status, parent_id: purchase.id, person_id: purchase.person.id)
+

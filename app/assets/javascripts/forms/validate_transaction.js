@@ -17,7 +17,7 @@ forms.validate_transaction = (function() {
             'transaction[person_id]': {
               validators: {
                 notEmpty: {
-                  message: 'Select a customer'
+                  message: 'Select a value'
                 }
               }
             },

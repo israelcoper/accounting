@@ -38,21 +38,21 @@ forms.append_quantity_grocery = (function() {
           $("span#transaction_total, span#transaction_balance").text(span_text);
           $("input#transaction_total, input#transaction_balance").val(amount);
 
-          // validate if quantity does not exceed remaining quantity
-          if (parseInt(quantity) > parseInt(remaining_quantity)) {
-            $(this).parent().addClass("has-error");
-            if ($(this).parent().find("small").length == 0) {
-              $(this).parent().append("<small class='help-block'>Quantity exceeds the remaining count of this item</small>");
-            }
-            $("input[type='submit']").attr("disabled", "disabled");
-          } else {
-            if ( $(this).parent().hasClass("has-error") ) {
+          // validate if quantity does not exceed remaining quantity of invoice transation only
+          if ($('form#form-transaction').hasClass('transaction-invoice')) {
+            if (parseInt(quantity) > parseInt(remaining_quantity)) {
+              $(this).parent().addClass("has-error");
+              if ($(this).parent().find("small").length == 0) {
+                $(this).parent().append("<small class='help-block'>Quantity exceeds the remaining count of this item</small>");
+              }
+              $("input[type='submit']").attr("disabled", "disabled");
+            } else {
               $(this).parent().removeClass("has-error");
               $(this).parent().find("small").remove();
-            }
 
-            if ( !$("tbody#items .form-group").hasClass("has-error") && (parseInt($("input#transaction_balance").val()) > 0) ) {
-              $("input[type='submit']").removeAttr("disabled");
+              if ( !$("tbody#items .form-group").hasClass("has-error") && (parseInt($("input#transaction_balance").val()) > 0) ) {
+                $("input[type='submit']").removeAttr("disabled");
+              }
             }
           }
         }

@@ -15,7 +15,7 @@
             .row
               .col-md-4.form-group
                 label.control-label Customer
-                = f.select :person_id, options_for_select(current_account.customers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control" }
+                = f.select :person_id, options_for_select(current_account.customers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control", id: "customer_id" }
 
               .col-md-4.form-group
                 label.control-label Payment date

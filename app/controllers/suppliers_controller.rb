@@ -9,6 +9,7 @@ class SuppliersController < ApplicationController
   end
 
   def show
+    @transactions = @supplier.transactions.page(page)
   end
 
   def new

@@ -21,8 +21,12 @@ $(document).on('turbolinks:load', function(e) {
   // select2
   var dropdown_selectors = [
     {
-      'selector': 'select#transaction_person_id',
+      'selector': 'select#customer_id',
       'placeholder': 'Choose a customer'
+    },
+    {
+      'selector': 'select#supplier_id',
+      'placeholder': 'Choose a supplier'
     },
     {
       'selector': 'select#product',
@@ -62,12 +66,18 @@ $(document).on('turbolinks:load', function(e) {
 
   // change href of invoice link
   $("select#product_type").on("change", function(e) {
-    var type = $(this).val();
-    var href = $("a#invoice").attr("href");
-  
-    href = href.replace(/product_type=.+/, 'product_type='+type);
-  
-    $("a#invoice").attr("href", href);
+    var $invoice = $("a#invoice");
+    var $purchase = $("a#purchase");
+    var product_type = $(this).val();
+    var href;
+
+    if ($invoice.length > 0) {
+      href = $invoice.attr("href").replace(/product_type=.+/, 'product_type='+product_type);
+      $invoice.attr("href", href);
+    } else {
+      href = $purchase.attr("href").replace(/product_type=.+/, 'product_type='+product_type);
+      $purchase.attr("href", href);
+    }
   });
 
 });

@@ -1,3 +1,4 @@
+## TODO REFACTOR
 class TransactionsController < ApplicationController
 
   def show
@@ -50,6 +51,31 @@ class TransactionsController < ApplicationController
       redirect_to sales_account_transactions_path(current_account)
     else
       render :payment
+    end
+  end
+
+  def purchases
+    @purchases = current_account.transactions.purchases.page(page)
+  end
+
+  def purchase
+    @transaction = Transaction.new
+  end
+
+  def purchased
+    @transaction = Transaction.new transaction_params.merge(account: current_account)
+
+    unless @transaction.items.present?
+      flash[:error] = "You must select an item"
+      render :purchase and return
+    end
+
+    if @transaction.save
+      @transaction.add_balance_to_supplier
+      flash[:notice] = "Transaction was successfully created"
+      redirect_to purchases_account_transactions_path(current_account)
+    else
+      render :purchase
     end
   end
 

@@ -4,6 +4,19 @@
       h3= @supplier.full_name
   
     .title_right
+      .dropdown.pull-right
+        button.btn.btn-primary.dropdown-toggle id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          | New transaction
+          | &nbsp;
+          span class="caret"
+        ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
+          li= link_to "Purchase Order", purchase_account_transactions_path(current_account, { product_type: "rice", person_id: @supplier.id }), id: "purchase"
+          li= link_to "Order Payment", "javascript:;"
+
+      .pull-right style="margin: 10px 5px;"
+        = select_tag "product_type", options_for_select(Product.product_types.keys.map {|key| [key.humanize,key]}), class: "form-control", style: "width: 150px;"
+
+
       = link_to "Edit", edit_account_supplier_path(current_account, @supplier), class: "btn btn-default pull-right"
 
 - content_for :content do
@@ -31,35 +44,25 @@
                             th Date
                             th Type
                             th Number
-                            th Payee
-                            th Category
+                            th Due Date
+                            th Balance
                             th Total
-                            th.action style="width: 20%;" Action
+                            th Status
+                            th.action style="width: 20%; text-align: right;" Action
                         tbody
-                          tr
-                            td 12/13/2016
-                            td Bill Payment
-                            td 2
-                            td Diana Purification
-                            td
-                            td PHP30.00
-                            td.action
-                          tr
-                            td 12/13/2016
-                            td Bill
-                            td ABC
-                            td Diana Purification
-                            td
-                            td PHP50.00
-                            td.action
-                          tr
-                            td 12/01/2016
-                            td Bill Payment
-                            td 1
-                            td Diana Purification
-                            td
-                            td PHP100.00
-                            td.action
+                          - @transactions.each do |t|
+                            tr
+                              td= format_date(t.transaction_date)
+                              td= t.transaction_type
+                              td= t.transaction_number
+                              td= format_date(t.due_date)
+                              td= number_to_currency(t.balance, unit: "PHP")
+                              td= number_to_currency(t.total, unit: "PHP")
+                              td= transaction_status(t.status)
+                              td.action= purchases_action(t.status, parent_id: t.id, person_id: @supplier.id)
+
+                      .pull-right
+                        = paginate @transactions, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
 
                 div role="tabpanel" class="tab-pane fade" id="profile"
                   .row
@@ -103,3 +106,18 @@
                               th Postal code
                               td= @supplier.address.fetch("postal_code")
 
+          .ln_solid
+
+          .row
+            .col-md-6
+            .col-md-6
+              .row
+                .col-md-3
+                .col-md-9
+                  .row
+                    .col-md-8
+                      .pull-right
+                        label OPEN BALANCE
+                    .col-md-4
+                      .pull-right
+                        span= number_to_currency(@supplier.balance, unit: "PHP")

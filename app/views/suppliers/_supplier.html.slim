@@ -3,5 +3,4 @@
     td= link_to supplier.full_name, account_supplier_path(current_account, supplier)
     td= supplier.phone
     td= number_to_currency(supplier.balance, unit: "PHP")
-    td.action
-      a href="javascript:;" Create bill
+    td.action= purchases_action(nil, {person_id: supplier.id})

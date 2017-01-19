@@ -5,14 +5,14 @@ forms.append_invoice = (function() {
     if ($('form.form-payment').length > 0) {
       var account_id = $("select#invoice_number").data("accountid");
       var parent_id  = $("#transaction_parent_id").val();
-      var person_id  = $("select#transaction_person_id option:selected").val();
+      var person_id  = $("select[name='transaction[person_id]'] option:selected").val();
 
       // append options to select invoice number
       if (person_id.length > 0) {
         appendOptionToSelectInvoiceNumber(account_id, person_id);
       }
 
-      $("select#transaction_person_id").on("change", function(e) {
+      $("select[name='transaction[person_id]']").on("change", function(e) {
         person_id = $(this).find("option:selected").val();
         $("select#invoice_number option").remove();
         $("tbody#transaction tr").remove();
