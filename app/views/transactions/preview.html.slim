@@ -6,20 +6,35 @@
           .x_title
 
           .x_content
-            section class="content invoice"
+            section.content.invoice
               .row
                 .col-xs-12.invoice-header
                   h3
-                    span Invoice
+                    - if @transaction.transaction_type == Transaction::TransactionTypes[0]
+                      span Invoice
+                    - else
+                      span Purchase Order
+
                     small.pull-right
                       label Transaction Date:
                       | &nbsp;
                       = format_date(@transaction.transaction_date)
 
+              .row
+                .col-xs-6
+                  span Transaction Number:
+                  | &nbsp;
+                  label= "##{@transaction.transaction_number}"
+                .col-xs-6
+                  .pull-right
+                    span Payment Due:
+                    | &nbsp;
+                    label= format_date @transaction.due_date
+
               .ln_solid
 
               .row.invoice-info
-                .col-sm-4.invoice-col
+                .col-xs-6.invoice-col
                   .row
                     .col-sm-3
                       | FROM:
@@ -35,7 +50,7 @@
                         | &nbsp;
                         small= @transaction.person.try :phone
 
-                .col-sm-4.invoice-col
+                .col-xs-6.invoice-col
                   .row
                     .col-sm-3
                       span TO:
@@ -51,17 +66,7 @@
                         | &nbsp;
                         small= current_account.address["business_phone"]
 
-                .col-sm-4.invoice-col
-                  .row
-                    .col-sm-12
-                      .pull-right
-                        span Number:
-                        | &nbsp;
-                        label= "##{@transaction.transaction_number}"
-                        br
-                        span Payment Due:
-                        | &nbsp;
-                        label= format_date @transaction.due_date
+              .ln_solid
 
               .row
                 .col-xs-12.table
@@ -105,9 +110,10 @@
               / this row will not appear when printing
               .row.no-print
                 .col-xs-12
-                  button.btn.btn-default.pull-right onclick="window.print();"
+                  button.btn.btn-primary.btn-sm.btn-round.pull-right onclick="window.print();"
                     i.fa.fa-print
                     | &nbsp; Print
+                  = link_to "Back", request.referer, class: "btn btn-default btn-sm pull-right"
                   / button.btn.btn-primary.pull-right style="margin-right: 5px;"
                   /   i.fa.fa-download
                   /   | &nbsp; Generate PDF
