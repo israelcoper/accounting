@@ -1,0 +1,114 @@
+.main_container
+  div class=""
+    .row
+      .col-md-12
+        .x_panel
+          .x_title
+
+          .x_content
+            section class="content invoice"
+              .row
+                .col-xs-12.invoice-header
+                  h3
+                    span Invoice
+                    small.pull-right
+                      label Transaction Date:
+                      | &nbsp;
+                      = format_date(@transaction.transaction_date)
+
+              .ln_solid
+
+              .row.invoice-info
+                .col-sm-4.invoice-col
+                  .row
+                    .col-sm-3
+                      | FROM:
+                    .col-sm-9
+                      address
+                        strong= @transaction.person.full_name 
+                        br
+                        small= @transaction.person.address["address"]
+                        br
+                        small= "#{@transaction.person.address["country"]}"
+                        br
+                        small Phone:
+                        | &nbsp;
+                        small= @transaction.person.try :phone
+
+                .col-sm-4.invoice-col
+                  .row
+                    .col-sm-3
+                      span TO:
+                    .col-sm-9
+                      address
+                        strong= current_account.name
+                        br
+                        small= current_account.address["address"]
+                        br
+                        small= current_account.address["country"]
+                        br
+                        small Phone:
+                        | &nbsp;
+                        small= current_account.address["business_phone"]
+
+                .col-sm-4.invoice-col
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        span Number:
+                        | &nbsp;
+                        label= "##{@transaction.transaction_number}"
+                        br
+                        span Payment Due:
+                        | &nbsp;
+                        label= format_date @transaction.due_date
+
+              .row
+                .col-xs-12.table
+                  table.table.table-striped
+                    thead
+                      tr
+                        th Qty
+                        th Product
+                        th style="width: 50%" Description
+                        th Price
+                        th Subtotal
+                    tbody
+                      - @transaction.items.each do |item|
+                        tr
+                          td= item.quantity
+                          td= item.product.try :name
+                          td= item.product.try :description
+                          td= number_to_currency(item.rate, unit: "PHP")
+                          td= number_to_currency(item.amount, unit: "PHP")
+
+              .row
+                .col-xs-6
+                  p.lead Notes:
+                  p.text-muted.well.well-sm.no-shadow style="margin-top: 10px;"= @transaction.notes
+
+                .col-xs-6
+                  p.lead
+                    | Amount Due
+                    | &nbsp;
+                    = format_date @transaction.due_date
+                  .table-responsive
+                    table.table
+                      tbody
+                        tr
+                          th style="width:80%" Subtotal:
+                          td= number_to_currency(@transaction.total, unit: "PHP") 
+                        tr
+                          th Total:
+                          td= number_to_currency(@transaction.total, unit: "PHP") 
+
+              / this row will not appear when printing
+              .row.no-print
+                .col-xs-12
+                  button.btn.btn-default.pull-right onclick="window.print();"
+                    i.fa.fa-print
+                    | &nbsp; Print
+                  / button.btn.btn-primary.pull-right style="margin-right: 5px;"
+                  /   i.fa.fa-download
+                  /   | &nbsp; Generate PDF
+ 

@@ -77,6 +77,11 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def preview
+    @transaction = Transaction.find params[:id]
+    render layout: "preview"
+  end
+
   protected
 
   def transaction_params

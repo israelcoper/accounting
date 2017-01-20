@@ -25,7 +25,7 @@ module TransactionsHelper
     when Transaction::Status[0] || Transaction::Status[2]
       link_to "Receive payment", payment_account_transactions_path(current_account, {parent_id: options[:parent_id], person_id: options[:person_id]})
     when Transaction::Status[3]
-      link_to "Print", "javascript:;"
+      link_to "Preview", preview_account_transaction_path(current_account, options[:parent_id])
     when Transaction::Status[1]
     else
       person = Person.find(options[:person_id])
@@ -42,7 +42,7 @@ module TransactionsHelper
     when Transaction::Status[0] || Transaction::Status[2]
       link_to "Pay order", payment_purchase_account_transactions_path(current_account, {parent_id: options[:parent_id], person_id: options[:person_id]})
     when Transaction::Status[3]
-      link_to "Print", "javascript:;"
+      link_to "Preview", "javascript:;"
     when Transaction::Status[1]
     else
       person = Person.find(options[:person_id])

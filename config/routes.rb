@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         get "payment_purchase"
         post  "payment_receive"
       end
+      member do
+        get "preview"
+      end
     end
     resources :products
     resources :users
