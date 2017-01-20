@@ -29,9 +29,40 @@ forms.append_item = (function() {
         url: ["/accounts", account_id, "products", product_id].join("/"),
         data: {},
         success: function(data) {
-          var context = data;
           var listing = $("input.transaction_item_product_id");
+          var context;
+          var default_fields = {
+            id: data.id,
+            name: data.name,
+            description: data.description
+          };
+          var dynamic_fields;
+          var price;
 
+          if ($("form#form-transaction").hasClass("transaction-invoice")) {
+            price = data.fields.selling_price;
+          } else {
+            price = data.fields.purchasing_price;
+          }
+
+          switch (product_type) {
+            case "rice":
+              dynamic_fields = {
+                number_of_sack: data.fields.number_of_sack,
+                number_of_kilo: data.fields.number_of_kilo,
+                price_per_kilo: price
+              };
+              break;
+            case "grocery_item":
+              dynamic_fields = {
+                quantity: data.fields.quantity,
+                price: price
+              };
+              break;
+            default:
+          }
+
+          context = $.extend(default_fields, dynamic_fields);
           listing = $.map(listing, function(v,i) { return $(v).val(); });
 
           if ( (product_id != '') && ($.inArray(product_id, listing) === -1) ) {

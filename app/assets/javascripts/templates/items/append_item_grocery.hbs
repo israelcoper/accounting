@@ -7,11 +7,11 @@
     <small>{{ description }}</small>
   </td>
   <td class="quantity_in_hand">
-    <span>{{ fields.quantity }}</span>
+    <span>{{ quantity }}</span>
   </td>
   <td class="rate">
-    <span>{{ fields.price }}</span>
-    <input type="hidden" name="transaction[items_attributes][][rate]" value="{{fields.price}}" />
+    <span>{{ price }}</span>
+    <input type="hidden" name="transaction[items_attributes][][rate]" value="{{price}}" />
   </td>
   <td class="quantity">
     <div class="form-group">

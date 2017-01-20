@@ -73,23 +73,25 @@ forms.validate_product = (function() {
                 }
               }
             },
-            'product[fields][price_per_kilo]': {
+            'product[fields][purchasing_price]': {
               validators: {
                 notEmpty: {
-                  message: 'The price per kilo is required'
+                  message: 'The purchasing price is required'
                 },
-                integer: {
-                  message: 'Please enter a valid integer'
+                numeric: {
+                  message: 'Please enter a valid integer',
+                  decimalSeparator: '.'
                 }
               }
             },
-            'product[fields][price]': {
+            'product[fields][selling_price]': {
               validators: {
                 notEmpty: {
-                  message: 'The price is required'
+                  message: 'The selling price is required'
                 },
-                integer: {
-                  message: 'Please enter a valid integer'
+                numeric: {
+                  message: 'Please enter a valid integer',
+                  decimalSeparator: '.'
                 }
               }
             },

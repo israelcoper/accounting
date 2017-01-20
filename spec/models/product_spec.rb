@@ -16,12 +16,13 @@ RSpec.describe Product, type: :model do
 
     it { should validate_numericality_of :cost }
 
+    it { should validate_numericality_of :purchasing_price }
+    it { should validate_numericality_of :selling_price }
+
     it { should validate_numericality_of :average_kilo_per_sack }
     it { should validate_numericality_of :number_of_sack }
     it { should validate_numericality_of :number_of_kilo }
-    it { should validate_numericality_of :price_per_kilo }
 
-    # it { should validate_numericality_of :price }
     # it { should validate_numericality_of :quantity }
   end
 

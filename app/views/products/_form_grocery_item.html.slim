@@ -1,8 +1,13 @@
 = f.fields_for :fields, OpenStruct.new(f.object.fields) do |field|
   .form-group
-    label.control-label.col-md-3.col-sm-3.col-xs-12 Price *
+    label.control-label.col-md-3.col-sm-3.col-xs-12 Purchasing Price *
     .col-md-6.col-sm-6.col-xs-12
-      = field.text_field :price, class: "form-control"
+      = field.text_field :purchasing_price, class: "form-control"
+
+  .form-group
+    label.control-label.col-md-3.col-sm-3.col-xs-12 Selling Price *
+    .col-md-6.col-sm-6.col-xs-12
+      = field.text_field :selling_price, class: "form-control"
 
   .form-group
     label.control-label.col-md-3.col-sm-3.col-xs-12 Quantity *

@@ -7,14 +7,14 @@
     <small>{{ description }}</small>
   </td>
   <td class="remaining_sack">
-    <span>{{ fields.number_of_sack }}</span>
+    <span>{{ number_of_sack }}</span>
   </td>
   <td class="remaining_kilo">
-    <span>{{ fields.number_of_kilo }}</span>
+    <span>{{ number_of_kilo }}</span>
   </td>
   <td class="price_per_kilo">
-    <span>{{ fields.price_per_kilo }}</span>
-    <input type="hidden" name="transaction[items_attributes][][rate]" value="{{fields.price_per_kilo}}" />
+    <span>{{ price_per_kilo }}</span>
+    <input type="hidden" name="transaction[items_attributes][][rate]" value="{{price_per_kilo}}" />
   </td>
   <td class="number_of_kilo">
     <div class="form-group">

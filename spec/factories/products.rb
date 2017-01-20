@@ -13,14 +13,16 @@ FactoryGirl.define do
         "average_kilo_per_sack" => "50",
         "number_of_sack" => "10",
         "number_of_kilo" => "500",
-        "price_per_kilo" => "25"
+        "purchasing_price" => "20",
+        "selling_price" => "25"
       } }
     end
 
     factory :grocery_item do
       product_type "grocery_item"
       fields { {
-        "price" => "10",
+        "purchasing_price" => "10",
+        "selling_price" => "15",
         "quantity" => "50"
       } }
     end
