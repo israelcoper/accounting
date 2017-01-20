@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
   context "constants" do
-    it { expect(Transaction::TransactionTypes).to eq(["Invoice", "Payment", "Purchase Order", "Order Payment"]) }
+    it { expect(Transaction::TransactionTypes).to eq(["Invoice", "Payment", "Purchase Order", "Purchase Payment"]) }
     it { expect(Transaction::Status).to eq(%w{ Open Closed Partial Paid }) }
   end
 

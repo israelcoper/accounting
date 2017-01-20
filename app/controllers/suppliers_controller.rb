@@ -1,5 +1,5 @@
 class SuppliersController < ApplicationController
-  before_action :find_supplier, only: [:show, :edit, :update, :destroy]
+  before_action :find_supplier, only: [:show, :edit, :update, :destroy, :transactions]
 
   def index
     @suppliers = current_account.suppliers.page(page)
@@ -39,6 +39,11 @@ class SuppliersController < ApplicationController
   end
 
   def destroy
+  end
+
+  def transactions
+    @transactions = @supplier.transactions.purchase_order
+    render json: @transactions
   end
 
   protected

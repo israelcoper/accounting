@@ -4,18 +4,20 @@ Rails.application.routes.draw do
     resources :transactions do
       collection do
         get "sales"
-        get "invoice"
-        get "payment"
-        post  "payment_receive"
         get "purchases"
+        get "invoice"
         get "purchase"
-        post "purchased"
+        get "payment"
+        get "payment_purchase"
+        post  "payment_receive"
       end
     end
     resources :products
     resources :users
     resources :employees
-    resources :suppliers
+    resources :suppliers do
+      get "transactions", on: :member
+    end
     resources :customers do
       get "transactions", on: :member
     end

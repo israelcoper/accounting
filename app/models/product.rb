@@ -1,5 +1,7 @@
 class Product < ActiveRecord::Base
 
+  ## TODO -- add selling price and purchasing price
+
   store_accessor :fields,
     :number_of_sack, :number_of_kilo, :average_kilo_per_sack, :price_per_kilo,
     :price, :quantity

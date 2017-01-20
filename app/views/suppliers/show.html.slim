@@ -11,7 +11,7 @@
           span class="caret"
         ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
           li= link_to "Purchase Order", purchase_account_transactions_path(current_account, { product_type: "rice", person_id: @supplier.id }), id: "purchase"
-          li= link_to "Order Payment", "javascript:;"
+          li= link_to "Order Payment", payment_purchase_account_transactions_path(current_account, { parent_id: nil, person_id: @supplier.id })
 
       .pull-right style="margin: 10px 5px;"
         = select_tag "product_type", options_for_select(Product.product_types.keys.map {|key| [key.humanize,key]}), class: "form-control", style: "width: 150px;"

@@ -1,21 +1,21 @@
 - content_for :content_header do
   .page-title
     .title_left
-      h3 Payment
+      h3 Payment Purchase
 
     .title_right
-      = link_to "Cancel", sales_account_transactions_path(current_account), class: "btn btn-default pull-right"
+      = link_to "Cancel", purchases_account_transactions_path(current_account), class: "btn btn-default pull-right"
 
 - content_for :content do
   .row
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          = form_for @transaction, url: payment_receive_account_transactions_path(current_account), html: { id: 'form-transaction', class: 'form-payment', data: { payment: "invoice" } } do |f|
+          = form_for @transaction, url: payment_receive_account_transactions_path(current_account), html: { id: 'form-transaction', class: 'form-payment', data: { payment: "purchase" } } do |f|
             .row
               .col-md-4.form-group
-                label.control-label Customer
-                = f.select :person_id, options_for_select(current_account.customers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control", id: "customer_id" }
+                label.control-label Supplier
+                = f.select :person_id, options_for_select(current_account.suppliers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a supplier" }, { class: "form-control", id: "supplier_id" }
 
               .col-md-4.form-group
                 label.control-label Payment date
@@ -47,7 +47,7 @@
 
             .row
               .col-md-6
-                = f.hidden_field :transaction_type, value: Transaction::TransactionTypes[1]
+                = f.hidden_field :transaction_type, value: Transaction::TransactionTypes[3]
                 = f.hidden_field :parent_id, value: params[:parent_id]
 
               .col-md-6

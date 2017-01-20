@@ -1,7 +1,7 @@
 - content_for :content_header do
   .page-title
     .title_left
-      h3 Purchase
+      h3 Purchase Order
 
     .title_right
       = link_to "Cancel", purchases_account_transactions_path(current_account), class: "btn btn-default pull-right"
@@ -11,7 +11,7 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          = form_for @transaction, url: purchased_account_transactions_path(current_account), html: { id: 'form-transaction' } do |f|
+          = form_for @transaction, url: account_transactions_path(current_account), html: { id: 'form-transaction' } do |f|
             .row
               .col-md-4.form-group
                 label.control-label Supplier

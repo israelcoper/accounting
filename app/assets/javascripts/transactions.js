@@ -110,8 +110,14 @@ function dateFormat(date,format) {
 }
 
 function appendOptionToSelectInvoiceNumber(account_id, person_id) {
+  var resource = "customers";
+
+  if ($("form.form-payment").data("payment") == "purchase") {
+    resource = "suppliers";
+  }
+
   $.ajax({
-    url: ["/accounts", account_id, "customers", person_id, "transactions.json"].join("/"),
+    url: ["/accounts", account_id, resource, person_id, "transactions.json"].join("/"),
     data: {},
     success: function(data) {
       $("select#invoice_number").append("<option></option>");

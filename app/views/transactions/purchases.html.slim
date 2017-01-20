@@ -11,7 +11,7 @@
           span class="caret"
         ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
           li= link_to "Purchase Order", purchase_account_transactions_path(current_account, { product_type: "rice" }), id: "purchase"
-          li= link_to "Order Payment", "javascript:;"
+          li= link_to "Purchase Payment", payment_purchase_account_transactions_path(current_account)
 
       .pull-right style="margin: 10px 5px;"
         = select_tag "product_type", options_for_select(Product.product_types.keys.map {|key| [key.humanize,key]}), class: "form-control", style: "width: 150px;"
@@ -25,14 +25,14 @@
             thead
               tr
                 th Date
-                th Type
+                th style="width: 15%;" Type
                 th No.
-                th Supplier
+                th style="width: 15%;" Supplier
                 th Due Date
                 th Balance
-                th Total
+                th style="widht: 15%;" Total
                 th Status
-                th.action style="width: 15%;" Actions
+                th.action Actions
             tbody
               = render partial: 'purchase'
 

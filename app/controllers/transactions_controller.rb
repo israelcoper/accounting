@@ -1,4 +1,3 @@
-## TODO REFACTOR
 class TransactionsController < ApplicationController
 
   def show
@@ -12,24 +11,38 @@ class TransactionsController < ApplicationController
     @sales = current_account.transactions.sales.page(page)
   end
 
+  def purchases
+    @purchases = current_account.transactions.purchases.page(page)
+  end
+
   def invoice
+    @transaction = Transaction.new
+  end
+
+  def purchase
     @transaction = Transaction.new
   end
 
   def create
     @transaction = Transaction.new transaction_params.merge(account: current_account)
 
+    options = if @transaction.transaction_type == Transaction::TransactionTypes[0]
+                { render: :invoice, redirect: sales_account_transactions_path(current_account) }
+              else
+                { render: :purchase, redirect: purchases_account_transactions_path(current_account) }
+              end
+
     unless @transaction.items.present?
       flash[:error] = "You must select an item"
-      render :invoice and return
+      render options[:render] and return
     end
 
     if @transaction.save
-      @transaction.add_balance_to_customer
+      @transaction.add_balance_to_person
       flash[:notice] = "Transaction was successfully created"
-      redirect_to sales_account_transactions_path(current_account)
+      redirect_to options[:redirect]
     else
-      render :invoice
+      render options[:render]
     end
   end
 
@@ -37,45 +50,30 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
   end
 
-  def payment_receive
-    @transaction = Transaction.new transaction_params.merge(account: current_account)
-
-    if @transaction.payment.blank? || !(@transaction.payment > 0)
-      flash[:error] = "You must select an invoice number and enter payment amount"
-      render :payment and return
-    end
-
-    if @transaction.save
-      @transaction.deduct_balance_of_customer
-      flash[:notice] = "Payment was successfull created"
-      redirect_to sales_account_transactions_path(current_account)
-    else
-      render :payment
-    end
-  end
-
-  def purchases
-    @purchases = current_account.transactions.purchases.page(page)
-  end
-
-  def purchase
+  def payment_purchase
     @transaction = Transaction.new
   end
 
-  def purchased
+  def payment_receive
     @transaction = Transaction.new transaction_params.merge(account: current_account)
 
-    unless @transaction.items.present?
-      flash[:error] = "You must select an item"
-      render :purchase and return
+    options = if @transaction.transaction_type == Transaction::TransactionTypes[1]
+                { render: :payment, redirect: sales_account_transactions_path(current_account) }
+              else
+                { render: :payment_purchase, redirect: purchases_account_transactions_path(current_account) }
+              end
+
+    if @transaction.payment.blank? || !(@transaction.payment > 0)
+      flash[:error] = "You must select an invoice number and enter payment amount"
+      render options[:render] and return
     end
 
     if @transaction.save
-      @transaction.add_balance_to_supplier
-      flash[:notice] = "Transaction was successfully created"
-      redirect_to purchases_account_transactions_path(current_account)
+      @transaction.deduct_balance_of_person
+      flash[:notice] = "Payment was successfull created"
+      redirect_to options[:redirect]
     else
-      render :purchase
+      render options[:render]
     end
   end
 
