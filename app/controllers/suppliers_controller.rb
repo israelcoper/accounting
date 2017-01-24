@@ -6,6 +6,13 @@ class SuppliersController < ApplicationController
     if params[:search].present?
       @suppliers = current_account.suppliers.search(params[:search]).page(page)
     end
+    type = Transaction::TransactionTypes[2]
+    @transactions_summary = {
+      overdue: Transaction.overdue(type),
+      unpaid_purchase: Transaction.open_invoice(type),
+      partial: Transaction.partial(type),
+      paid_last_30_days: Transaction.paid_last_30_days(type)
+    }
   end
 
   def show

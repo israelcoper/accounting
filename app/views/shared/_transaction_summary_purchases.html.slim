@@ -1,0 +1,21 @@
+.row#transaction_overview
+  .col-sm-3#overdue
+    span.amount= number_to_currency total_balance(@transactions_summary[:overdue]), unit: "PHP" 
+    br
+    span.count= "#{@transactions_summary[:overdue].count} OVERDUE"
+  .col-sm-3#open
+    span.amount= number_to_currency total_balance(@transactions_summary[:unpaid_purchase]), unit: "PHP"
+    br
+    span.count= "#{@transactions_summary[:unpaid_purchase].count} UNPAID PURCHASE"
+  .col-sm-3#partial
+    span.amount= number_to_currency total_balance(@transactions_summary[:partial]), unit: "PHP"
+    br
+    span.count= "#{@transactions_summary[:partial].count} PARTIAL"
+  .col-sm-3#paid
+    span.amount= number_to_currency total_paid(@transactions_summary[:paid_last_30_days]), unit: "PHP"
+    br
+    span.count= "#{@transactions_summary[:paid_last_30_days].count} PAID LAST 30 DAYS"
+
+.ln_solid
+
+

@@ -66,4 +66,12 @@ module TransactionsHelper
     end
   end
 
+  def total_balance(transactions)
+    transactions.inject(0) {|result,t| result += t.balance}
+  end
+
+  def total_paid(transactions)
+    transactions.inject(0) {|result,t| result += t.total}
+  end
+
 end

@@ -6,6 +6,13 @@ class CustomersController < ApplicationController
     if params[:search].present?
       @customers = current_account.customers.search(params[:search]).page(page)
     end
+    type = Transaction::TransactionTypes[0]
+    @transactions_summary = {
+      overdue: Transaction.overdue(type),
+      open_invoice: Transaction.open_invoice(type),
+      partial: Transaction.partial(type),
+      paid_last_30_days: Transaction.paid_last_30_days(type)
+    }
   end
 
   def show

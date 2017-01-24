@@ -17,10 +17,10 @@ class Transaction < ActiveRecord::Base
   scope :purchases, -> { where(transaction_type: TransactionTypes.values_at(2,3)) }
   scope :purchase_order, -> { where(transaction_type: TransactionTypes[2], status: [Status[0], Status[2]]) }
 
-  scope :sales_overdue, -> { where("transaction_type = ? AND due_date <= ? AND balance != ?", TransactionTypes[0], Time.now, 0.0) }
-  scope :open_invoice, -> { where(transaction_type: TransactionTypes[0], status: Status[0]) }
-  scope :partial, -> { where(transaction_type: TransactionTypes[0], status: Status[2]) }
-  scope :paid_last_30_days, -> { where("transaction_type = ? AND status = ? AND updated_at > ?", TransactionTypes[0], Status[3], 30.days.ago) }
+  scope :overdue, ->(type) { where("transaction_type = ? AND due_date <= ? AND balance != ?", type, Time.now, 0.0) }
+  scope :open_invoice, ->(type) { where(transaction_type: type, status: Status[0]) }
+  scope :partial, ->(type) { where(transaction_type: type, status: Status[2]) }
+  scope :paid_last_30_days, ->(type) { where("transaction_type = ? AND status = ? AND updated_at > ?", type, Status[3], 30.days.ago) }
 
   before_save :set_status, if: proc {|t| t.new_record? }
   before_save :set_total_of_payment_transaction, if: proc {|t| t.transaction_type == TransactionTypes[1]}
@@ -36,24 +36,6 @@ class Transaction < ActiveRecord::Base
   validates :balance, numericality: true, allow_blank: true
 
   paginates_per 10
-
-  class << self
-    def total_overdue
-      sales_overdue.inject(0) {|result,t| result += t.balance}
-    end
-
-    def total_open_invoice
-      open_invoice.inject(0) {|result,t| result += t.balance}
-    end
-
-    def total_partial
-      partial.inject(0) {|result,t| result += t.balance}
-    end
-
-    def total_paid_last_30_days
-      paid_last_30_days.inject(0) {|result,t| result += t.total}
-    end
-  end
 
   def add_balance_to_person
     self.person.balance += balance

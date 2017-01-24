@@ -11,6 +11,7 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
+          = render partial: "shared/transaction_summary_purchases"
           .col-md-5.col-sm-5.col-xs-12.pull-right style="padding-right: 0;"
             = form_tag account_suppliers_path(current_account), method: "GET" do
               .input-group

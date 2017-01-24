@@ -9,10 +9,24 @@ class TransactionsController < ApplicationController
 
   def sales
     @sales = current_account.transactions.sales.page(page)
+    type = Transaction::TransactionTypes[0]
+    @transactions_summary = {
+      overdue: Transaction.overdue(type),
+      open_invoice: Transaction.open_invoice(type),
+      partial: Transaction.partial(type),
+      paid_last_30_days: Transaction.paid_last_30_days(type)
+    }
   end
 
   def purchases
     @purchases = current_account.transactions.purchases.page(page)
+    type = Transaction::TransactionTypes[2]
+    @transactions_summary = {
+      overdue: Transaction.overdue(type),
+      unpaid_purchase: Transaction.open_invoice(type),
+      partial: Transaction.partial(type),
+      paid_last_30_days: Transaction.paid_last_30_days(type)
+    }
   end
 
   def invoice

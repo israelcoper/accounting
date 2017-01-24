@@ -11,26 +11,7 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          .row#transaction_overview
-            .col-sm-3#overdue
-              span.amount= number_to_currency Transaction.total_overdue, unit: "PHP" 
-              br
-              span.count= "#{Transaction.sales_overdue.count} OVERDUE"
-            .col-sm-3#open
-              span.amount= number_to_currency Transaction.total_open_invoice, unit: "PHP"
-              br
-              span.count= "#{Transaction.open_invoice.count} OPEN INVOICE"
-            .col-sm-3#partial
-              span.amount= number_to_currency Transaction.total_partial, unit: "PHP"
-              br
-              span.count= "#{Transaction.partial.count} PARTIAL"
-            .col-sm-3#paid
-              span.amount= number_to_currency Transaction.total_paid_last_30_days, unit: "PHP"
-              br
-              span.count= "#{Transaction.paid_last_30_days.count} PAID LAST 30 DAYS"
- 
-          .ln_solid
-
+          = render partial: "shared/transaction_summary_sales"
           .col-md-5.col-sm-5.col-xs-12.pull-right style="padding-right: 0;"
             = form_tag account_customers_path(current_account), method: "GET" do
               .input-group
