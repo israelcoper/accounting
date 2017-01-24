@@ -36,7 +36,7 @@ forms.validate_transaction = (function() {
                     transaction_date = new Date($('#transaction_transaction_date').val());
                     due_date = new Date($('#transaction_due_date').val());
 
-                    return (due_date > transaction_date) ? true : false 
+                    return (due_date >= transaction_date) ? true : false 
                   }
                 }
               }

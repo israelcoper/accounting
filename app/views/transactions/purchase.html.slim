@@ -18,8 +18,8 @@
                 = f.select :person_id, options_for_select(current_account.suppliers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a supplier" }, { class: "form-control", id: "supplier_id" }
 
               .col-md-4.form-group
-                label.control-label Invoice date
-                = f.text_field :transaction_date, class: "form-control", placeholder: "Invoice date"
+                label.control-label Purchase date
+                = f.text_field :transaction_date, class: "form-control", placeholder: "Purchase date"
 
               .col-md-4.form-group
                 label.control-label Due date
