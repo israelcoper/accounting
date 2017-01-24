@@ -45,11 +45,11 @@ class Transaction < ActiveRecord::Base
   protected
 
   def generate_sal_invoice_number
-    self.transaction_number = ["SAL" , SecureRandom.hex(4).upcase].join("_")
+    self.transaction_number = ["SAL" , SecureRandom.hex(4).upcase].join
   end
 
   def generate_pur_invoice_number
-    self.transaction_number = ["PUR" , SecureRandom.hex(4).upcase].join("_")
+    self.transaction_number = ["PUR" , SecureRandom.hex(4).upcase].join
   end
 
   def set_status
