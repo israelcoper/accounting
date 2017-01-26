@@ -50,7 +50,7 @@
                             th Total
                             th Status
                             th.action style="width: 20%; text-align: right;" Action
-                        tbody
+                        tbody#transactions
                           - @transactions.each do |t|
                             tr
                               td= format_date(t.transaction_date)

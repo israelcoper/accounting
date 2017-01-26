@@ -44,3 +44,7 @@ body .container {
   text-align: right;
   width: 15%;
 }
+
+#transactions {
+  font-size: 13px;
+}

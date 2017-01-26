@@ -49,7 +49,7 @@
                             th Total
                             th Status
                             th.action Action
-                        tbody
+                        tbody#transactions
                           - @transactions.each do |t|
                             tr
                               td= format_date(t.transaction_date)
