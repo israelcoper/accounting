@@ -2,10 +2,6 @@ class CustomersController < ApplicationController
   before_action :find_customer, only: [:show, :edit, :update, :destroy, :transactions]
 
   def index
-    @customers = current_account.customers.page(page)
-    if params[:search].present?
-      @customers = current_account.customers.search(params[:search]).page(page)
-    end
     type = Transaction::TransactionTypes[0]
     @transactions_summary = {
       overdue: Transaction.overdue(type),
@@ -13,10 +9,15 @@ class CustomersController < ApplicationController
       partial: Transaction.partial(type),
       paid_last_30_days: Transaction.paid_last_30_days(type)
     }
+
+    @customers = current_account.customers.page(page)
+    if params[:search].present?
+      @customers = current_account.customers.search(params[:search]).page(page)
+    end
   end
 
   def show
-    @transactions = @customer.transactions.page(page)
+    @transactions = @customer.transactions.sales(transaction_filter).page(page)
   end
 
   def new

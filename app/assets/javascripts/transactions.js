@@ -80,6 +80,13 @@ $(document).on('turbolinks:load', function(e) {
     }
   });
 
+  $("select#filter").on("change", function(e) {
+    var filter = $(this).val();
+    var url = window.location.href;
+    url = url.split("?")[0] + "?filter=" + filter;
+    window.location.href = url;
+  });
+
 });
 
 function dateFormat(date,format) {

@@ -2,10 +2,6 @@ class SuppliersController < ApplicationController
   before_action :find_supplier, only: [:show, :edit, :update, :destroy, :transactions]
 
   def index
-    @suppliers = current_account.suppliers.page(page)
-    if params[:search].present?
-      @suppliers = current_account.suppliers.search(params[:search]).page(page)
-    end
     type = Transaction::TransactionTypes[2]
     @transactions_summary = {
       overdue: Transaction.overdue(type),
@@ -13,10 +9,15 @@ class SuppliersController < ApplicationController
       partial: Transaction.partial(type),
       paid_last_30_days: Transaction.paid_last_30_days(type)
     }
+
+    @suppliers = current_account.suppliers.page(page)
+    if params[:search].present?
+      @suppliers = current_account.suppliers.search(params[:search]).page(page)
+    end
   end
 
   def show
-    @transactions = @supplier.transactions.page(page)
+    @transactions = @supplier.transactions.purchases(transaction_filter).page(page)
   end
 
   def new

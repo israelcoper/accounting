@@ -1,0 +1,6 @@
+.row
+  .col-sm-12
+    .pull-right
+      = select_tag "filter", options_for_select(["All"] + Transaction::Status, selected: params[:filter]), class: "form-control"
+
+

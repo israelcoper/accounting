@@ -8,7 +8,6 @@ class TransactionsController < ApplicationController
   end
 
   def sales
-    @sales = current_account.transactions.sales.page(page)
     type = Transaction::TransactionTypes[0]
     @transactions_summary = {
       overdue: Transaction.overdue(type),
@@ -16,10 +15,10 @@ class TransactionsController < ApplicationController
       partial: Transaction.partial(type),
       paid_last_30_days: Transaction.paid_last_30_days(type)
     }
+    @sales = current_account.transactions.sales(transaction_filter).page(page)
   end
 
   def purchases
-    @purchases = current_account.transactions.purchases.page(page)
     type = Transaction::TransactionTypes[2]
     @transactions_summary = {
       overdue: Transaction.overdue(type),
@@ -27,6 +26,7 @@ class TransactionsController < ApplicationController
       partial: Transaction.partial(type),
       paid_last_30_days: Transaction.paid_last_30_days(type)
     }
+    @purchases = current_account.transactions.purchases(transaction_filter).page(page)
   end
 
   def invoice

@@ -44,6 +44,14 @@ class ApplicationController < ActionController::Base
       params[:page] ||= 1
     end
 
+    def transaction_filter
+      if params[:filter].present?
+        params[:filter].eql?("All") ? Transaction::Status : params[:filter]
+      else
+        Transaction::Status
+      end
+    end
+
   private
 
     def user_not_authorized
