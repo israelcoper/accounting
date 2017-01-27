@@ -22,6 +22,8 @@
 //= require select2
 //= require bootstrap-datepicker
 //= require handlebars.runtime
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require custom
 //= require_tree ./forms
 //= require_tree ./templates

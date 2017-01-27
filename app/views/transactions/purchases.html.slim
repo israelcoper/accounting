@@ -22,22 +22,17 @@
       .x_panel
         .x_content
           = render partial: "shared/transaction_summary_purchases"
-          = render partial: "shared/transaction_filter"
-          table.table.table-striped
+          table.table.table-striped#table-transactions data-source="#{purchases_account_transactions_path(current_account, { format: :json })}"
             thead
               tr
                 th Date
                 th Type
-                th Transaction No.
+                th Transaction #
                 th Supplier
-                th Due Date
+                th Due
                 th Balance
                 th Total
                 th Status
                 th.action Actions
             tbody#transactions
-              = render partial: 'purchase'
-
-          .pull-right
-            = paginate @purchases, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
 

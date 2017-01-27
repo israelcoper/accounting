@@ -17,7 +17,10 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @transactions = @customer.transactions.sales(transaction_filter).page(page)
+    respond_to do |format|
+      format.html
+      format.json { render json: CustomerTransactionsDatatable.new(view_context, {customer: @customer}) }
+    end
   end
 
   def new

@@ -17,7 +17,10 @@ class SuppliersController < ApplicationController
   end
 
   def show
-    @transactions = @supplier.transactions.purchases(transaction_filter).page(page)
+    respond_to do |format|
+      format.html
+      format.json { render json: SupplierTransactionsDatatable.new(view_context, {supplier: @supplier}) }
+    end
   end
 
   def new

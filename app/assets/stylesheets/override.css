@@ -45,6 +45,11 @@ body .container {
   width: 15%;
 }
 
-#transactions {
-  font-size: 13px;
+#table-transactions thead tr th {
+  font-size: 12px;
 }
+
+tbody#transactions {
+  font-size: 12px;
+}
+

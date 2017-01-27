@@ -37,32 +37,18 @@
                 div role="tabpanel" class="tab-pane fade active in" id="transaction"
                   .row
                     .col-xs-12
-                      = render partial: "shared/transaction_filter"
-                      table.table.table-striped
+                      table.table.table-striped#table-person-transactions data-source="#{account_customer_path(current_account, @customer.id, { format: :json })}"
                         thead
                           tr
                             th Date
                             th Type
-                            th Transaction No.
+                            th Transaction #
                             th Due Date
                             th Balance
                             th Total
                             th Status
                             th.action Action
                         tbody#transactions
-                          - @transactions.each do |t|
-                            tr
-                              td= format_date(t.transaction_date)
-                              td= t.transaction_type
-                              td= t.transaction_number
-                              td= format_date(t.due_date)
-                              td= number_to_currency(t.balance, unit: "PHP")
-                              td= number_to_currency(t.total, unit: "PHP")
-                              td= transaction_status(t.status)
-                              td.action= sales_action(t.status, parent_id: t.id, person_id: @customer.id)
-
-                      .pull-right
-                        = paginate @transactions, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-sm'
 
                 div role="tabpanel" class="tab-pane fade" id="profile"
                   .row

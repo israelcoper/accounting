@@ -11,10 +11,10 @@ class Transaction < ActiveRecord::Base
 
   accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["quantity"].blank? }
 
-  default_scope { order(transaction_date: "ASC") }
-  scope :sales, ->(filter) { where(transaction_type: TransactionTypes.values_at(0,1), status: filter) }
+  # default_scope { order(transaction_date: "ASC") }
+  scope :sales, -> { where(transaction_type: TransactionTypes.values_at(0,1)) }
   scope :invoice, -> { where(transaction_type: TransactionTypes[0], status: [Status[0], Status[2]]) }
-  scope :purchases, ->(filter) { where(transaction_type: TransactionTypes.values_at(2,3), status: filter) }
+  scope :purchases, -> { where(transaction_type: TransactionTypes.values_at(2,3)) }
   scope :purchase_order, -> { where(transaction_type: TransactionTypes[2], status: [Status[0], Status[2]]) }
 
   scope :overdue, ->(type) { where("transaction_type = ? AND due_date <= ? AND balance != ?", type, Time.now, 0.0) }
@@ -36,6 +36,8 @@ class Transaction < ActiveRecord::Base
   validates :balance, numericality: true, allow_blank: true
 
   paginates_per 10
+
+  # pg_search_scope :search, against: [:transaction_type, :transaction_number], associated_against: { person: [:first_name, :last_name] }, using: { tsearch: {prefix: true} }
 
   def add_balance_to_person
     self.person.balance += balance

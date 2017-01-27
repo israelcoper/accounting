@@ -1,4 +1,6 @@
 $(document).on('turbolinks:load', function(e) {
+  // datatable
+  forms.datatable.init();
 
   // append item
   forms.append_item.init();

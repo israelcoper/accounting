@@ -15,7 +15,11 @@ class TransactionsController < ApplicationController
       partial: Transaction.partial(type),
       paid_last_30_days: Transaction.paid_last_30_days(type)
     }
-    @sales = current_account.transactions.sales(transaction_filter).page(page)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: SalesDatatable.new(view_context, {current_account: current_account}) }
+    end
   end
 
   def purchases
@@ -26,7 +30,11 @@ class TransactionsController < ApplicationController
       partial: Transaction.partial(type),
       paid_last_30_days: Transaction.paid_last_30_days(type)
     }
-    @purchases = current_account.transactions.purchases(transaction_filter).page(page)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: PurchaseDatatable.new(view_context, {current_account: current_account}) }
+    end
   end
 
   def invoice
