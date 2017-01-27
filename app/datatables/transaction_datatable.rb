@@ -15,6 +15,7 @@ class TransactionDatatable < AjaxDatatablesRails::Base
     @searchable_columns ||= [
       'Transaction.transaction_type',
       'Transaction.transaction_number',
+      'Transaction.status',
       'Person.first_name',
       'Person.last_name'
     ]
