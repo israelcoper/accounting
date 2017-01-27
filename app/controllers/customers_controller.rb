@@ -4,10 +4,10 @@ class CustomersController < ApplicationController
   def index
     type = Transaction::TransactionTypes[0]
     @transactions_summary = {
-      overdue: Transaction.overdue(type),
-      open_invoice: Transaction.open_invoice(type),
-      partial: Transaction.partial(type),
-      paid_last_30_days: Transaction.paid_last_30_days(type)
+      overdue: current_account.transactions.overdue(type),
+      open_invoice: current_account.transactions.open_invoice(type),
+      partial: current_account.transactions.partial(type),
+      paid_last_30_days: current_account.transactions.paid_last_30_days(type)
     }
 
     @customers = current_account.customers.page(page)

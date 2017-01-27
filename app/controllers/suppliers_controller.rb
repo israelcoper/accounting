@@ -4,10 +4,10 @@ class SuppliersController < ApplicationController
   def index
     type = Transaction::TransactionTypes[2]
     @transactions_summary = {
-      overdue: Transaction.overdue(type),
-      unpaid_purchase: Transaction.open_invoice(type),
-      partial: Transaction.partial(type),
-      paid_last_30_days: Transaction.paid_last_30_days(type)
+      overdue: current_account.transactions.overdue(type),
+      unpaid_purchase: current_account.transactions.open_invoice(type),
+      partial: current_account.transactions.partial(type),
+      paid_last_30_days: current_account.transactions.paid_last_30_days(type)
     }
 
     @suppliers = current_account.suppliers.page(page)
