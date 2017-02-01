@@ -4,7 +4,6 @@
       h3 Purchase Order
 
     .title_right
-      = link_to "Cancel", purchases_account_transactions_path(current_account), class: "btn btn-default pull-right"
   
 - content_for :content do
   .row
@@ -62,5 +61,6 @@
             .row
               .col-md-12
                 .pull-right
+                  = link_to "Cancel", purchases_account_transactions_path(current_account), class: "btn btn-default"
                   = f.submit "Save", class: "btn btn-primary"
 
