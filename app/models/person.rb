@@ -15,7 +15,7 @@ class Person < ActiveRecord::Base
   belongs_to :account
   has_many :transactions
 
-  validates :first_name, :last_name, :phone, presence: true
+  validates :first_name, :last_name, presence: true
   # Change uniqueness validation
   validates :first_name, :last_name, uniqueness: { scope: [:account_id, :person_type] }
 

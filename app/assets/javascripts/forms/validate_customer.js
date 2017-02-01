@@ -27,13 +27,6 @@ forms.validate_customer = (function() {
                   message: 'The last name is required'
                 }
               }
-            },
-            'person[phone]': {
-              validators: {
-                notEmpty: {
-                  message: 'The phone is required'
-                }
-              }
             }
           }
         }).on('success.form.bv', function(e) {
