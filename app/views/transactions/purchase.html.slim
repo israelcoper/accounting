@@ -14,7 +14,7 @@
             .row
               .col-md-4.form-group
                 label.control-label Supplier
-                = f.select :person_id, options_for_select(current_account.suppliers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a supplier" }, { class: "form-control", id: "supplier_id" }
+                = f.select :person_id, options_for_select(option_suppliers, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control", id: "supplier_id" }
 
               .col-md-4.form-group
                 label.control-label Purchase date
@@ -64,3 +64,16 @@
                   = link_to "Cancel", purchases_account_transactions_path(current_account), class: "btn btn-default"
                   = f.submit "Save", class: "btn btn-primary"
 
+  div id="my_modal" class="modal fade" tabindex="-1" role="dialog"
+    div class="modal-dialog modal-lg" role="document"
+      .modal-content
+        = form_for @supplier, url: account_suppliers_path(current_account, @supplier), html: { id: "form-supplier", class: "form-horizontal form-label-left" } do |f|
+          .modal-header
+            button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              span aria-hidden="true" &times;
+            h4.modal-title Add supplier
+          .modal-body
+            = render partial: 'suppliers/form', locals: { f: f }
+          .modal-footer
+            button type="button" class="btn btn-default" data-dismiss="modal" Close
+            = f.submit "Submit", class: "btn btn-primary"

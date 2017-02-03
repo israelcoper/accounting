@@ -31,7 +31,7 @@ class SuppliersController < ApplicationController
     @supplier = Person.new(supplier_params.merge(account: current_account, person_type: Person.person_types["supplier"]))
     if @supplier.save
       flash[:notice] = "#{@supplier.full_name} was successfully created"
-      redirect_to account_suppliers_path(current_account)
+      redirect_to request.referrer
     else
       render :new
     end

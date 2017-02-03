@@ -81,6 +81,7 @@ RSpec.describe CustomersController, type: :controller do
     describe "customers#create" do
       context "with valid attributes" do
         before :each do
+          @request.env['HTTP_REFERER'] = account_customers_path(user.account_id)
           post :create, { account_id: user.account_id, person: attributes_for(:customer) }
         end
 

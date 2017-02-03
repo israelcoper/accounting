@@ -39,10 +39,12 @@ class TransactionsController < ApplicationController
 
   def invoice
     @transaction = Transaction.new
+    @customer = Person.new
   end
 
   def purchase
     @transaction = Transaction.new
+    @supplier = Person.new
   end
 
   def create

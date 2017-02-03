@@ -10,3 +10,10 @@
         .x_content
           = form_for @supplier, url: account_supplier_path(current_account, @supplier), html: { id: "form-supplier", class: "form-horizontal form-label-left" } do |f|
             = render partial: 'form', locals: { f: f }
+
+            .ln_solid
+            
+            .form-group.pull-right style="padding-right: 10px;"
+              = link_to "Cancel", account_suppliers_path, class: "btn btn-default"
+              = f.submit "Submit", class: "btn btn-primary"
+

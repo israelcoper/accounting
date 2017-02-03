@@ -74,4 +74,12 @@ module TransactionsHelper
     transactions.inject(0) {|result,t| result += t.total}
   end
 
+  def option_customers
+    current_account.customers.map {|person| [person.full_name, person.id]}.push ["---- Add customer ----", "new"]
+  end
+
+  def option_suppliers
+    current_account.suppliers.map {|person| [person.full_name, person.id]}.push ["---- Add supplier ----", "new"]
+  end
+
 end

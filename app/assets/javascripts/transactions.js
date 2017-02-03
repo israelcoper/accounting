@@ -48,6 +48,17 @@ $(document).on('turbolinks:load', function(e) {
     });
   });
 
+  // modal
+  $("select#customer_id, select#supplier_id").on("select2:select", function(e) {
+    if ($(this).val() == "new") {
+      $(this).val("").trigger("change");
+      $(this).parent().removeClass("has-error");
+      $(this).parent().find(".help-block").css("display", "none");
+      $("#form-transaction input[type='submit']").removeAttr('disabled');
+      $("#my_modal").modal();
+    }
+  });
+
   // datepicker
   $("input#transaction_transaction_date").datepicker({
     format: "yyyy-mm-dd",

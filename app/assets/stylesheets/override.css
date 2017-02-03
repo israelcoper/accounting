@@ -4,6 +4,10 @@ body .container {
   padding-right: 0;
 }
 
+.left_col {
+  z-index: 0 !important;
+}
+
 .login_content form input[type="submit"], #content form .submit {
   float: none !important;
   margin-left: 0 !important;
@@ -53,3 +57,22 @@ tbody#transactions {
   font-size: 12px;
 }
 
+.modal-lg {
+  width: 1100px !important;
+}
+
+.modal-header {
+  background-color: #2A3F54;
+  color: #FFFFFF;
+}
+
+.modal-header button span {
+  color: #FFFFFF;
+}
+
+ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
+  background-color: gray;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+}

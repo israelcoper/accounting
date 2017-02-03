@@ -31,7 +31,7 @@ class CustomersController < ApplicationController
     @customer = Person.new(customer_params.merge(account: current_account, person_type: Person.person_types["customer"]))
     if @customer.save
       flash[:notice] = "#{@customer.full_name} was successfully created"
-      redirect_to account_customers_path(current_account)
+      redirect_to request.referrer
     else
       render :new
     end
