@@ -63,6 +63,13 @@ forms.validate_product = (function() {
                   message: 'Please enter a valid integer'
                 }
               }
+            },
+            'product[unit]': {
+              validators: {
+                notEmpty: {
+                  message: 'The unit is required'
+                }
+              }
             }
           }
         }).on('success.form.bv', function(e) {

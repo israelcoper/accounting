@@ -31,6 +31,10 @@ $(document).on('turbolinks:load', function(e) {
     {
       'selector': 'select#invoice_number',
       'placeholder': 'Select invoice number'
+    },
+    {
+      'selector': 'select#product_unit',
+      'placeholder': 'Select unit'
     }
   ];
 

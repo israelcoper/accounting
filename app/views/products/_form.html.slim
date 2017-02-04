@@ -8,39 +8,46 @@
       - @product.errors.full_messages.each do |message|
         li= message
 
-.form-group
-  label.control-label.col-md-3.col-sm-3.col-xs-12
-    | Name
-    | &nbsp;
-    span.required *
-  .col-md-6.col-sm-6.col-xs-12
-    = f.text_field :name, class: "form-control col-md-7 col-xs-12"
+.row
+  .col-md-12
+    .form-group
+      label.control-label.col-md-2.col-sm-2.col-xs-12 Name *
+      .col-md-10.col-sm-10.col-xs-12
+        = f.text_field :name, class: "form-control"
 
-.form-group
-  label.control-label.col-md-3.col-sm-3.col-xs-12
-    | Description
-    | &nbsp;
-    span.required
-  .col-md-6.col-sm-6.col-xs-12
-    = f.text_area :description, class: "form-control col-md-7 col-xs-12"
+br
+
+.row
+  .col-md-12
+    .form-group
+      label.control-label.col-md-2.col-sm-2.col-xs-12 Description
+      .col-md-10.col-sm-10.col-xs-12
+        = f.text_area :description, class: "form-control"
+
+br
 
 = render partial: "form_cost", locals: { f: f }
 
-.form-group
-  label.control-label.col-md-3.col-sm-3.col-xs-12 Purchasing Price *
-  .col-md-6.col-sm-6.col-xs-12
-    = f.text_field :purchasing_price, class: "form-control"
+.ln_solid
 
-.form-group
-  label.control-label.col-md-3.col-sm-3.col-xs-12 Selling Price *
+.row
   .col-md-6.col-sm-6.col-xs-12
-    = f.text_field :selling_price, class: "form-control"
+    .form-group
+      label. Purchasing Price *
+      = f.text_field :purchasing_price, class: "form-control"
 
-= render partial: "form_quantity", locals: { f: f }
+  .col-md-6.col-sm-6.col-xs-12
+    .form-group
+      label.control-label Selling Price *
+      = f.text_field :selling_price, class: "form-control"
+
+.ln_solid
+
+= render partial: "form_quantity_unit", locals: { f: f }
 
 .ln_solid
 
 .form-group
-  .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
-    = link_to "Cancel", account_products_path(current_account), class: "btn btn-default"
-    = f.submit "Submit", class: "btn btn-primary"
+  .col-md-12.col-sm-12.col-xs-12
+    = f.submit "Submit", class: "btn btn-primary pull-right"
+    = link_to "Cancel", account_products_path(current_account), class: "btn btn-default pull-right"

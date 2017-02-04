@@ -8,6 +8,9 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          = form_for @product, url: account_product_path(current_account, @product), html: { id: "form-product", class: "form-horizontal form-label-left" } do |f|
-            = render partial: 'form', locals: { f: f }
+          .col-md-2
+          .col-md-8
+            = form_for @product, url: account_product_path(current_account, @product), html: { id: "form-product" } do |f|
+              = render partial: 'form', locals: { f: f }
+          .col-md-2
 
