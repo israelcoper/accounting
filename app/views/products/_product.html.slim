@@ -1,9 +1,8 @@
 tr
   td= link_to product.name, "javascript:;"
-  td= product.product_type.humanize 
   td= number_to_currency(product.cost, unit: "PHP")
   td= number_to_currency(product.income, unit: "PHP")
-  = render partial: product_type(product.product_type), locals: { product: product }
+  td= product.quantity
   td.action
     a href="#{ edit_account_product_path(current_account, product) }" class="btn btn-info btn-xs"
       i class="fa fa-pencil"

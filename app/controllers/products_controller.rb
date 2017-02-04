@@ -43,16 +43,8 @@ class ProductsController < ApplicationController
 
   protected
 
-  # current default product type
-  def product_type(product_type)
-    params[:product_type].present? ? params[:product_type] : product_type
-  end
-  helper_method :product_type
-
   def product_params
-    params.require(:product).permit(:product_type, :name, :description, :cost).tap do |whitelist|
-      whitelist[:fields] = params[:product][:fields]
-    end
+    params.require(:product).permit(:name, :description, :cost, :purchasing_price, :selling_price, :quantity)
   end
 
   def find_product

@@ -66,32 +66,16 @@ RSpec.describe ProductsController, type: :controller do
 
     describe "products#create" do
       context "with valid attributes" do
-        context "rice product" do
-          before :each do
-            post :create, { account_id: user.account_id, product: attributes_for(:rice) }
-          end
-
-          it "creates a new product" do
-            expect(Product.exists?(assigns(:product).id)).to be_truthy
-          end
-
-          it "redirects to the new product" do
-            expect(response).to redirect_to account_products_path(user.account_id)
-          end
+        before :each do
+          post :create, { account_id: user.account_id, product: valid_attributes }
         end
 
-        context "grocery item product" do
-          before :each do
-            post :create, { account_id: user.account_id, product: attributes_for(:grocery_item) }
-          end
+        it "creates a new product" do
+          expect(Product.exists?(assigns(:product).id)).to be_truthy
+        end
 
-          it "creates a new product" do
-            expect(Product.exists?(assigns(:product).id)).to be_truthy
-          end
-
-          it "redirects to the new product" do
-            expect(response).to redirect_to account_products_path(user.account_id)
-          end
+        it "redirects to the new product" do
+          expect(response).to redirect_to account_products_path(user.account_id)
         end
       end
 
@@ -113,7 +97,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "products#update" do
       context "with valid attributes" do
         it "locates the requested product" do
-          product.stub(:update).with(valid_attributes.except!(:product_type).stringify_keys) { true }
+          product.stub(:update).with(valid_attributes.except!(:income).stringify_keys) { true }
           put :update, { account_id: user.account_id, id: product.id, product: valid_attributes }
           expect(assigns(:product)).to eq product
         end
@@ -126,7 +110,7 @@ RSpec.describe ProductsController, type: :controller do
 
       context "with invalid attributes" do
         before :each do
-          product.stub(:update).with(invalid_attributes.stringify_keys) { false }
+          product.stub(:update).with(invalid_attributes.except!(:income).stringify_keys) { false }
           patch :update, { account_id: user.account_id, id: product.id, product: invalid_attributes }
         end
 

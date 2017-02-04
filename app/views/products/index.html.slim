@@ -5,13 +5,7 @@
   
     .title_right
       .dropdown.pull-right
-        button.btn.btn-primary.dropdown-toggle id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-          | Add product
-          | &nbsp;
-          span class="caret"
-        ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
-          li= link_to "Rice", new_account_product_path(current_account, { product_type: "rice" })
-          li= link_to "Grocery items", new_account_product_path(current_account, { product_type: "grocery_item" })
+        = link_to "Add Product", new_account_product_path(current_account), class: "btn btn-primary"
 
 - content_for :content do
   .row
@@ -22,7 +16,6 @@
             thead
               tr
                 th style="width: 30%" Name
-                th Type
                 th Cost
                 th Income
                 th Quantity in hand

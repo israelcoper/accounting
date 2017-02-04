@@ -114,10 +114,4 @@ class TransactionsController < ApplicationController
     )
   end
 
-  # default product type
-  def transaction_product_type
-    params[:product_type].present? ? params[:product_type] : "rice"
-  end
-  helper_method :transaction_product_type
-
 end

@@ -5,14 +5,8 @@ $(document).on('turbolinks:load', function(e) {
   // append item
   forms.append_item.init();
 
-  // append quantity rice || grocery_item (invoice)
-  switch ($("select#product").data("product-type")) {
-    case "grocery_item":
-      forms.append_quantity_grocery.init();
-      break;
-    default:
-      forms.append_quantity_rice.init();
-  }
+  // append quantity (invoice)
+  forms.append_quantity.init();
 
   // append invoice
   forms.append_invoice.init();
@@ -77,28 +71,14 @@ $(document).on('turbolinks:load', function(e) {
     $("#form-transaction").bootstrapValidator('revalidateField', selector.attr('name'));
   });
 
-  // change href of invoice link
-  $("select#product_type").on("change", function(e) {
-    var $invoice = $("a#invoice");
-    var $purchase = $("a#purchase");
-    var product_type = $(this).val();
-    var href;
-
-    if ($invoice.length > 0) {
-      href = $invoice.attr("href").replace(/product_type=.+/, 'product_type='+product_type);
-      $invoice.attr("href", href);
-    } else {
-      href = $purchase.attr("href").replace(/product_type=.+/, 'product_type='+product_type);
-      $purchase.attr("href", href);
-    }
-  });
-
+  /*
   $("select#filter").on("change", function(e) {
     var filter = $(this).val();
     var url = window.location.href;
     url = url.split("?")[0] + "?filter=" + filter;
     window.location.href = url;
   });
+  */
 
 });
 

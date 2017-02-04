@@ -4,69 +4,32 @@ forms.append_item = (function() {
   var attrs = {
     'selector': 'select#product',
     'listing': 'tbody#items',
-    'template_rice': 'items/append_item_rice',
-    'template_grocery': 'items/append_item_grocery'
+    'template': 'items/append_item',
   };
 
   var appendItem = function() {
     $(attrs.selector).on('change', function() {
       var account_id  = $(this).data("accountid");
       var product_id  = $(this).find('option:selected').val();
-      var product_type = $(this).data('product-type');
-      var template;
-
-      switch (product_type) {
-        case "rice":
-          template = attrs.template_rice;
-          break;
-        case "grocery_item":
-          template = attrs.template_grocery;
-          break;
-        default:
-      }
 
       $.ajax({
         url: ["/accounts", account_id, "products", product_id].join("/"),
         data: {},
         success: function(data) {
           var listing = $("input.transaction_item_product_id");
-          var context;
-          var default_fields = {
+          var price = $("form#form-transaction").hasClass("transaction-invoice") ? data.selling_price : data.purchasing_price;
+          var context = {
             id: data.id,
             name: data.name,
-            description: data.description
+            description: data.description,
+            quantity: data.quantity,
+            price: price
           };
-          var dynamic_fields;
-          var price;
 
-          if ($("form#form-transaction").hasClass("transaction-invoice")) {
-            price = data.fields.selling_price;
-          } else {
-            price = data.fields.purchasing_price;
-          }
-
-          switch (product_type) {
-            case "rice":
-              dynamic_fields = {
-                number_of_sack: data.fields.number_of_sack,
-                number_of_kilo: data.fields.number_of_kilo,
-                price_per_kilo: price
-              };
-              break;
-            case "grocery_item":
-              dynamic_fields = {
-                quantity: data.fields.quantity,
-                price: price
-              };
-              break;
-            default:
-          }
-
-          context = $.extend(default_fields, dynamic_fields);
           listing = $.map(listing, function(v,i) { return $(v).val(); });
 
           if ( (product_id != '') && ($.inArray(product_id, listing) === -1) ) {
-            $(attrs.listing).append(HandlebarsTemplates[template](context));
+            $(attrs.listing).append(HandlebarsTemplates[attrs.template](context));
           }
         },
         error: function() {

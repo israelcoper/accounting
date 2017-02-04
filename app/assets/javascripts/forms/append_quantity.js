@@ -1,8 +1,7 @@
-// TODO: REFACTOR
 var forms = forms || {};
 
-forms.append_quantity_grocery = (function() {
-  var appendQuantityGrocery = function() {
+forms.append_quantity = (function() {
+  var appendQuantity = function() {
     $(document).on("keyup keypress", "input[name='transaction[items_attributes][][quantity]']", function(e) {
       var parent = $(this).parent().parent().parent();
       var quantity = $(this).val();
@@ -65,7 +64,7 @@ forms.append_quantity_grocery = (function() {
 
   return {
     init: function() {
-      appendQuantityGrocery();
+      appendQuantity();
     }
   }
 }());

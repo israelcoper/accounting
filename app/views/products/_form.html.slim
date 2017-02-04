@@ -9,9 +9,6 @@
         li= message
 
 .form-group
-  = f.hidden_field :product_type, value: product_type(@product.product_type)
-
-.form-group
   label.control-label.col-md-3.col-sm-3.col-xs-12
     | Name
     | &nbsp;
@@ -28,7 +25,18 @@
     = f.text_area :description, class: "form-control col-md-7 col-xs-12"
 
 = render partial: "form_cost", locals: { f: f }
-= render partial: "form_#{product_type(@product.product_type)}", locals: { f: f }
+
+.form-group
+  label.control-label.col-md-3.col-sm-3.col-xs-12 Purchasing Price *
+  .col-md-6.col-sm-6.col-xs-12
+    = f.text_field :purchasing_price, class: "form-control"
+
+.form-group
+  label.control-label.col-md-3.col-sm-3.col-xs-12 Selling Price *
+  .col-md-6.col-sm-6.col-xs-12
+    = f.text_field :selling_price, class: "form-control"
+
+= render partial: "form_quantity", locals: { f: f }
 
 .ln_solid
 
