@@ -28,7 +28,11 @@ forms.append_item = (function() {
 
           listing = $.map(listing, function(v,i) { return $(v).val(); });
 
-          if ( (product_id != '') && ($.inArray(product_id, listing) === -1) ) {
+          if (product_id == "new") {
+            $("#modal_form_product").modal();
+          }
+
+          if ( (product_id != '') && (product_id != 'new') && ($.inArray(product_id, listing) === -1) ) {
             $(attrs.listing).append(HandlebarsTemplates[attrs.template](context));
           }
         },

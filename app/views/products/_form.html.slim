@@ -26,7 +26,7 @@ br
 
 br
 
-= render partial: "form_cost", locals: { f: f }
+= render partial: "products/form_cost", locals: { f: f }
 
 .ln_solid
 
@@ -43,11 +43,5 @@ br
 
 .ln_solid
 
-= render partial: "form_quantity_unit", locals: { f: f }
+= render partial: "products/form_quantity_unit", locals: { f: f }
 
-.ln_solid
-
-.form-group
-  .col-md-12.col-sm-12.col-xs-12
-    = f.submit "Submit", class: "btn btn-primary pull-right"
-    = link_to "Cancel", account_products_path(current_account), class: "btn btn-default pull-right"

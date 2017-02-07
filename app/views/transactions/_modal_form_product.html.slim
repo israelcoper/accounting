@@ -1,0 +1,15 @@
+div id="modal_form_product" class="modal fade" tabindex="-1" role="dialog"
+  div class="modal-dialog" role="document"
+    .modal-content
+      = form_for @product, url: account_products_path(current_account, @product), html: { id: "form-product" } do |f|
+        .modal-header
+          button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            span aria-hidden="true" &times;
+          h4.modal-title Add product
+        .modal-body
+          = render partial: 'products/form', locals: { f: f }
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal" Close
+          = f.submit "Submit", class: "btn btn-primary"
+
+

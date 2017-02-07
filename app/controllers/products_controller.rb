@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params.merge(account: current_account))
     if @product.save
       flash[:notice] = "#{@product.name} was successfully created"
-      redirect_to account_products_path(current_account)
+      redirect_to request.referer
     else
       render :new
     end

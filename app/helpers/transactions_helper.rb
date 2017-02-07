@@ -82,4 +82,8 @@ module TransactionsHelper
     current_account.suppliers.map {|person| [person.full_name, person.id]}.push ["---- Add supplier ----", "new"]
   end
 
+  def option_products
+    current_account.products.map {|product| [product.name, product.id]}.push ["---- Add product ----", "new"]
+  end
+
 end

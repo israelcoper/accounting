@@ -1,0 +1,15 @@
+div id="my_modal" class="modal fade" tabindex="-1" role="dialog"
+  div class="modal-dialog modal-lg" role="document"
+    .modal-content
+      = form_for @customer, url: account_customers_path(current_account, @customer), html: { id: "form-customer", class: "form-horizontal form-label-left" } do |f|
+        .modal-header
+          button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            span aria-hidden="true" &times;
+          h4.modal-title Add customer 
+        .modal-body
+          = render partial: 'customers/form', locals: { f: f }
+        .modal-footer
+          button type="button" class="btn btn-default" data-dismiss="modal" Close
+          = f.submit "Submit", class: "btn btn-primary"
+
+
