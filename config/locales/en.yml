@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+
+  flash:
+    notice:
+      reset_password: "Password was successfully reset."

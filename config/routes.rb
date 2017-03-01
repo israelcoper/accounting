@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :products
     resources :users do
       member do
+        get :reset_password, path: 'reset-password'
+        patch :reset
         patch :lock
         patch :unlock
       end
