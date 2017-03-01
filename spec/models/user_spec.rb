@@ -51,9 +51,29 @@ RSpec.describe User, type: :model do
   end
 
   context "instance methods" do
-    let(:user) { build(:user, first_name: "John", last_name: "Smith") }
-    it "returns full name" do
-      expect(user.full_name).to eql "John Smith"
+    describe "full_name" do
+      let(:user) { build(:user, first_name: "John", last_name: "Smith") }
+      it "returns full name" do
+        expect(user.full_name).to eql "John Smith"
+      end
+    end
+
+    describe "lock" do
+      let!(:locked_at) { Time.zone.now }
+
+      it "locks the user" do
+        user = build(:user, failed_attempts: 3, locked_at: locked_at)
+        expect(user.failed_attempts).to eq 3
+        expect(user.locked_at).to eq locked_at
+      end
+    end
+
+    describe "unlock" do
+      it "unlocks the user" do
+        user = build(:user, failed_attempts: 0, locked_at: nil)
+        expect(user.failed_attempts).to eq 0
+        expect(user.locked_at).to eq nil
+      end
     end
   end
 end

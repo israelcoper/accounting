@@ -148,6 +148,44 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 =end
+  context "authorized access" do
+    before :each do
+      sign_in current_user
+    end
+
+    describe "users#lock" do
+      let!(:locked_at) { Time.zone.now }
+
+      before :each do
+        user.stub(:locked).and_return(locked_at)
+        put :lock, { account_id: current_user.account_id, id: user.id }
+      end
+
+      it "locks the user" do
+        expect(user.locked).to eq locked_at
+      end
+
+      it "redirects to users#index" do
+        expect(response).to redirect_to account_users_path(current_user.account_id)
+      end
+    end
+
+    describe "users#unlock" do
+      before :each do
+        user.stub(:unlocked).and_return(nil)
+        put :unlock, { account_id: current_user.account_id, id: user.id }
+      end
+
+      it "unlocks the user" do
+        expect(user.unlocked).to eq nil
+      end
+
+      it "redirects to users#index" do
+        expect(response).to redirect_to account_users_path(current_user.account_id)
+      end
+    end
+  end
+
   context "unauthorized access" do
     describe "users#index" do
       it "requires login" do

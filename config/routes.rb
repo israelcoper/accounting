@@ -16,7 +16,12 @@ Rails.application.routes.draw do
       end
     end
     resources :products
-    resources :users
+    resources :users do
+      member do
+        patch :lock
+        patch :unlock
+      end
+    end
     resources :employees
     resources :suppliers do
       get "transactions", on: :member

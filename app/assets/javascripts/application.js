@@ -34,3 +34,7 @@ NProgress.configure({
   ease: 'ease',
   speed: 500
 });
+
+$(document).on('turbolinks:load', function(e) {
+  $('[data-toggle="tooltip"]').tooltip();
+});

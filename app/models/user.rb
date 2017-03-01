@@ -4,10 +4,12 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+         :recoverable, :rememberable, :trackable, :validatable, :lockable,
          :authentication_keys => [:username]
 
   enum role: [:normal, :accountant, :admin]
+
+  default_scope { order("first_name ASC") }
 
   scope :non_admin, -> { where.not(role: 2) }
 
@@ -26,6 +28,24 @@ class User < ActiveRecord::Base
 
   def email_changed?
     false
+  end
+
+  def locked
+    self.failed_attempts = 3
+    self.locked_at = Time.zone.now
+    self.save
+    return locked_at
+  end
+
+  def unlocked
+    self.failed_attempts = 0
+    self.locked_at = nil
+    self.save
+    return locked_at
+  end
+
+  def locked?
+    failed_attempts == 3 && locked_at.present?
   end
 
   protected

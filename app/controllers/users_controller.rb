@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update, :destroy]
+  before_action :find_user, only: [:show, :edit, :update, :destroy, :lock, :unlock]
 
   def index
     authorize User
@@ -44,6 +44,16 @@ class UsersController < ApplicationController
     authorize @user
     @user.destroy
     redirect_to account_users_path(current_account), notice: "#{@user.full_name} was successfully deleted"
+  end
+
+  def lock
+    @user.locked
+    redirect_to account_users_path(current_account), notice: "#{@user.full_name} has been locked."
+  end
+
+  def unlock
+    @user.unlocked
+    redirect_to account_users_path(current_account), notice: "#{@user.full_name} has been unlocked."
   end
 
   protected
