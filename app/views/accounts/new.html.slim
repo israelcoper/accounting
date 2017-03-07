@@ -16,6 +16,9 @@
       .form-group
         = f.text_field :name, class: "form-control", placeholder: "Business name"
 
+      .form-group
+        = f.select :industry, options_for_select(Account::BusinessTypes), { include_blank: true }, { class: "form-control" }
+
       = f.fields_for :address, OpenStruct.new(f.object.address) do |address|
         .form-group
           = address.text_field :address, class: "form-control", placeholder: "Address"

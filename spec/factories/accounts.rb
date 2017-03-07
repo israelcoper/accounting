@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :account do
     name  { FFaker::Company.name }
+    industry "Service Business"
     address { Hash.new }
 
     # after(:build) do |account|

@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
   protected
 
   def account_params
-    params.require(:account).permit(:name).tap do |whitelist|
+    params.require(:account).permit(:name, :industry).tap do |whitelist|
       whitelist[:address] = params[:account][:address]
     end
   end

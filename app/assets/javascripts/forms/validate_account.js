@@ -20,6 +20,13 @@ forms.validate_account = (function() {
                   message: 'The business name is required'
                 }
               }
+            },
+            'account[industry]': {
+              validators: {
+                notEmpty: {
+                  message: 'The business type is required'
+                }
+              }
             }
           }
         }).on('success.form.bv', function(e) {

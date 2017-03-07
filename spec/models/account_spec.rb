@@ -10,6 +10,7 @@ RSpec.describe Account, type: :model do
 
   context "validations" do
     it { should validate_presence_of :name }
+    it { should validate_presence_of :industry }
   end
 
   context "instance methods" do
