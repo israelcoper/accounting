@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
   has_many :persons, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :transactions, dependent: :destroy
+  has_many :categories, dependent: :destroy
 
   validates :name, :industry, presence: true
 
