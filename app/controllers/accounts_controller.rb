@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   skip_before_action :current_user_has_account!
-  before_action :find_account, only: [:show, :edit, :update]
+  skip_before_action :current_account_has_account_chart!, except: [:show, :edit, :update]
+  before_action :find_account, only: [:show, :edit, :update, :new_chart, :chart]
 
   def new
     @account = Account.new
@@ -37,10 +38,23 @@ class AccountsController < ApplicationController
     end
   end
 
+  def new_chart
+    BalanceSheet::Template.each do |category,names|
+      names.each do |name|
+        @account.balance_sheets.build(category: category, name: name)
+      end
+    end
+  end
+
+  def chart
+    @account.update(account_params.except(:address))
+    redirect_to account_products_path(@account), notice: "Chart of Accounts created successfully"
+  end
+
   protected
 
   def account_params
-    params.require(:account).permit(:name, :industry).tap do |whitelist|
+    params.require(:account).permit(:name, :industry, balance_sheets_attributes: [:id, :name, :category, :amount, :_destroy]).tap do |whitelist|
       whitelist[:address] = params[:account][:address]
     end
   end

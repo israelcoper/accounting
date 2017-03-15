@@ -45,7 +45,7 @@ RSpec.describe User, type: :model do
       let(:normal) { create(:normal) }
 
       it "returns not admin users" do
-        expect(User.non_admin).to eq([accountant, normal])
+        expect(User.non_admin).to match_array([accountant, normal])
       end
     end
   end

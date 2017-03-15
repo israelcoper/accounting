@@ -5,7 +5,9 @@ class Account < ActiveRecord::Base
   has_many :persons, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :transactions, dependent: :destroy
-  has_many :categories, dependent: :destroy
+  has_many :balance_sheets, dependent: :destroy
+
+  accepts_nested_attributes_for :balance_sheets, allow_destroy: true
 
   validates :name, :industry, presence: true
 

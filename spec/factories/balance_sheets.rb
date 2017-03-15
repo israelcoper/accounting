@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :category do
+  factory :balance_sheet do
     
   end
 end

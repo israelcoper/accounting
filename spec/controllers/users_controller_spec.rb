@@ -8,6 +8,7 @@ RSpec.describe UsersController, type: :controller do
   let(:invalid_attributes) { attributes_for :invalid_user }
 
   before :each do
+    controller.class.skip_before_filter :current_account_has_account_chart!
     User.stub(:find).with(user.id.to_s).and_return(user)
     user.stub(:save).and_return(true)
   end

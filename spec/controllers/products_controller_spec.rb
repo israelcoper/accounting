@@ -8,6 +8,7 @@ RSpec.describe ProductsController, type: :controller do
   let(:invalid_attributes) { attributes_for :invalid_product }
 
   before :each do
+    controller.class.skip_before_filter :current_account_has_account_chart!
     Product.stub(:find).with(product.id.to_s).and_return(product)
     product.stub(:save).and_return(true)
   end
