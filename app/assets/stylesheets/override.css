@@ -76,3 +76,7 @@ ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
   font-weight: bold;
   text-align: center;
 }
+
+.clearfix {
+  margin: 5px 0;
+}

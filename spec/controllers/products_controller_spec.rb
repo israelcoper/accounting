@@ -99,7 +99,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "products#update" do
       context "with valid attributes" do
         it "locates the requested product" do
-          product.stub(:update).with(valid_attributes.except!(:income).stringify_keys) { true }
+          product.stub(:update).with(valid_attributes.stringify_keys) { true }
           put :update, { account_id: user.account_id, id: product.id, product: valid_attributes }
           expect(assigns(:product)).to eq product
         end
@@ -112,7 +112,7 @@ RSpec.describe ProductsController, type: :controller do
 
       context "with invalid attributes" do
         before :each do
-          product.stub(:update).with(invalid_attributes.except!(:income).stringify_keys) { false }
+          product.stub(:update).with(invalid_attributes.stringify_keys) { false }
           patch :update, { account_id: user.account_id, id: product.id, product: invalid_attributes }
         end
 

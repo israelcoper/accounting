@@ -4,13 +4,20 @@ FactoryGirl.define do
 
     name { FFaker::Product.product_name }
     description "Some description"
-    cost "0.0"
-    income "0.0"
     quantity "0"
     purchase_price "0.0"
     selling_price "0.0"
     unit "kilo"
     product_number "1001"
+
+    factory :inventory_product do
+      category 0
+    end
+
+    factory :non_inventory_product do
+      category 1
+      unit "none"
+    end
 
     factory :invalid_product do
       name nil

@@ -8,7 +8,13 @@
       - @product.errors.full_messages.each do |message|
         li= message
 
+= render partial: "products/form_category", locals: { f: f }
+       
+.clearfix
+
 = render partial: "products/form_product_number", locals: { f: f }
+
+.clearfix
 
 .row
   .col-md-12
@@ -17,31 +23,30 @@
       .col-md-9.col-sm-9.col-xs-12
         = f.text_field :name, class: "form-control"
 
-br
-
-.row
-  .col-md-12
-    .form-group
-      label.control-label.col-md-3.col-sm-3.col-xs-12 Description
-      .col-md-9.col-sm-9.col-xs-12
-        = f.text_area :description, class: "form-control"
-
-br
-
-.ln_solid
-
-.row
-  .col-md-6.col-sm-6.col-xs-12
-    .form-group
-      label. Purchase Price *
-      = f.text_field :purchase_price, class: "form-control"
-
-  .col-md-6.col-sm-6.col-xs-12
-    .form-group
-      label.control-label Selling Price *
-      = f.text_field :selling_price, class: "form-control"
-
-.ln_solid
-
-= render partial: "products/form_quantity_unit", locals: { f: f }
+- if @product.inventory?
+  .clearfix
+  
+  .row
+    .col-md-12
+      .form-group
+        label.control-label.col-md-3.col-sm-3.col-xs-12 Description
+        .col-md-9.col-sm-9.col-xs-12
+          = f.text_area :description, class: "form-control"
+  
+  .ln_solid.inventory
+  
+  .row.inventory
+    .col-md-6.col-sm-6.col-xs-12
+      .form-group
+        label. Purchase Price *
+        = f.text_field :purchase_price, class: "form-control"
+  
+    .col-md-6.col-sm-6.col-xs-12
+      .form-group
+        label.control-label Selling Price *
+        = f.text_field :selling_price, class: "form-control"
+  
+  .ln_solid.inventory
+  
+  = render partial: "products/form_quantity_unit", locals: { f: f }
 

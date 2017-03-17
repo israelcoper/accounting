@@ -26,7 +26,7 @@ $(document).on('turbolinks:load', function(e) {
     },
     {
       'selector': 'select#product',
-      'placeholder': 'Choose a product'
+      'placeholder': 'Choose a product/service'
     },
     {
       'selector': 'select#invoice_number',
@@ -35,6 +35,10 @@ $(document).on('turbolinks:load', function(e) {
     {
       'selector': 'select#product_unit',
       'placeholder': 'Select unit'
+    },
+    {
+      'selector': 'select#product_category',
+      'placeholder': 'Select category'
     }
   ];
 

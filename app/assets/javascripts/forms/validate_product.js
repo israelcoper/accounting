@@ -66,6 +66,13 @@ forms.validate_product = (function() {
                   message: 'The product number is required'
                 }
               }
+            },
+            'product[category]': {
+              validators: {
+                notEmpty: {
+                  message: 'The category is required'
+                }
+              }
             }
           }
         }).on('success.form.bv', function(e) {
