@@ -1,0 +1,12 @@
+.row
+  .col-md-12
+    .form-group
+      label.control-label.col-md-3.col-sm-3.col-xs-12 Product number *
+      .col-md-9.col-sm-9.col-xs-12
+        - if action_name == ("edit" || "update")
+          = f.text_field :product_number, class: "form-control", readonly: true
+        - else
+          = f.text_field :product_number, class: "form-control"
+
+br
+

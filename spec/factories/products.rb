@@ -7,9 +7,10 @@ FactoryGirl.define do
     cost "0.0"
     income "0.0"
     quantity "0"
-    purchasing_price "0.0"
+    purchase_price "0.0"
     selling_price "0.0"
     unit "kilo"
+    product_number "1001"
 
     factory :invalid_product do
       name nil

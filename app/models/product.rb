@@ -6,8 +6,8 @@ class Product < ActiveRecord::Base
 
   belongs_to :account
 
-  validates :name, :unit, presence: true
+  validates :name, :unit, :product_number, presence: true
   validates :income, numericality: true, allow_blank: true
-  validates :cost, :purchasing_price, :selling_price, :quantity, numericality: true
+  validates :cost, :purchase_price, :selling_price, :quantity, numericality: true
 
 end

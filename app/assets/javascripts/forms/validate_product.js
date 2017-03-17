@@ -21,21 +21,10 @@ forms.validate_product = (function() {
                 }
               }
             },
-            'product[cost]': {
+            'product[purchase_price]': {
               validators: {
                 notEmpty: {
-                  message: 'The cost is required'
-                },
-                numeric: {
-                  message: 'Please enter a valid integer',
-                  decimalSeparator: '.'
-                }
-              }
-            },
-            'product[purchasing_price]': {
-              validators: {
-                notEmpty: {
-                  message: 'The purchasing price is required'
+                  message: 'The purchase price is required'
                 },
                 numeric: {
                   message: 'Please enter a valid integer',
@@ -68,6 +57,13 @@ forms.validate_product = (function() {
               validators: {
                 notEmpty: {
                   message: 'The unit is required'
+                }
+              }
+            },
+            'product[product_number]': {
+              validators: {
+                notEmpty: {
+                  message: 'The product number is required'
                 }
               }
             }
