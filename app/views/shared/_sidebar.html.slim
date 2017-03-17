@@ -6,18 +6,30 @@
         a href="#{root_path}"
           i.fa.fa-home
           | Home
-      li#customers
-        a href="#{account_customers_path(current_account)}"
+      li#cards
+        a
           i.fa.fa-group
-          | Customers
-      li#suppliers
-        a href="#{account_suppliers_path(current_account)}"
-          i.fa.fa-group
-          | Suppliers
-      li#employees
-        a href="#{account_employees_path(current_account)}"
-          i.fa.fa-user
-          | Employees
+          | &nbsp;
+          | Cards
+          | &nbsp;
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li#customers
+            a href="#{account_customers_path(current_account)}" Customers
+          li#suppliers
+            a href="#{account_suppliers_path(current_account)}" Suppliers
+          li#employees
+            a href="#{account_employees_path(current_account)}" Employees
+      li#invoice
+        a href="#{invoice_account_transactions_path(current_account)}"
+          i.fa.fa-plus-circle
+          | &nbsp;
+          | Create Invoice
+      li#purchase
+        a href="#{purchase_account_transactions_path(current_account)}"
+          i.fa.fa-minus-circle
+          | &nbsp;
+          | Purchase Order
       li#transactions
         a
           i.fa.fa-exchange
