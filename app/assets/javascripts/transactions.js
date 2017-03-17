@@ -91,22 +91,22 @@ function dateFormat(date,format) {
   var day = date.getDate();
   var month = date.getMonth();
   var year = date.getFullYear();
+  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   if (date.getDate() < 10 ) {
     day = "0" + date.getDate();
   }
 
   if (date.getMonth() < 10) {
-    month = date.getMonth() + 1;
-    month = "0" + month;
+    month = months[month];
   }
 
   switch(format) {
     case "yyyy-mm-dd":
       date = [year, month, day].join("-");
       break;
-    case "mm/dd/yyyy":
-      date = [month, day, year].join("/");
+    case undefined:
+      date = [day, month, year].join(" ");
       break;
     default:
   }
@@ -143,8 +143,8 @@ function appendTransaction(account_id, parent_id) {
       context = {
         current_date: dateFormat(new Date(), "yyyy-mm-dd"),
         transaction_number: data.transaction_number,
-        transaction_date:  dateFormat(data.transaction_date, "mm/dd/yyyy"),
-        due_date: dateFormat(data.due_date, "mm/dd/yyyy"),
+        transaction_date:  dateFormat(data.transaction_date),
+        due_date: dateFormat(data.due_date),
         total: data.total,
         balance: data.balance
       };

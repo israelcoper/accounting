@@ -1,10 +1,5 @@
 module TransactionsHelper
 
-  def format_date(date)
-    return nil if date.nil?
-    date.strftime "%m/%d/%Y"
-  end
-
   def transaction_status(status)
     return nil if status.nil?
     label = case status
