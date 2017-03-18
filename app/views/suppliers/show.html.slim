@@ -10,7 +10,7 @@
           | &nbsp;
           span class="caret"
         ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
-          li= link_to "Purchase Order", purchase_account_transactions_path(current_account, { product_type: "rice", person_id: @supplier.id }), id: "purchase"
+          li= link_to "Purchase Order", purchase_account_transactions_path(current_account, { person_id: @supplier.id }), id: "purchase"
           li= link_to "Order Payment", payment_purchase_account_transactions_path(current_account, { parent_id: nil, person_id: @supplier.id })
 
       = link_to "Edit", edit_account_supplier_path(current_account, @supplier), class: "btn btn-default pull-right", style: "margin-right: 10px;"
@@ -68,6 +68,9 @@
                             tr
                               th Mobile
                               td= @supplier.mobile
+                            tr
+                              th Date created
+                              td= format_date @supplier.created_at
 
                     .col-xs-6
                       .table-responsive
@@ -88,6 +91,9 @@
                             tr
                               th Postal code
                               td= @supplier.address.fetch("postal_code")
+                            tr
+                              th
+                              td
 
           .ln_solid
 

@@ -68,6 +68,9 @@
                             tr
                               th Mobile
                               td= @customer.mobile
+                            tr
+                              th Date created
+                              td= format_date @customer.created_at
 
                     .col-xs-6
                       .table-responsive
@@ -88,6 +91,9 @@
                             tr
                               th Postal code
                               td= @customer.address.fetch("postal_code")
+                            tr
+                              th
+                              td
 
           .ln_solid
 
