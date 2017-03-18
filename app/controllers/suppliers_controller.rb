@@ -60,7 +60,7 @@ class SuppliersController < ApplicationController
   protected
 
   def supplier_params
-    params.require(:person).permit(:first_name, :middle_name, :last_name, :phone, :mobile).tap do |whitelist|
+    params.require(:person).permit(:first_name, :middle_name, :last_name, :phone, :mobile, :notes).tap do |whitelist|
       whitelist[:address] = params[:person][:address]
     end
   end

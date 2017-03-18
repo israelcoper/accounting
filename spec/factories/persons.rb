@@ -9,6 +9,7 @@ FactoryGirl.define do
     mobile { FFaker::PhoneNumberDE.mobile_phone_number }
     balance 0.0
     address { Hash.new }
+    notes "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
     factory :customer do
       person_type 0
