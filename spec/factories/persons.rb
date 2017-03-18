@@ -7,11 +7,11 @@ FactoryGirl.define do
     last_name { FFaker::Name.last_name }
     phone { FFaker::PhoneNumber.phone_number }
     mobile { FFaker::PhoneNumberDE.mobile_phone_number }
-    balance 0.0
     address { Hash.new }
     notes "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     credit_limit "100000"
     credit_terms "30"
+    picture { Rack::Test::UploadedFile.new("spec/support/fixtures/image.png", 'image/png') }
 
     factory :customer do
       person_type 0

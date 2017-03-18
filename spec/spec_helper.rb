@@ -16,7 +16,36 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'paperclip/matchers'
+
+## We stub some Paperclip methods - so it won't call shell slow commands
+## This allows us to speedup paperclip tests 3-5x times.
+module Paperclip
+  def self.run cmd, arguments = "", interpolation_values = {}, local_options = {}
+    cmd == 'convert' ? nil : super
+  end
+end
+
+class Paperclip::Attachment
+  def save
+    @queued_for_delete = []
+    @queued_for_write = {}
+    true
+  end
+
+  private
+  def post_process
+    true
+  end
+end
+
 RSpec.configure do |config|
+  config.include Paperclip::Shoulda::Matchers
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

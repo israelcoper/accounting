@@ -43,7 +43,7 @@ class EmployeesController < ApplicationController
   protected
 
   def employee_params
-    params.require(:person).permit(:first_name, :middle_name, :last_name, :phone, :mobile).tap do |whitelist|
+    params.require(:person).permit(:first_name, :middle_name, :last_name, :phone, :mobile, :picture).tap do |whitelist|
       whitelist[:address] = params[:person][:address]
     end
   end

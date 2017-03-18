@@ -8,7 +8,7 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          = form_for @customer, url: account_customer_path(current_account, @customer), html: { id: "form-customer", class: "form-horizontal form-label-left" } do |f|
+          = form_for @customer, url: account_customer_path(current_account, @customer), html: { id: "form-customer", class: "form-horizontal form-label-left", multipart: true } do |f|
             = render partial: 'form', locals: { f: f }
 
             .ln_solid
