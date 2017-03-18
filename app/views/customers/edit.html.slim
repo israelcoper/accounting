@@ -14,6 +14,6 @@
             .ln_solid
             
             .form-group.pull-right style="padding-right: 10px;"
-              = link_to "Cancel", account_customers_path, class: "btn btn-default"
+              = link_to "Cancel", account_customer_path(current_account, @customer), class: "btn btn-default"
               = f.submit "Submit", class: "btn btn-primary"
 

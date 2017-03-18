@@ -27,6 +27,27 @@ forms.validate_supplier = (function() {
                   message: 'The last name is required'
                 }
               }
+            },
+            'person[credit_limit]': {
+              validators: {
+                notEmpty: {
+                  message: 'The credit limit is required'
+                },
+                numeric: {
+                  message: 'Please enter a valid integer',
+                  decimalSeparator: '.'
+                }
+              }
+            },
+             'person[credit_terms]': {
+              validators: {
+                notEmpty: {
+                  message: 'The credit terms is required'
+                },
+                integer: {
+                  message: 'Please enter a valid integer'
+                }
+              }
             }
           }
         }).on('success.form.bv', function(e) {

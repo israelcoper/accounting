@@ -69,8 +69,8 @@
                               th Mobile
                               td= @supplier.mobile
                             tr
-                              th Date created
-                              td= format_date @supplier.created_at
+                              th Notes
+                              td= @supplier.notes
 
                     .col-xs-6
                       .table-responsive
@@ -92,21 +92,31 @@
                               th Postal code
                               td= @supplier.address.fetch("postal_code")
                             tr
-                              th Notes
-                              td= @supplier.notes
+                              th Date created
+                              td= format_date @supplier.created_at
 
           .ln_solid
 
           .row
-            .col-md-6
-            .col-md-6
+            .col-md-8
+              .col-md-6
+                .col-md-6
+                  label Credit terms:
+                .col-md-6
+                  span= pluralize(@supplier.credit_terms, 'day')
+              .col-md-6
+                .col-md-6
+                  label Credit limit:
+                .col-md-6
+                  span= number_to_currency @supplier.credit_limit, unit: "PHP"
+            .col-md-4
               .row
-                .col-md-3
-                .col-md-9
+                .col-md-12
                   .row
                     .col-md-8
                       .pull-right
-                        label OPEN BALANCE
+                        label OPEN BALANCE:
                     .col-md-4
                       .pull-right
                         span= number_to_currency(@supplier.balance, unit: "PHP")
+

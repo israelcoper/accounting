@@ -19,6 +19,8 @@ class Person < ActiveRecord::Base
   # Change uniqueness validation
   validates :first_name, :last_name, uniqueness: { scope: [:account_id, :person_type] }
 
+  validates :credit_limit, :credit_terms, presence: true, numericality: true, unless: Proc.new {|p| p.employee? }
+
   paginates_per 10
 
   pg_search_scope :search, against: [:first_name, :last_name]

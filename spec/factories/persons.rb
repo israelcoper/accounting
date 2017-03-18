@@ -10,6 +10,8 @@ FactoryGirl.define do
     balance 0.0
     address { Hash.new }
     notes "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    credit_limit "100000"
+    credit_terms "30"
 
     factory :customer do
       person_type 0

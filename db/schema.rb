@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318010323) do
+ActiveRecord::Schema.define(version: 20170318015210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20170318010323) do
   end
 
   create_table "persons", force: :cascade do |t|
-    t.integer  "person_type",                          default: 0,   null: false
+    t.integer  "person_type",                           default: 0,   null: false
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
@@ -53,10 +53,12 @@ ActiveRecord::Schema.define(version: 20170318010323) do
     t.string   "mobile"
     t.hstore   "address"
     t.integer  "account_id"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.decimal  "balance",     precision: 16, scale: 2, default: 0.0
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.decimal  "balance",      precision: 16, scale: 2, default: 0.0
     t.text     "notes"
+    t.integer  "credit_terms",                          default: 0,   null: false
+    t.decimal  "credit_limit", precision: 16, scale: 2, default: 0.0, null: false
   end
 
   create_table "products", force: :cascade do |t|
