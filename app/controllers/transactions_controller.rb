@@ -8,7 +8,7 @@ class TransactionsController < ApplicationController
   end
 
   def sales
-    type = Transaction::TransactionTypes[0]
+    type = Transaction::Types[0]
     @transactions_summary = {
       overdue: current_account.transactions.overdue(type),
       open_invoice: current_account.transactions.open_invoice(type),
@@ -23,7 +23,7 @@ class TransactionsController < ApplicationController
   end
 
   def purchases
-    type = Transaction::TransactionTypes[2]
+    type = Transaction::Types[2]
     @transactions_summary = {
       overdue: current_account.transactions.overdue(type),
       unpaid_purchase: current_account.transactions.open_invoice(type),
@@ -52,7 +52,7 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new transaction_params.merge(account: current_account)
 
-    options = if @transaction.transaction_type == Transaction::TransactionTypes[0]
+    options = if @transaction.transaction_type == Transaction::Types[0]
                 { render: :invoice, redirect: sales_account_transactions_path(current_account) }
               else
                 { render: :purchase, redirect: purchases_account_transactions_path(current_account) }
@@ -83,7 +83,7 @@ class TransactionsController < ApplicationController
   def payment_receive
     @transaction = Transaction.new transaction_params.merge(account: current_account)
 
-    options = if @transaction.transaction_type == Transaction::TransactionTypes[1]
+    options = if @transaction.transaction_type == Transaction::Types[1]
                 { render: :payment, redirect: sales_account_transactions_path(current_account) }
               else
                 { render: :payment_purchase, redirect: purchases_account_transactions_path(current_account) }

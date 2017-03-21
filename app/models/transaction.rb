@@ -1,7 +1,8 @@
 class Transaction < ActiveRecord::Base
 
-  TransactionTypes = ["Invoice", "Payment", "Purchase Order", "Purchase Payment"]
+  Types = ["Invoice", "Payment", "Purchase Order", "Purchase Payment"]
   Status = %w{ Open Closed Partial Paid }
+  Number = 1000
 
   belongs_to :account
   belongs_to :person
@@ -12,10 +13,10 @@ class Transaction < ActiveRecord::Base
   accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["quantity"].blank? }
 
   # default_scope { order(transaction_date: "ASC") }
-  scope :sales, -> { where(transaction_type: TransactionTypes.values_at(0,1)) }
-  scope :invoice, -> { where(transaction_type: TransactionTypes[0], status: [Status[0], Status[2]]) }
-  scope :purchases, -> { where(transaction_type: TransactionTypes.values_at(2,3)) }
-  scope :purchase_order, -> { where(transaction_type: TransactionTypes[2], status: [Status[0], Status[2]]) }
+  scope :sales, -> { where(transaction_type: Types.values_at(0,1)) }
+  scope :purchases, -> { where(transaction_type: Types.values_at(2,3)) }
+  scope :invoice, -> { where(transaction_type: Types[0], status: [Status[0], Status[2]]) }
+  scope :purchase, -> { where(transaction_type: Types[2], status: [Status[0], Status[2]]) }
 
   scope :overdue, ->(type) { where("transaction_type = ? AND due_date <= ? AND balance != ?", type, Time.now, 0.0) }
   scope :open_invoice, ->(type) { where(transaction_type: type, status: Status[0]) }
@@ -23,15 +24,15 @@ class Transaction < ActiveRecord::Base
   scope :paid_last_30_days, ->(type) { where("transaction_type = ? AND status = ? AND updated_at > ?", type, Status[3], 30.days.ago) }
 
   before_save :set_status, if: proc {|t| t.new_record? }
-  before_save :set_total_of_payment_transaction, if: proc {|t| t.transaction_type == TransactionTypes[1]}
-  before_save :set_total_of_purchase_payment_transaction, if: proc {|t| t.transaction_type == TransactionTypes[3]}
-  before_save :generate_sal_invoice_number, if: proc {|t| t.new_record? && t.transaction_type == TransactionTypes[0]}
-  before_save :generate_pur_invoice_number, if: proc {|t| t.new_record? && t.transaction_type == TransactionTypes[2]}
+  before_save :set_total_of_payment_transaction, if: proc {|t| t.transaction_type == Types[1]}
+  before_save :set_total_of_purchase_payment_transaction, if: proc {|t| t.transaction_type == Types[3]}
+  before_save :generate_invoice_number, if: proc {|t| t.new_record? && t.transaction_type == Types[0]}
+  before_save :generate_purchase_number, if: proc {|t| t.new_record? && t.transaction_type == Types[2]}
 
-  after_save :deduct_balance_of_parent_invoice, if: proc {|t| t.transaction_type == TransactionTypes[1]}
-  after_save :deduct_balance_of_parent_purchase, if: proc {|t| t.transaction_type == TransactionTypes[3]}
-  after_save :update_status_of_parent_invoice, if: proc {|t| t.transaction_type == TransactionTypes[1]}
-  after_save :update_status_of_parent_purchase, if: proc {|t| t.transaction_type == TransactionTypes[3]}
+  after_save :deduct_balance_of_parent_invoice, if: proc {|t| t.transaction_type == Types[1]}
+  after_save :deduct_balance_of_parent_purchase, if: proc {|t| t.transaction_type == Types[3]}
+  after_save :update_status_of_parent_invoice, if: proc {|t| t.transaction_type == Types[1]}
+  after_save :update_status_of_parent_purchase, if: proc {|t| t.transaction_type == Types[3]}
 
   validates :balance, numericality: true, allow_blank: true
 
@@ -51,23 +52,25 @@ class Transaction < ActiveRecord::Base
 
   protected
 
-  def generate_sal_invoice_number
-    self.transaction_number = ["SAL" , SecureRandom.hex(4).upcase].join
+  def generate_invoice_number
+    number = Number + (account.transactions.invoice.count + 1)
+    self.transaction_number = ["INV" , number].join("_")
   end
 
-  def generate_pur_invoice_number
-    self.transaction_number = ["PUR" , SecureRandom.hex(4).upcase].join
+  def generate_purchase_number
+    number = Number + (account.transactions.purchase.count + 1)
+    self.transaction_number = ["PO" , number].join("_")
   end
 
   def set_status
     self.status = case transaction_type
-                  when TransactionTypes[0]
+                  when Types[0]
                     Status[0]
-                  when TransactionTypes[1]
+                  when Types[1]
                     Status[1]
-                  when TransactionTypes[2]
+                  when Types[2]
                     Status[0]
-                  when TransactionTypes[3]
+                  when Types[3]
                     Status[1]
                   else
                   end

@@ -10,7 +10,7 @@
               .row
                 .col-xs-12.invoice-header
                   h3
-                    - if @transaction.transaction_type == Transaction::TransactionTypes[0]
+                    - if @transaction.transaction_type == Transaction::Types[0]
                       span Invoice
                     - else
                       span Purchase Order

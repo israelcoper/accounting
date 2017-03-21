@@ -46,7 +46,7 @@
 
             .row
               .col-md-6
-                = f.hidden_field :transaction_type, value: Transaction::TransactionTypes[1]
+                = f.hidden_field :transaction_type, value: Transaction::Types[1]
                 = f.hidden_field :parent_id, value: params[:parent_id]
 
               .col-md-6

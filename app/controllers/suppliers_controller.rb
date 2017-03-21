@@ -2,7 +2,7 @@ class SuppliersController < ApplicationController
   before_action :find_supplier, only: [:show, :edit, :update, :destroy, :transactions]
 
   def index
-    type = Transaction::TransactionTypes[2]
+    type = Transaction::Types[2]
     @transactions_summary = {
       overdue: current_account.transactions.overdue(type),
       unpaid_purchase: current_account.transactions.open_invoice(type),
@@ -53,7 +53,7 @@ class SuppliersController < ApplicationController
   end
 
   def transactions
-    @transactions = @supplier.transactions.purchase_order
+    @transactions = @supplier.transactions.purchase
     render json: @transactions
   end
 

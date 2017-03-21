@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :find_customer, only: [:show, :edit, :update, :destroy, :transactions]
 
   def index
-    type = Transaction::TransactionTypes[0]
+    type = Transaction::Types[0]
     @transactions_summary = {
       overdue: current_account.transactions.overdue(type),
       open_invoice: current_account.transactions.open_invoice(type),

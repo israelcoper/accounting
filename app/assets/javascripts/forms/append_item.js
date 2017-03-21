@@ -17,7 +17,7 @@ forms.append_item = (function() {
         data: {},
         success: function(data) {
           var listing = $("input.transaction_item_product_id");
-          var price = $("form#form-transaction").hasClass("transaction-invoice") ? data.selling_price : data.purchasing_price;
+          var price = $("form#form-transaction").hasClass("transaction-invoice") ? data.selling_price : data.purchase_price;
           var context = {
             id: data.id,
             name: data.name,
