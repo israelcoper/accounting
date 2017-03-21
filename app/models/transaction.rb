@@ -4,6 +4,8 @@ class Transaction < ActiveRecord::Base
   Status = %w{ Open Closed Partial Paid }
   Number = 1000
 
+  enum payment_method: [:cash, :check, :bank_transfer]
+
   belongs_to :account
   belongs_to :person
   belongs_to :parent, class_name: "Transaction"

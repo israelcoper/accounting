@@ -39,6 +39,10 @@ $(document).on('turbolinks:load', function(e) {
     {
       'selector': 'select#product_category',
       'placeholder': 'Select category'
+    },
+    {
+      'selector': 'select#transaction_payment_method',
+      'placeholder': 'Select payment method'
     }
   ];
 
@@ -126,7 +130,7 @@ $(document).on('turbolinks:load', function(e) {
             account_id: account_id,
             transaction_id: object.id,
             transaction_date: dateFormat(object.transaction_date),
-            transaction_type: object.transaction_type,
+            payment_method: humanize(object.payment_method),
             total: Math.abs(object.total),
             balance: Math.abs(object.balance),
             status: object.status
@@ -152,6 +156,10 @@ $(document).on('turbolinks:load', function(e) {
   });
 
 });
+
+function humanize(string) {
+  return string.replace(/_/g, ' ').replace(/(\w+)/g, function(match) { return match.charAt(0).toUpperCase() + match.slice(1); });
+}
 
 function dateFormat(date,format) {
   var date = new Date(date);

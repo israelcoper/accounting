@@ -11,6 +11,7 @@ FactoryGirl.define do
     payment 0
     balance 100
     total 100
+    payment_method 0
 
     factory :invoice do
       transaction_type Transaction::Types[0]

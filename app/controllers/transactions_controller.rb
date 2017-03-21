@@ -116,7 +116,7 @@ class TransactionsController < ApplicationController
   protected
 
   def transaction_params
-    params.require(:transaction).permit(:transaction_type, :transaction_date, :due_date, :notes, :payment, :balance, :total, :person_id, :parent_id,
+    params.require(:transaction).permit(:transaction_type, :transaction_date, :due_date, :notes, :payment, :balance, :total, :person_id, :parent_id, :payment_method,
                                         items_attributes: [:id, :product_id, :name, :description, :quantity, :rate, :amount, :_destroy]
     )
   end
