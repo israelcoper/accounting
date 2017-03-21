@@ -12,9 +12,9 @@ class Transaction < ActiveRecord::Base
 
   accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["quantity"].blank? }
 
-  # default_scope { order(transaction_date: "ASC") }
-  scope :sales, -> { where(transaction_type: Types.values_at(0,1)) }
-  scope :purchases, -> { where(transaction_type: Types.values_at(2,3)) }
+  default_scope { order(transaction_number: "ASC") }
+  scope :sales, -> { where(transaction_type: Types.values_at(0)) }
+  scope :purchases, -> { where(transaction_type: Types.values_at(2)) }
   scope :invoice, -> { where(transaction_type: Types[0], status: [Status[0], Status[2]]) }
   scope :purchase, -> { where(transaction_type: Types[2], status: [Status[0], Status[2]]) }
 

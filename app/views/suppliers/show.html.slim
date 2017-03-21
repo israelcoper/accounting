@@ -33,6 +33,7 @@
               div id="myTabContent" class="tab-content"
                 div role="tabpanel" class="tab-pane fade active in" id="transaction"
                   .row
+                    = render partial: "shared/popover_children_transaction"
                     .col-xs-12
                       table.table.table-striped#table-person-transactions data-source="#{account_supplier_path(current_account, @supplier.id, { format: :json })}"
                         thead

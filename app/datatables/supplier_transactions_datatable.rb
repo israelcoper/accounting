@@ -11,7 +11,7 @@ class SupplierTransactionsDatatable < TransactionDatatable
       [
         format_date(record.transaction_date),
         record.transaction_type,
-        record.transaction_number,
+        transaction_link(record),
         format_date(record.due_date),
         number_to_currency(record.total, unit: "PHP"),
         number_to_currency(record.balance, unit: "PHP"),

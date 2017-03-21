@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       end
       member do
         get "preview"
+        get "children"
       end
     end
     resources :products

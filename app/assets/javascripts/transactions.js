@@ -105,14 +105,44 @@ $(document).on('turbolinks:load', function(e) {
     $("#form-transaction").bootstrapValidator('revalidateField', selector.attr('name'));
   });
 
-  /*
-  $("select#filter").on("change", function(e) {
-    var filter = $(this).val();
-    var url = window.location.href;
-    url = url.split("?")[0] + "?filter=" + filter;
-    window.location.href = url;
+  $(document).on("click", '[data-toggle=popover]', function(e) {
+    var account_id = $(this).data("account-id");
+    var transaction_id = $(this).data("transaction-id");
+
+    $.ajax({
+      url: ["/accounts", account_id, "transactions", transaction_id, "children.json"].join("/"),
+      data: {},
+      success: function(data) {
+        $("tbody#child-transactions").html("");
+        $.each(data, function(index,object) {
+          var context = {
+            account_id: account_id,
+            transaction_id: object.id,
+            transaction_date: dateFormat(object.transaction_date),
+            transaction_type: object.transaction_type,
+            total: Math.abs(object.total),
+            balance: Math.abs(object.balance),
+            status: object.status
+          };
+
+          $("tbody#child-transactions").append(HandlebarsTemplates['items/append_children'](context));
+        });
+      },
+      error: function() {
+        console.log("Something went wrong!")
+      }
+    });
+
+    $(this).popover({
+      content: $('#child-transactions').html(),
+      html: true
+    }).on("show.bs.popover", function () {
+      $(this).data("bs.popover").tip().css("max-width", "100%");
+    }).on("hide.bs.popover", function () {
+    });
+    $(this).popover('show');
+    e.preventDefault();
   });
-  */
 
 });
 
@@ -136,7 +166,7 @@ function dateFormat(date,format) {
       date = [year, month, day].join("-");
       break;
     case undefined:
-      month = months[parseInt(month)];
+      month = months[parseInt(month) - 1];
       date = [day, month, year].join(" ");
       break;
     default:

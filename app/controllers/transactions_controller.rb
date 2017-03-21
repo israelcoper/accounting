@@ -108,6 +108,11 @@ class TransactionsController < ApplicationController
     render layout: "preview"
   end
 
+  def children
+    @transaction = Transaction.find params[:id]
+    render json: @transaction.children
+  end
+
   protected
 
   def transaction_params
