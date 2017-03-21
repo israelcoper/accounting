@@ -52,12 +52,38 @@ $(document).on('turbolinks:load', function(e) {
 
   // modal
   $("select#customer_id, select#supplier_id").on("select2:select", function(e) {
-    if ($(this).val() == "new") {
+    var account_id = $("#form-transaction").data("account-id");
+    var person_id = $(this).val();
+    var resource = "customers";
+
+    if ($("#form-transaction").data("transaction-type") == "purchase") {
+      resource = "suppliers";
+    }
+
+    if (person_id == "new") {
       $(this).val("").trigger("change");
       $(this).parent().removeClass("has-error");
       $(this).parent().find(".help-block").css("display", "none");
       $("#form-transaction input[type='submit']").removeAttr('disabled');
       $("#my_modal").modal();
+    } else {
+      $.ajax({
+        url: ["/accounts", account_id, resource, person_id, "info.json"].join("/"),
+        data: {},
+        success: function(data) {
+          var now = new Date(Date.now());
+          var due = new Date(now.getTime() + (data.credit_terms*24*60*60*1000));
+
+          now = dateFormat(now, "yyyy-mm-dd");
+          due = dateFormat(due, "yyyy-mm-dd");
+
+          $("#transaction_transaction_date").val(now);
+          $("#transaction_due_date").val(due);
+        },
+        error: function() {
+          console.log("Something went wrong!")
+        }
+      });
     }
   });
 
@@ -93,16 +119,16 @@ $(document).on('turbolinks:load', function(e) {
 function dateFormat(date,format) {
   var date = new Date(date);
   var day = date.getDate();
-  var month = date.getMonth();
+  var month = date.getMonth() + 1;
   var year = date.getFullYear();
   var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  if (date.getDate() < 10 ) {
-    day = "0" + date.getDate();
+  if (day < 10 ) {
+    day = "0" + day;
   }
 
-  if (date.getMonth() < 10) {
-    month = months[month];
+  if (month < 10) {
+    month = "0" + month;
   }
 
   switch(format) {
@@ -110,6 +136,7 @@ function dateFormat(date,format) {
       date = [year, month, day].join("-");
       break;
     case undefined:
+      month = months[parseInt(month)];
       date = [day, month, year].join(" ");
       break;
     default:

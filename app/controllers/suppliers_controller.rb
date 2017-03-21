@@ -1,5 +1,5 @@
 class SuppliersController < ApplicationController
-  before_action :find_supplier, only: [:show, :edit, :update, :destroy, :transactions]
+  before_action :find_supplier, only: [:show, :edit, :update, :destroy, :transactions, :info]
 
   def index
     type = Transaction::Types[2]
@@ -55,6 +55,10 @@ class SuppliersController < ApplicationController
   def transactions
     @transactions = @supplier.transactions.purchase
     render json: @transactions
+  end
+
+  def info
+    render json: { credit_terms: @supplier.credit_terms }
   end
 
   protected

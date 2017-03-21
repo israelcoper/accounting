@@ -10,7 +10,7 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          = form_for @transaction, url: account_transactions_path(current_account), html: { id: 'form-transaction', class: 'transaction-invoice' } do |f|
+          = form_for @transaction, url: account_transactions_path(current_account), html: { id: 'form-transaction', class: 'transaction-invoice', data: { account_id: current_account.id, transaction_type: "invoice" } } do |f|
             .row
               .col-md-4.form-group
                 label.control-label Customer

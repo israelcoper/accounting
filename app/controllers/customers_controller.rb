@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :find_customer, only: [:show, :edit, :update, :destroy, :transactions]
+  before_action :find_customer, only: [:show, :edit, :update, :destroy, :transactions, :info]
 
   def index
     type = Transaction::Types[0]
@@ -55,6 +55,10 @@ class CustomersController < ApplicationController
   def transactions
     @transactions = @customer.transactions.invoice
     render json: @transactions
+  end
+
+  def info
+    render json: { credit_terms: @customer.credit_terms }
   end
 
   protected

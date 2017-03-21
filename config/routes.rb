@@ -30,10 +30,16 @@ Rails.application.routes.draw do
     end
     resources :employees
     resources :suppliers do
-      get "transactions", on: :member
+      member do
+        get "transactions"
+        get "info"
+      end
     end
     resources :customers do
-      get "transactions", on: :member
+      member do
+        get "transactions"
+        get "info"
+      end
     end
   end
 
