@@ -105,6 +105,13 @@ $(document).on('turbolinks:load', function(e) {
     $("#form-transaction").bootstrapValidator('revalidateField', selector.attr('name'));
   });
 
+  if ($("form#form-transaction").hasClass("form-payment")) {
+    var now = new Date(Date.now());
+    now = dateFormat(now, "yyyy-mm-dd");
+
+    $("#transaction_transaction_date").val(now);
+  }
+
   $(document).on("click", '[data-toggle=popover]', function(e) {
     var account_id = $(this).data("account-id");
     var transaction_id = $(this).data("transaction-id");
