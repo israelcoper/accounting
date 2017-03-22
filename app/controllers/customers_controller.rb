@@ -2,12 +2,17 @@ class CustomersController < ApplicationController
   before_action :find_customer, only: [:show, :edit, :update, :destroy, :transactions, :info]
 
   def index
-    type = Transaction::Types[0]
-    @transactions_summary = {
-      overdue: current_account.transactions.overdue(type),
-      open_invoice: current_account.transactions.open_invoice(type),
-      partial: current_account.transactions.partial(type),
-      paid_last_30_days: current_account.transactions.paid_last_30_days(type)
+    type          = Transaction::Types[0]
+    last_30_days  = 30.days.ago..Time.now
+    last_60_days  = 60.days.ago..31.days.ago
+    last_90_days  = 90.days.ago..61.days.ago
+    over_90_days  = 120.days.ago..91.days.ago
+
+     @transactions_summary = {
+      overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
+      overdue_last_60_days: current_account.transactions.overdue(type, last_60_days),
+      overdue_last_90_days: current_account.transactions.overdue(type, last_90_days),
+      overdue_over_90_days: current_account.transactions.overdue(type, over_90_days)
     }
 
     @customers = current_account.customers.page(page)

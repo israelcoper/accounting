@@ -8,12 +8,17 @@ class TransactionsController < ApplicationController
   end
 
   def sales
-    type = Transaction::Types[0]
+    type          = Transaction::Types[0]
+    last_30_days  = 30.days.ago..Time.now
+    last_60_days  = 60.days.ago..31.days.ago
+    last_90_days  = 90.days.ago..61.days.ago
+    over_90_days  = 120.days.ago..91.days.ago
+
     @transactions_summary = {
-      overdue: current_account.transactions.overdue(type),
-      open_invoice: current_account.transactions.open_invoice(type),
-      partial: current_account.transactions.partial(type),
-      paid_last_30_days: current_account.transactions.paid_last_30_days(type)
+      overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
+      overdue_last_60_days: current_account.transactions.overdue(type, last_60_days),
+      overdue_last_90_days: current_account.transactions.overdue(type, last_90_days),
+      overdue_over_90_days: current_account.transactions.overdue(type, over_90_days)
     }
 
     respond_to do |format|
@@ -23,12 +28,17 @@ class TransactionsController < ApplicationController
   end
 
   def purchases
-    type = Transaction::Types[2]
-    @transactions_summary = {
-      overdue: current_account.transactions.overdue(type),
-      unpaid_purchase: current_account.transactions.open_invoice(type),
-      partial: current_account.transactions.partial(type),
-      paid_last_30_days: current_account.transactions.paid_last_30_days(type)
+    type          = Transaction::Types[2]
+    last_30_days  = 30.days.ago..Time.now
+    last_60_days  = 60.days.ago..31.days.ago
+    last_90_days  = 90.days.ago..61.days.ago
+    over_90_days  = 120.days.ago..91.days.ago
+
+     @transactions_summary = {
+      overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
+      overdue_last_60_days: current_account.transactions.overdue(type, last_60_days),
+      overdue_last_90_days: current_account.transactions.overdue(type, last_90_days),
+      overdue_over_90_days: current_account.transactions.overdue(type, over_90_days)
     }
 
     respond_to do |format|

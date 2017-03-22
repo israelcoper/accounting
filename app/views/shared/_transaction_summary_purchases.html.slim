@@ -1,21 +1,20 @@
 .row#transaction_overview
-  .col-sm-3#overdue
-    span.amount= number_to_currency total_balance(@transactions_summary[:overdue]), unit: "PHP" 
+  .col-sm-3#overdue_last_30_days
+    span.amount= number_to_currency total_balance(@transactions_summary[:overdue_last_30_days]), unit: "PHP" 
     br
-    span.count= "#{@transactions_summary[:overdue].count} OVERDUE"
-  .col-sm-3#open
-    span.amount= number_to_currency total_balance(@transactions_summary[:unpaid_purchase]), unit: "PHP"
+    span.count= "#{@transactions_summary[:overdue_last_30_days].count} OVERDUE LAST 30 DAYS"
+  .col-sm-3#overdue_last_60_days
+    span.amount= number_to_currency total_balance(@transactions_summary[:overdue_last_60_days]), unit: "PHP"
     br
-    span.count= "#{@transactions_summary[:unpaid_purchase].count} UNPAID PURCHASE"
-  .col-sm-3#partial
-    span.amount= number_to_currency total_balance(@transactions_summary[:partial]), unit: "PHP"
+    span.count= "#{@transactions_summary[:overdue_last_60_days].count} OVERDUE LAST 60 DAYS"
+  .col-sm-3#overdue_last_90_days
+    span.amount= number_to_currency total_balance(@transactions_summary[:overdue_last_90_days]), unit: "PHP"
     br
-    span.count= "#{@transactions_summary[:partial].count} PARTIAL"
-  .col-sm-3#paid
-    span.amount= number_to_currency total_paid(@transactions_summary[:paid_last_30_days]), unit: "PHP"
+    span.count= "#{@transactions_summary[:overdue_last_90_days].count} OVERDUE LAST 90 DAYS"
+  .col-sm-3#overdue_above_90_days
+    span.amount= number_to_currency total_balance(@transactions_summary[:overdue_over_90_days]), unit: "PHP"
     br
-    span.count= "#{@transactions_summary[:paid_last_30_days].count} PAID LAST 30 DAYS"
+    span.count= "#{@transactions_summary[:overdue_over_90_days].count} OVERDUE OVER 90 DAYS"
 
 .ln_solid
-
 

@@ -20,10 +20,8 @@ class Transaction < ActiveRecord::Base
   scope :invoice, -> { where(transaction_type: Types[0], status: [Status[0], Status[2]]) }
   scope :purchase, -> { where(transaction_type: Types[2], status: [Status[0], Status[2]]) }
 
-  scope :overdue, ->(type) { where("transaction_type = ? AND due_date <= ? AND balance != ?", type, Time.now, 0.0) }
-  scope :open_invoice, ->(type) { where(transaction_type: type, status: Status[0]) }
-  scope :partial, ->(type) { where(transaction_type: type, status: Status[2]) }
-  scope :paid_last_30_days, ->(type) { where("transaction_type = ? AND status = ? AND updated_at > ?", type, Status[3], 30.days.ago) }
+  # (Time.now - 30.days)..Time.now or 30.days.ago..Time.now
+  scope :overdue, ->(type, due_date) { where(transaction_type: type, due_date: due_date).where.not(balance: 0.0) }
 
   before_save :set_status, if: proc {|t| t.new_record? }
   before_save :set_total_of_payment_transaction, if: proc {|t| t.transaction_type == Types[1]}

@@ -5,20 +5,20 @@
 #transaction_overview {
   margin: 30px 0;
 
-  #overdue {
-    background-color: #f0ad4e;
-  }
-
-  #open {
+  #overdue_last_30_days {
     background-color: #777777;
   }
 
-  #partial {
+  #overdue_last_60_days {
     background-color: #5bc0de;
   }
 
-  #paid {
-    background-color: #5cb85c;
+  #overdue_last_90_days {
+    background-color: #f0ad4e;
+  }
+
+  #overdue_above_90_days {
+    background-color: #d9534f;
   }
 
   span.amount {
