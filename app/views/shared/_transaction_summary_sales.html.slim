@@ -2,19 +2,23 @@
   .col-sm-3#overdue_last_30_days
     span.amount= number_to_currency total_balance(@transactions_summary[:overdue_last_30_days]), unit: "PHP" 
     br
-    span.count= "#{@transactions_summary[:overdue_last_30_days].count} OVERDUE LAST 30 DAYS"
+    a href="#" data-toggle="popover" data-trigger="focus" data-placement="top" data-original-title="OVERDUE LAST 30 DAYS" data-account-id="#{current_account.id}" data-type="#{Transaction::Types[0]}" data-start-date="#{30.days.ago}" data-end-date="#{Time.now}" class="overdue-link"
+      span.count= "#{@transactions_summary[:overdue_last_30_days].count} OVERDUE LAST 30 DAYS"
   .col-sm-3#overdue_last_60_days
     span.amount= number_to_currency total_balance(@transactions_summary[:overdue_last_60_days]), unit: "PHP"
     br
-    span.count= "#{@transactions_summary[:overdue_last_60_days].count} OVERDUE LAST 60 DAYS"
+    a href="#" data-toggle="popover" data-trigger="focus" data-placement="top" data-original-title="OVERDUE LAST 60 DAYS" data-account-id="#{current_account.id}" data-type="#{Transaction::Types[0]}" data-start-date="#{60.days.ago}" data-end-date="#{31.days.ago}" class="overdue-link"
+      span.count= "#{@transactions_summary[:overdue_last_60_days].count} OVERDUE LAST 60 DAYS"
   .col-sm-3#overdue_last_90_days
     span.amount= number_to_currency total_balance(@transactions_summary[:overdue_last_90_days]), unit: "PHP"
     br
-    span.count= "#{@transactions_summary[:overdue_last_90_days].count} OVERDUE LAST 90 DAYS"
+    a href="#" data-toggle="popover" data-trigger="focus" data-placement="top" data-original-title="OVERDUE LAST 90 DAYS" data-account-id="#{current_account.id}" data-type="#{Transaction::Types[0]}" data-start-date="#{90.days.ago}" data-end-date="#{61.days.ago}" class="overdue-link"
+      span.count= "#{@transactions_summary[:overdue_last_90_days].count} OVERDUE LAST 90 DAYS"
   .col-sm-3#overdue_above_90_days
     span.amount= number_to_currency total_balance(@transactions_summary[:overdue_over_90_days]), unit: "PHP"
     br
-    span.count= "#{@transactions_summary[:overdue_over_90_days].count} OVERDUE OVER 90 DAYS"
+    a href="#" data-toggle="popover" data-trigger="focus" data-placement="left" data-original-title="OVERDUE OVER 90 DAYS" data-account-id="#{current_account.id}" data-type="#{Transaction::Types[0]}" data-start-date="#{120.days.ago}" data-end-date="#{91.days.ago}" class="overdue-link"
+      span.count= "#{@transactions_summary[:overdue_over_90_days].count} OVERDUE OVER 90 DAYS"
 
 .ln_solid
 

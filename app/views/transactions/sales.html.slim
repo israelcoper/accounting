@@ -19,6 +19,7 @@
       .x_panel
         .x_content
           = render partial: "shared/popover_children_transaction"
+          = render partial: "shared/popover_summary_overdue"
           = render partial: "shared/transaction_summary_sales"
           table.table.table-striped#table-transactions data-source="#{sales_account_transactions_path(current_account, { format: :json })}"
             thead

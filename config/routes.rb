@@ -19,6 +19,9 @@ Rails.application.routes.draw do
         get "preview"
         get "children"
       end
+      collection do
+        get "overdue"
+      end
     end
     resources :products
     resources :users do

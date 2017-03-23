@@ -1,7 +1,7 @@
 module TransactionsHelper
 
   def transaction_link(t)
-    link_to t.transaction_number, "#", data: { toggle: "popover", trigger: "focus", placement: "right", original_title: "##{t.transaction_number} transaction", account_id: t.account.id, transaction_id: t.id }
+    link_to t.transaction_number, "#", data: { toggle: "popover", trigger: "focus", placement: "right", original_title: "##{t.transaction_number} transaction", account_id: t.account.id, transaction_id: t.id }, class: "transaction-link"
   end
 
   def transaction_status(status)

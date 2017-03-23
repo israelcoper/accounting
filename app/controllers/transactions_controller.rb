@@ -9,10 +9,11 @@ class TransactionsController < ApplicationController
 
   def sales
     type          = Transaction::Types[0]
-    last_30_days  = 30.days.ago..Time.now
-    last_60_days  = 60.days.ago..31.days.ago
-    last_90_days  = 90.days.ago..61.days.ago
-    over_90_days  = 120.days.ago..91.days.ago
+    # TODO: REFACTOR
+    last_30_days  = Date.parse(30.days.ago.strftime("%Y-%m-%d"))..Date.parse(Time.now.strftime("%Y-%m-%d"))
+    last_60_days  = Date.parse(60.days.ago.strftime("%Y-%m-%d"))..Date.parse(31.days.ago.strftime("%Y-%m-%d"))
+    last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
+    over_90_days  = Date.parse(120.days.ago.strftime("%Y-%m-%d"))..Date.parse(91.days.ago.strftime("%Y-%m-%d"))
 
     @transactions_summary = {
       overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
@@ -29,10 +30,11 @@ class TransactionsController < ApplicationController
 
   def purchases
     type          = Transaction::Types[2]
-    last_30_days  = 30.days.ago..Time.now
-    last_60_days  = 60.days.ago..31.days.ago
-    last_90_days  = 90.days.ago..61.days.ago
-    over_90_days  = 120.days.ago..91.days.ago
+    # TODO: REFACTOR
+    last_30_days  = Date.parse(30.days.ago.strftime("%Y-%m-%d"))..Date.parse(Time.now.strftime("%Y-%m-%d"))
+    last_60_days  = Date.parse(60.days.ago.strftime("%Y-%m-%d"))..Date.parse(31.days.ago.strftime("%Y-%m-%d"))
+    last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
+    over_90_days  = Date.parse(120.days.ago.strftime("%Y-%m-%d"))..Date.parse(91.days.ago.strftime("%Y-%m-%d"))
 
      @transactions_summary = {
       overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
@@ -61,6 +63,8 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new transaction_params.merge(account: current_account)
+    @customer = Person.new
+    @product = Product.new
 
     options = if @transaction.transaction_type == Transaction::Types[0]
                 { render: :invoice, redirect: sales_account_transactions_path(current_account) }
@@ -69,7 +73,7 @@ class TransactionsController < ApplicationController
               end
 
     unless @transaction.items.present?
-      flash[:error] = "You must select an item"
+      flash[:error] = "You must select an item and enter quantity"
       render options[:render] and return
     end
 
@@ -121,6 +125,12 @@ class TransactionsController < ApplicationController
   def children
     @transaction = Transaction.find params[:id]
     render json: @transaction.children
+  end
+
+  def overdue
+    due_date = Date.parse(params[:start_date])..Date.parse(params[:end_date])
+    @transactions = current_account.transactions.overdue(params[:type], due_date)
+    render json: @transactions
   end
 
   protected

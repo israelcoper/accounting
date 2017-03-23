@@ -1,0 +1,10 @@
+<tr>
+  <td>{{ transaction_number }}</td>
+  <td>{{ due_date }}</td>
+  <td>PHP{{ total }}</td>
+  <td>PHP{{ balance }}</td>
+  <td><span class="label label-{{label}}">{{ status }}</span></td>
+  <td class="action" style="width:250px;">
+    <a href="/accounts/{{account_id}}/transactions/{{route}}?parent_id={{transaction_id}}&person_id={{person_id}}">{{link}}</a>
+  </td>
+</tr>

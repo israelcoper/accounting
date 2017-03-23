@@ -3,10 +3,11 @@ class CustomersController < ApplicationController
 
   def index
     type          = Transaction::Types[0]
-    last_30_days  = 30.days.ago..Time.now
-    last_60_days  = 60.days.ago..31.days.ago
-    last_90_days  = 90.days.ago..61.days.ago
-    over_90_days  = 120.days.ago..91.days.ago
+    # TODO: REFACTOR
+    last_30_days  = Date.parse(30.days.ago.strftime("%Y-%m-%d"))..Date.parse(Time.now.strftime("%Y-%m-%d"))
+    last_60_days  = Date.parse(60.days.ago.strftime("%Y-%m-%d"))..Date.parse(31.days.ago.strftime("%Y-%m-%d"))
+    last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
+    over_90_days  = Date.parse(120.days.ago.strftime("%Y-%m-%d"))..Date.parse(91.days.ago.strftime("%Y-%m-%d"))
 
      @transactions_summary = {
       overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
