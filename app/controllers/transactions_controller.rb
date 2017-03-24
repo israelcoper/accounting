@@ -8,6 +8,15 @@ class TransactionsController < ApplicationController
   end
 
   def destroy
+    options = if Transaction::Types.values_at(0).include?(@transaction.transaction_type)
+                { redirect: sales_account_transactions_path(current_account) }
+              else
+                { redirect: purchases_account_transactions_path(current_account) }
+              end
+
+    @transaction.destroy
+    @transaction.cancel_person_transaction!
+    redirect_to options[:redirect], notice: "Transaction successfully cancelled"
   end
 
   def sales

@@ -22,7 +22,13 @@ module TransactionsHelper
   def sales_action(record=nil, opt={})
     case record.try(:status)
     when Transaction::Status[0]
-      link_to "Receive payment", payment_account_transaction_path(current_account, record)
+      content_tag :div do
+        concat link_to "Cancel", account_transaction_path(current_account, record), data: { method: "delete", confirm: "Are you sure?" }
+        concat "&nbsp;".html_safe
+        concat "<span>|</span>".html_safe
+        concat "&nbsp;".html_safe
+        concat link_to "Receive payment", payment_account_transaction_path(current_account, record)
+      end
     when Transaction::Status[2]
       link_to "Receive payment", payment_account_transaction_path(current_account, record)
     when Transaction::Status[1]
@@ -37,7 +43,13 @@ module TransactionsHelper
   def purchases_action(record=nil, opt={})
     case record.try(:status)
     when Transaction::Status[0]
-      link_to "Pay order", payment_purchase_account_transaction_path(current_account, record)
+      content_tag :div do
+        concat link_to "Cancel", account_transaction_path(current_account, record), data: { method: "delete", confirm: "Are you sure?" }
+        concat "&nbsp;".html_safe
+        concat "<span>|</span>".html_safe
+        concat "&nbsp;".html_safe
+        concat link_to "Pay order", payment_purchase_account_transaction_path(current_account, record)
+      end
     when Transaction::Status[2]
       link_to "Pay order", payment_purchase_account_transaction_path(current_account, record)
     when Transaction::Status[1]

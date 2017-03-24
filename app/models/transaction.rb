@@ -50,6 +50,11 @@ class Transaction < ActiveRecord::Base
     self.person.save
   end
 
+  def cancel_person_transaction!
+    self.person.balance -= balance
+    self.person.save
+  end
+
   protected
 
   def generate_invoice_number
