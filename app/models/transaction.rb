@@ -58,12 +58,12 @@ class Transaction < ActiveRecord::Base
   protected
 
   def generate_invoice_number
-    number = Number + (account.transactions.invoice.count + 1)
+    number = (account.transactions.sales.count > 0) ? (account.transactions.sales.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (Number + 1)
     self.transaction_number = ["INV" , number].join("_")
   end
 
   def generate_purchase_number
-    number = Number + (account.transactions.purchase.count + 1)
+    number = (account.transactions.purchases.count > 0) ? (account.transactions.purchases.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (Number + 1)
     self.transaction_number = ["PO" , number].join("_")
   end
 
