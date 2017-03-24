@@ -26,6 +26,7 @@ module TransactionsHelper
     when Transaction::Status[3]
       link_to "Preview", preview_account_transaction_path(current_account, options[:parent_id])
     when Transaction::Status[1]
+      link_to "Preview", preview_account_transaction_path(current_account, options[:parent_id])
     else
       person = Person.find(options[:person_id])
       if person.balance > 0.0
@@ -43,6 +44,7 @@ module TransactionsHelper
     when Transaction::Status[3]
       link_to "Preview", preview_account_transaction_path(current_account, options[:parent_id])
     when Transaction::Status[1]
+      link_to "Preview", preview_account_transaction_path(current_account, options[:parent_id])
     else
       person = Person.find(options[:person_id])
       if person.balance > 0.0

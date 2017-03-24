@@ -10,10 +10,10 @@
               .row
                 .col-xs-12.invoice-header
                   h3
-                    - if @transaction.transaction_type == Transaction::Types[0]
-                      span Invoice
+                    - if @transaction.transaction_type == Transaction::Types[1]
+                      span Payment
                     - else
-                      span Purchase Order
+                      span Purchase Payment
 
                     small.pull-right
                       label Transaction Date:
@@ -24,12 +24,12 @@
                 .col-xs-6
                   span Transaction Number:
                   | &nbsp;
-                  label= "##{@transaction.transaction_number}"
+                  label= "##{@transaction.parent.try(:transaction_number)}"
                 .col-xs-6
                   .pull-right
                     span Payment Due:
                     | &nbsp;
-                    label= format_date @transaction.due_date
+                    label= format_date @transaction.parent.try(:due_date)
 
               .ln_solid
 
@@ -79,7 +79,7 @@
                         th Price
                         th Subtotal
                     tbody
-                      - @transaction.items.each do |item|
+                      - @transaction.parent.items.each do |item|
                         tr
                           td= item.quantity
                           td= item.product.try :name
@@ -90,7 +90,7 @@
               .row
                 .col-xs-6
                   p.lead Notes:
-                  p.text-muted.well.well-sm.no-shadow style="margin-top: 10px;"= @transaction.notes
+                  p.text-muted.well.well-sm.no-shadow style="margin-top: 10px;"= @transaction.parent.try(:notes)
 
                 .col-xs-6
                   p.lead Amount Due
@@ -99,11 +99,10 @@
                       tbody
                         tr
                           th Total:
-                          td.action= number_to_currency(@transaction.total, unit: "PHP") 
+                          td.action= number_to_currency(@transaction.parent.try(:total), unit: "PHP") 
                         tr
                           th Payment:
-                          td.action= number_to_currency(-@transaction.total, unit: "PHP") 
-
+                          td.action= number_to_currency(@transaction.total, unit: "PHP") 
 
               / this row will not appear when printing
               .row.no-print

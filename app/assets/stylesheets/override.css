@@ -80,3 +80,7 @@ ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
 .clearfix {
   margin: 5px 0;
 }
+
+#preview .action {
+  width: 50%;
+}

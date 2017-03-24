@@ -119,7 +119,11 @@ class TransactionsController < ApplicationController
 
   def preview
     @transaction = Transaction.find params[:id]
-    render layout: "preview"
+    if Transaction::Types.values_at(0,2).include?(@transaction.transaction_type)
+      render 'preview', layout: "preview"
+    else
+      render 'preview_payment', layout: "preview"
+    end
   end
 
   def children
