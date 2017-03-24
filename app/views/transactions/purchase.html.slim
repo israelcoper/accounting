@@ -14,7 +14,7 @@
             .row
               .col-md-4.form-group
                 label.control-label Supplier
-                = f.select :person_id, options_for_select(option_suppliers, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control", id: "supplier_id" }
+                = f.select :person_id, options_for_select(option_suppliers, selected: person_id(@transaction, params)), { prompt: "Choose a customer" }, { class: "form-control", id: "supplier_id" }
 
               .col-md-4.form-group
                 label.control-label Purchase date

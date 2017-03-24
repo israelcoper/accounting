@@ -16,7 +16,7 @@ class SupplierTransactionsDatatable < TransactionDatatable
         number_to_currency(record.total, unit: "PHP"),
         number_to_currency(record.balance, unit: "PHP"),
         transaction_status(record.status),
-        purchases_action(record.status, parent_id: record.id, person_id: record.person.id)
+        purchases_action(record)
       ]
     end
   end

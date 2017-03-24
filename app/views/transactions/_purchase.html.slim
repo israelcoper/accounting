@@ -8,5 +8,5 @@
     td= number_to_currency(purchase.balance, unit: "PHP")
     td= number_to_currency(purchase.total, unit: "PHP")
     td= transaction_status(purchase.status)
-    td.action= purchases_action(purchase.status, parent_id: purchase.id, person_id: purchase.person.id)
+    td.action= purchases_action(purchase)
 

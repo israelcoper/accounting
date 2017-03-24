@@ -1,15 +1,18 @@
 class TransactionsController < ApplicationController
+  before_action :find_transaction, only: [:show, :destroy, :preview, :children, :payment, :payment_purchase, :payment_receive]
 
   def show
-    @transaction = Transaction.find params[:id]
     respond_to do |format|
       format.json { render json: @transaction }
     end
   end
 
+  def destroy
+  end
+
   def sales
-    type          = Transaction::Types[0]
     # TODO: REFACTOR
+    type          = Transaction::Types[0]
     last_30_days  = Date.parse(30.days.ago.strftime("%Y-%m-%d"))..Date.parse(Time.now.strftime("%Y-%m-%d"))
     last_60_days  = Date.parse(60.days.ago.strftime("%Y-%m-%d"))..Date.parse(31.days.ago.strftime("%Y-%m-%d"))
     last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
@@ -29,8 +32,8 @@ class TransactionsController < ApplicationController
   end
 
   def purchases
-    type          = Transaction::Types[2]
     # TODO: REFACTOR
+    type          = Transaction::Types[2]
     last_30_days  = Date.parse(30.days.ago.strftime("%Y-%m-%d"))..Date.parse(Time.now.strftime("%Y-%m-%d"))
     last_60_days  = Date.parse(60.days.ago.strftime("%Y-%m-%d"))..Date.parse(31.days.ago.strftime("%Y-%m-%d"))
     last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
@@ -50,23 +53,23 @@ class TransactionsController < ApplicationController
   end
 
   def invoice
-    @transaction = Transaction.new
+    @transaction = current_account.transactions.build
     @customer = Person.new
     @product = Product.new
   end
 
   def purchase
-    @transaction = Transaction.new
+    @transaction = current_account.transactions.build
     @supplier = Person.new
     @product = Product.new
   end
 
   def create
-    @transaction = Transaction.new transaction_params.merge(account: current_account)
+    @transaction = current_account.transactions.build(transaction_params)
     @customer = Person.new
     @product = Product.new
 
-    options = if @transaction.transaction_type == Transaction::Types[0]
+    options = if Transaction::Types.values_at(0).include?(@transaction.transaction_type)
                 { render: :invoice, redirect: sales_account_transactions_path(current_account) }
               else
                 { render: :purchase, redirect: purchases_account_transactions_path(current_account) }
@@ -87,29 +90,29 @@ class TransactionsController < ApplicationController
   end
 
   def payment
-    @transaction = Transaction.new
+    @child_transaction = @transaction.children.build
   end
 
   def payment_purchase
-    @transaction = Transaction.new
+    @child_transaction = @transaction.children.build
   end
 
   def payment_receive
-    @transaction = Transaction.new transaction_params.merge(account: current_account)
+    @child_transaction = @transaction.children.build(transaction_params.merge(account: current_account))
 
-    options = if @transaction.transaction_type == Transaction::Types[1]
+    options = if Transaction::Types.values_at(1).include?(@child_transaction.transaction_type)
                 { render: :payment, redirect: sales_account_transactions_path(current_account) }
               else
                 { render: :payment_purchase, redirect: purchases_account_transactions_path(current_account) }
               end
 
-    if @transaction.payment.blank? || !(@transaction.payment > 0)
+    if @child_transaction.payment.blank? || !(@child_transaction.payment > 0)
       flash[:error] = "You must select an invoice number and enter payment amount"
       render options[:render] and return
     end
 
-    if @transaction.save
-      @transaction.deduct_balance_of_person
+    if @child_transaction.save
+      @child_transaction.deduct_balance_of_person
       flash[:notice] = "Payment was successfull created"
       redirect_to options[:redirect]
     else
@@ -118,7 +121,6 @@ class TransactionsController < ApplicationController
   end
 
   def preview
-    @transaction = Transaction.find params[:id]
     if Transaction::Types.values_at(0,2).include?(@transaction.transaction_type)
       render 'preview', layout: "preview"
     else
@@ -127,7 +129,6 @@ class TransactionsController < ApplicationController
   end
 
   def children
-    @transaction = Transaction.find params[:id]
     render json: @transaction.children
   end
 
@@ -140,9 +141,13 @@ class TransactionsController < ApplicationController
   protected
 
   def transaction_params
-    params.require(:transaction).permit(:transaction_type, :transaction_date, :due_date, :notes, :payment, :balance, :total, :person_id, :parent_id, :payment_method,
+    params.require(:transaction).permit(:transaction_type, :transaction_date, :due_date, :notes, :payment, :balance, :total, :person_id, :payment_method,
                                         items_attributes: [:id, :product_id, :name, :description, :quantity, :rate, :amount, :_destroy]
     )
+  end
+
+  def find_transaction
+    @transaction ||= current_account.transactions.find(params[:id])
   end
 
 end

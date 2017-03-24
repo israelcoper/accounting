@@ -10,11 +10,11 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          = form_for @transaction, url: payment_receive_account_transactions_path(current_account), html: { id: 'form-transaction', class: 'form-payment', data: { account_id: current_account.id, transaction_type: "invoice", payment: "invoice" } } do |f|
+          = form_for @transaction, url: payment_receive_account_transaction_path(current_account, @transaction), html: { id: 'form-transaction', class: 'form-payment', data: { account_id: current_account.id, transaction_type: "invoice", payment: "invoice" } } do |f|
             .row
               .col-md-4.form-group
                 label.control-label Customer
-                = f.select :person_id, options_for_select(current_account.customers.map {|person| [person.full_name, person.id]}, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control", id: "customer_id" }
+                = f.select :person_id, options_for_select(current_account.customers.map {|person| [person.full_name, person.id]}, selected: person_id(@transaction, params)), { prompt: "Choose a customer" }, { class: "form-control", id: "customer_id" }
 
               .col-md-4.form-group
                 label.control-label Payment date
@@ -52,7 +52,7 @@
             .row
               .col-md-6
                 = f.hidden_field :transaction_type, value: Transaction::Types[1]
-                = f.hidden_field :parent_id, value: params[:parent_id]
+                = f.hidden_field :parent_id, value: params[:id]
 
               .col-md-6
                 .row

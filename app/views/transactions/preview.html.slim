@@ -103,7 +103,9 @@
                         tr
                           th Payment:
                           td.action= number_to_currency(-@transaction.total, unit: "PHP") 
-
+                        tr
+                          th Balance:
+                          td.action= number_to_currency(@transaction.balance, unit: "PHP") 
 
               / this row will not appear when printing
               .row.no-print

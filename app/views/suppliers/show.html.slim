@@ -4,16 +4,8 @@
       h3= @supplier.full_name
   
     .title_right
-      .dropdown.pull-right
-        button.btn.btn-primary.dropdown-toggle id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-          | New transaction
-          | &nbsp;
-          span class="caret"
-        ul role="menu" class="dropdown-menu" aria-labelledby="dLabel"
-          li= link_to "Purchase Order", purchase_account_transactions_path(current_account, { person_id: @supplier.id }), id: "purchase"
-          li= link_to "Order Payment", payment_purchase_account_transactions_path(current_account, { parent_id: nil, person_id: @supplier.id })
-
       = link_to "Edit", edit_account_supplier_path(current_account, @supplier), class: "btn btn-default pull-right", style: "margin-right: 10px;"
+      = link_to "Back", account_suppliers_path(current_account), class: "btn btn-primary pull-right", style: "margin-right: 10px;"
 
 - content_for :content do
   .row

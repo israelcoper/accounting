@@ -14,7 +14,7 @@
             .row
               .col-md-4.form-group
                 label.control-label Customer
-                = f.select :person_id, options_for_select(option_customers, selected: customer_id(params)), { prompt: "Choose a customer" }, { class: "form-control", id: "customer_id" }
+                = f.select :person_id, options_for_select(option_customers, selected: person_id(@transaction, params)), { prompt: "Choose a customer" }, { class: "form-control", id: "customer_id" }
 
               .col-md-4.form-group
                 label.control-label Invoice date

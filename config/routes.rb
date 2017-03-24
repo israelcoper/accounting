@@ -11,13 +11,14 @@ Rails.application.routes.draw do
         get "purchases"
         get "invoice"
         get "purchase"
-        get "payment"
-        get "payment_purchase"
-        post  "payment_receive"
       end
       member do
+        get "payment"
+        get "payment_purchase"
         get "preview"
         get "children"
+
+        patch "payment_receive"
       end
       collection do
         get "overdue"

@@ -2,8 +2,8 @@ class SuppliersController < ApplicationController
   before_action :find_supplier, only: [:show, :edit, :update, :destroy, :transactions, :info]
 
   def index
-    type          = Transaction::Types[2]
     # TODO: REFACTOR
+    type          = Transaction::Types[2]
     last_30_days  = Date.parse(30.days.ago.strftime("%Y-%m-%d"))..Date.parse(Time.now.strftime("%Y-%m-%d"))
     last_60_days  = Date.parse(60.days.ago.strftime("%Y-%m-%d"))..Date.parse(31.days.ago.strftime("%Y-%m-%d"))
     last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
