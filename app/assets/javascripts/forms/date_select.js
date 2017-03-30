@@ -3,13 +3,20 @@ var forms = forms || {};
 forms.date_select = (function() {
   var dateSelect = function() {
     // modal
-    $("select#customer_id, select#supplier_id").on("select2:select", function(e) {
+    $("select#customer_id, select#supplier_id, select#employee_id").on("select2:select", function(e) {
       var account_id = $("#form-transaction").data("account-id");
       var person_id = $(this).val();
-      var resource = "customers";
+      var resource;
 
-      if ($("#form-transaction").data("transaction-type") == "purchase") {
-        resource = "suppliers";
+      switch($("#form-transaction").data("transaction-type")) {
+        case "purchase":
+          resource = "suppliers";
+          break;
+        case "expense":
+          resource = "employees";
+          break;
+        default:
+          resource = "customers";
       }
 
       if (person_id == "new") {

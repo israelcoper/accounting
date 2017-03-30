@@ -4,7 +4,8 @@ forms.append_item = (function() {
   var attrs = {
     'selector': 'select#product',
     'listing': 'tbody#items',
-    'template': 'items/append_item',
+    'template_1': 'items/append_item',
+    'template_2': 'items/append_item_non_inventory'
   };
 
   var appendItem = function() {
@@ -33,7 +34,11 @@ forms.append_item = (function() {
           }
 
           if ( (product_id != '') && (product_id != 'new') && ($.inArray(product_id, listing) === -1) ) {
-            $(attrs.listing).append(HandlebarsTemplates[attrs.template](context));
+            if ($("form#form-transaction").hasClass("transaction-expense")) {
+              $(attrs.listing).append(HandlebarsTemplates[attrs.template_2](context));
+            } else {
+              $(attrs.listing).append(HandlebarsTemplates[attrs.template_1](context));
+            }
           }
         },
         error: function() {

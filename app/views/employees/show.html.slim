@@ -1,0 +1,102 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3= @employee.full_name
+  
+    .title_right
+      = link_to "Edit", edit_account_employee_path(current_account, @employee), class: "btn btn-default pull-right", style: "margin-right: 10px;"
+      = link_to "Back", account_employees_path(current_account), class: "btn btn-primary pull-right", style: "margin-right: 10px;"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          .row
+            .col-xs-12
+              ul id="myTab" class="nav nav-tabs" role="tablist"
+                li role="presentation" class="active"
+                  a href="#transaction" role="tab" id="transaction-tab" data-toggle="tab" aria-expanded="true" Transaction List
+                li role="presentation" class=""
+                  a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" Profile
+
+              br
+
+              div id="myTabContent" class="tab-content"
+                div role="tabpanel" class="tab-pane fade active in" id="transaction"
+                  .row
+                    .col-xs-12
+                      table.table.table-striped#table-employee-transactions data-source="#{account_employee_path(current_account, @employee.id, { format: :json })}"
+                        thead
+                          tr
+                            th Date
+                            th Type
+                            th Transaction #
+                            th Total
+                            th Status
+                            th.action Action
+                        tbody#transactions
+
+                div role="tabpanel" class="tab-pane fade" id="profile"
+                  .row
+                    .col-xs-6
+                      .table-responsive
+                        table.table
+                          tbody
+                            tr
+                              th First name
+                              td= @employee.first_name
+                            tr
+                              th Middle name
+                              td= @employee.middle_name
+                            tr
+                              th Last name
+                              td= @employee.last_name
+                            tr
+                              th Phone
+                              td= @employee.phone
+                            tr
+                              th Mobile
+                              td= @employee.mobile
+                            tr
+                              th Notes
+                              td= @employee.notes
+
+                    .col-xs-6
+                      .table-responsive
+                        table.table
+                          tbody
+                            tr
+                              th Address
+                              td= @employee.address.fetch("address")
+                            tr
+                              th City
+                              td= @employee.address.fetch("city")
+                            tr
+                              th Province
+                              td= @employee.address.fetch("province")
+                            tr
+                              th Country
+                              td= @employee.address.fetch("country")
+                            tr
+                              th Postal code
+                              td= @employee.address.fetch("postal_code")
+                            tr
+                              th Date created
+                              td= format_date @employee.created_at
+
+          .ln_solid
+
+          .row
+            .col-md-8
+            .col-md-4
+              .row
+                .col-md-12
+                  .row
+                    .col-md-8
+                      .pull-right
+                        label TOTAL:
+                    .col-md-4
+                      .pull-right
+                        span= number_to_currency(@employee.balance, unit: "PHP")
+

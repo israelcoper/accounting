@@ -20,4 +20,19 @@ RSpec.describe Product, type: :model do
     it { should validate_numericality_of :quantity }
   end
 
+  context "scope" do
+    let(:p1) { create(:inventory_product) }
+    let(:p2) { create(:inventory_product) }
+    let(:p3) { create(:non_inventory_product) }
+    let(:p4) { create(:non_inventory_product) }
+
+    describe "inventory" do
+      it { expect(Product.inventory).to match_array [p1, p2] }
+    end
+
+    describe "non inventory" do
+      it { expect(Product.non_inventory).to match_array [p3, p4] }
+    end
+  end
+
 end

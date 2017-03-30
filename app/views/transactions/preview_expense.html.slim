@@ -1,0 +1,103 @@
+.main_container#preview
+  div class=""
+    .row
+      .col-md-12
+        .x_panel
+          .x_title
+
+          .x_content
+            section.content.invoice
+              .row
+                .col-xs-12.invoice-header
+                  h3
+                    span Expense
+
+                    small.pull-right
+                      label Transaction Date:
+                      | &nbsp;
+                      = format_date(@transaction.transaction_date)
+
+              .row
+                .col-xs-6
+                  span Transaction Number:
+                  | &nbsp;
+                  label= "##{@transaction.transaction_number}"
+                .col-xs-6
+
+              .ln_solid
+
+              .row.invoice-info
+                .col-xs-6.invoice-col
+                  .row
+                    .col-sm-3
+                      | FROM:
+                    .col-sm-9
+                      address
+                        strong= @transaction.person.full_name 
+                        br
+                        small= @transaction.person.address["address"]
+                        br
+                        small= "#{@transaction.person.address["country"]}"
+                        br
+                        small Phone:
+                        | &nbsp;
+                        small= @transaction.person.try :phone
+
+                .col-xs-6.invoice-col
+                  .row
+                    .col-sm-3
+                      span TO:
+                    .col-sm-9
+                      address
+                        strong= current_account.name
+                        br
+                        small= current_account.address["address"]
+                        br
+                        small= current_account.address["country"]
+                        br
+                        small Phone:
+                        | &nbsp;
+                        small= current_account.address["business_phone"]
+
+              .ln_solid
+
+              .row
+                .col-xs-12.table
+                  table.table.table-striped
+                    thead
+                      tr
+                        th Product
+                        th style="width: 50%" Description
+                        th Total
+                    tbody
+                      - @transaction.items.each do |item|
+                        tr
+                          td= item.product.try :name
+                          td= item.product.try :description
+                          td= number_to_currency(item.amount, unit: "PHP")
+
+              .row
+                .col-xs-6
+                  p.lead Notes:
+                  p.text-muted.well.well-sm.no-shadow style="margin-top: 10px;"= @transaction.notes
+
+                .col-xs-6
+                  p.lead Amount Due
+                  .table-responsive
+                    table.table
+                      tbody
+                        tr
+                          th Total:
+                          td.action= number_to_currency(@transaction.total, unit: "PHP") 
+
+              / this row will not appear when printing
+              .row.no-print
+                .col-xs-12
+                  button.btn.btn-primary.btn-sm.btn-round.pull-right onclick="window.print();"
+                    i.fa.fa-print
+                    | &nbsp; Print
+                  = link_to "Back", request.referer, class: "btn btn-default btn-sm pull-right"
+                  / button.btn.btn-primary.pull-right style="margin-right: 5px;"
+                  /   i.fa.fa-download
+                  /   | &nbsp; Generate PDF
+ 

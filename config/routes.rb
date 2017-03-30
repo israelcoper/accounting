@@ -9,8 +9,10 @@ Rails.application.routes.draw do
       collection do
         get "sales"
         get "purchases"
+        get "expenses"
         get "invoice"
         get "purchase"
+        get "expense"
       end
       member do
         get "payment"

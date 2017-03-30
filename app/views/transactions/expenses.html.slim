@@ -1,0 +1,27 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Expense Transactions
+  
+    .title_right
+      .dropdown.pull-right
+        = link_to "New Transaction", expense_account_transactions_path(current_account), class: "btn btn-primary"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          table.table.table-striped#table-expenses data-source="#{expenses_account_transactions_path(current_account, { format: :json })}"
+            thead
+              tr
+                th Date
+                th Type
+                th Transaction # 
+                th Employee
+                th Total
+                th Status
+                th.action Actions
+            tbody#transactions
+
+

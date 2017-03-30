@@ -1,6 +1,6 @@
 class Transaction < ActiveRecord::Base
 
-  Types = ["Invoice", "Payment", "Purchase Order", "Purchase Payment"]
+  Types = ["Invoice", "Payment", "Purchase Order", "Purchase Payment", "Expense"]
   Status = %w{ Open Closed Partial Paid }
   Number = 1000
 
@@ -12,11 +12,12 @@ class Transaction < ActiveRecord::Base
   has_many :children, class_name: "Transaction", foreign_key: :parent_id
   has_many :items, dependent: :destroy
 
-  accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["quantity"].blank? }
+  accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["amount"].blank? }
 
   default_scope { order(transaction_number: "ASC") }
   scope :sales, -> { where(transaction_type: Types.values_at(0)) }
   scope :purchases, -> { where(transaction_type: Types.values_at(2)) }
+  scope :expenses, -> { where(transaction_type: Types.values_at(4)) }
   scope :invoice, -> { where(transaction_type: Types[0], status: [Status[0], Status[2]]) }
   scope :purchase, -> { where(transaction_type: Types[2], status: [Status[0], Status[2]]) }
 
@@ -24,11 +25,14 @@ class Transaction < ActiveRecord::Base
   scope :overdue, ->(type, due_date) { where(transaction_type: type, due_date: due_date).where.not(balance: 0.0) }
 
   before_save :set_status, if: proc {|t| t.new_record? }
-  before_save :set_total_of_payment_transaction, if: proc {|t| t.transaction_type == Types[1]}
-  before_save :set_total_of_purchase_payment_transaction, if: proc {|t| t.transaction_type == Types[3]}
   before_save :generate_invoice_number, if: proc {|t| t.new_record? && t.transaction_type == Types[0]}
   before_save :generate_purchase_number, if: proc {|t| t.new_record? && t.transaction_type == Types[2]}
+  before_save :generate_expense_number, if: proc {|t| t.new_record? && t.transaction_type == Types[4]}
 
+  ## PAYMENT CALLBACKS
+  before_save :set_total_of_payment_transaction, if: proc {|t| t.transaction_type == Types[1]}
+  before_save :set_total_of_purchase_payment_transaction, if: proc {|t| t.transaction_type == Types[3]}
+ 
   after_save :deduct_balance_of_parent_invoice, if: proc {|t| t.transaction_type == Types[1]}
   after_save :deduct_balance_of_parent_purchase, if: proc {|t| t.transaction_type == Types[3]}
   after_save :update_status_of_parent_invoice, if: proc {|t| t.transaction_type == Types[1]}
@@ -67,6 +71,11 @@ class Transaction < ActiveRecord::Base
     self.transaction_number = ["PO" , number].join("_")
   end
 
+  def generate_expense_number
+    number = (account.transactions.expenses.count > 0) ? (account.transactions.expenses.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (Number + 1)
+    self.transaction_number = ["EXP" , number].join("_")
+  end
+
   def set_status
     self.status = case transaction_type
                   when Types[0]
@@ -78,6 +87,7 @@ class Transaction < ActiveRecord::Base
                   when Types[3]
                     Status[1]
                   else
+                    Status[3]
                   end
   end
 

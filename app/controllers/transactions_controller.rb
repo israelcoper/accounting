@@ -10,8 +10,10 @@ class TransactionsController < ApplicationController
   def destroy
     options = if Transaction::Types.values_at(0).include?(@transaction.transaction_type)
                 { redirect: sales_account_transactions_path(current_account) }
-              else
+              elsif Transaction::Types.values_at(2).include?(@transaction.transaction_type)
                 { redirect: purchases_account_transactions_path(current_account) }
+              else
+                { redirect: expenses_account_transactions_path(current_account) }
               end
 
     @transaction.destroy
@@ -61,6 +63,13 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def expenses
+    respond_to do |format|
+      format.html
+      format.json { render json: ExpenseDatatable.new(view_context, {current_account: current_account}) }
+    end
+  end
+
   def invoice
     @transaction = current_account.transactions.build
     @customer = Person.new
@@ -73,19 +82,27 @@ class TransactionsController < ApplicationController
     @product = Product.new
   end
 
+  def expense
+    @transaction = current_account.transactions.build
+    @employee = Person.new
+    @product = Product.new
+  end
+
   def create
     @transaction = current_account.transactions.build(transaction_params)
     @customer = Person.new
     @product = Product.new
 
     options = if Transaction::Types.values_at(0).include?(@transaction.transaction_type)
-                { render: :invoice, redirect: sales_account_transactions_path(current_account) }
+                { render: :invoice, redirect: sales_account_transactions_path(current_account), text: "quantity" }
+              elsif Transaction::Types.values_at(2).include?(@transaction.transaction_type)
+                { render: :purchase, redirect: purchases_account_transactions_path(current_account), text: "quantity" }
               else
-                { render: :purchase, redirect: purchases_account_transactions_path(current_account) }
+                { render: :expense, redirect: expenses_account_transactions_path(current_account), text: "amount" }
               end
 
     unless @transaction.items.present?
-      flash[:error] = "You must select an item and enter quantity"
+      flash[:error] = "You must select an item and enter #{options[:text]}"
       render options[:render] and return
     end
 
@@ -132,8 +149,10 @@ class TransactionsController < ApplicationController
   def preview
     if Transaction::Types.values_at(0,2).include?(@transaction.transaction_type)
       render 'preview', layout: "preview"
-    else
+    elsif Transaction::Types.values_at(1,3).include?(@transaction.transaction_type)
       render 'preview_payment', layout: "preview"
+    else
+      render 'preview_expense', layout: "preview"
     end
   end
 

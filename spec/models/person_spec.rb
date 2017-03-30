@@ -23,7 +23,7 @@ RSpec.describe Person, type: :model do
     it { should validate_uniqueness_of(:last_name).scoped_to(:account_id, :person_type) }
 
     it { should have_attached_file(:picture) }
-    it { should validate_attachment_presence(:picture) }
+    # it { should validate_attachment_presence(:picture) }
     it { should validate_attachment_content_type(:picture).allowing('image/png', 'image/gif').rejecting('text/plain', 'text/xml') }
   end
 

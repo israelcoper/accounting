@@ -2,7 +2,7 @@
   .col-md-6
     h4 Item details
   .col-md-6.form-group.pull-right
-    = select_tag "product", options_for_select(option_products), { prompt: "Choose a product", class: "form-control", data: { accountid: current_account.id } }
+    = select_tag "product", options_for_select(option_inventory), { prompt: "Choose a product", class: "form-control", data: { accountid: current_account.id } }
 
 .row
   .col-md-12

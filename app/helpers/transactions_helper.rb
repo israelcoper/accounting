@@ -61,6 +61,16 @@ module TransactionsHelper
     end
   end
 
+  def expenses_action(record=nil, opt={})
+    content_tag :div do
+      concat link_to "Cancel", account_transaction_path(current_account, record), data: { method: "delete", confirm: "Are you sure?" }
+      concat "&nbsp;".html_safe
+      concat "<span>|</span>".html_safe
+      concat "&nbsp;".html_safe
+      concat link_to "Preview", preview_account_transaction_path(current_account, record)
+    end
+  end
+
   def person_id(record, params={})
     return Person.find(params[:person_id]).try(:id) if params[:person_id].present?
     return record.present? ? record.person.try(:id) : nil
@@ -82,8 +92,16 @@ module TransactionsHelper
     current_account.suppliers.map {|person| [person.full_name, person.id]}.push ["---- Add supplier ----", "new"]
   end
 
-  def option_products
-    current_account.products.map {|product| [product.name, product.id]}.push ["---- Add product ----", "new"]
+  def option_employees
+    current_account.employees.map {|person| [person.full_name, person.id]}.push ["---- Add employee ----", "new"]
+  end
+
+  def option_inventory
+    current_account.products.inventory.map {|product| [product.name, product.id]}.push ["---- Add product ----", "new"]
+  end
+
+  def option_non_inventory
+    current_account.products.non_inventory.map {|product| [product.name, product.id]}.push ["---- Add product ----", "new"]
   end
 
 end

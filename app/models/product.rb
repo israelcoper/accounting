@@ -5,6 +5,9 @@ class Product < ActiveRecord::Base
 
   default_scope { order(name: "ASC") }
 
+  scope :inventory, -> { where(category: categories.fetch("inventory")) }
+  scope :non_inventory, -> { where(category: categories.fetch("non_inventory")) }
+
   belongs_to :account
 
   validates :name, :unit, :product_number, presence: true

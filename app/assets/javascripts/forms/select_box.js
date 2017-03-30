@@ -12,6 +12,10 @@ forms.select_box = (function() {
         'placeholder': 'Choose a supplier'
       },
       {
+        'selector': 'select#employee_id',
+        'placeholder': 'Choose an employee'
+      },
+      {
         'selector': 'select#product',
         'placeholder': 'Choose a product/service'
       },

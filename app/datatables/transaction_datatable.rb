@@ -1,7 +1,7 @@
 class TransactionDatatable < AjaxDatatablesRails::Base
   include AjaxDatatablesRails::Extensions::Kaminari
 
-  def_delegators :@view, :format_date, :number_to_currency, :transaction_status, :sales_action, :purchases_action, :transaction_link
+  def_delegators :@view, :format_date, :number_to_currency, :transaction_status, :sales_action, :purchases_action, :expenses_action, :transaction_link
 
   def sortable_columns
     @sortable_columns ||= [

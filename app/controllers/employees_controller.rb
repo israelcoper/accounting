@@ -9,6 +9,10 @@ class EmployeesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: EmployeeTransactionsDatatable.new(view_context, {employee: @employee}) }
+    end
   end
 
   def new
@@ -19,7 +23,7 @@ class EmployeesController < ApplicationController
     @employee = Person.new(employee_params.merge(account: current_account, person_type: Person.person_types["employee"]))
     if @employee.save
       flash[:notice] = "#{@employee.full_name} was successfully created"
-      redirect_to account_employees_path(current_account)
+      redirect_to request.referrer
     else
       render :new
     end

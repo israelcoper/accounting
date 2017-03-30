@@ -1,0 +1,59 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Expense
+
+    .title_right
+  
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          = form_for @transaction, url: account_transactions_path(current_account), html: { id: 'form-transaction', class: 'transaction-expense', data: { account_id: current_account.id, transaction_type: "expense" } } do |f|
+            .row
+              .col-md-4.form-group
+                label.control-label Employee
+                = f.select :person_id, options_for_select(option_employees, selected: person_id(@transaction, params)), { prompt: "Choose an employee" }, { class: "form-control", id: "employee_id" }
+
+              .col-md-4.form-group
+                label.control-label Transaction date
+                = f.text_field :transaction_date, class: "form-control", placeholder: "Transaction date"
+
+            .ln_solid
+
+            = render 'item_details_non_inventory'
+
+            br
+
+            .row
+              .col-md-6
+                .row
+                  .col-md-8
+                    label Notes
+                    = f.text_area :notes, class: "form-control"
+                  .col-md-4
+                    = f.hidden_field :transaction_type, value: Transaction::Types[4]
+              .col-md-6
+                .row
+                  .col-md-6
+                  .col-md-6
+                    .row
+                      .col-md-6
+                        label Total
+                      .col-md-6
+                        span#transaction_total PHP0.00
+                        = f.hidden_field :total, value: 0.0
+                        = f.hidden_field :balance, value: 0.0
+
+            .ln_solid
+
+            .row
+              .col-md-12
+                .pull-right
+                  = link_to "Cancel", expenses_account_transactions_path(current_account), class: "btn btn-default"
+                  = f.submit "Save", class: "btn btn-primary"
+
+  = render 'modal_form_employee'
+  = render 'modal_form_product'
+
