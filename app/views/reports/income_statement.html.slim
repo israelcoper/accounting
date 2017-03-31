@@ -11,7 +11,7 @@
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_content
-          label= "For the year ended 31 December #{params[:date][:year]}" 
+          label= "For the year ended 31 December #{@year}" 
           .panel.panel-default
             .panel-body
               table.table.table-income-statement
@@ -35,8 +35,6 @@
                     td
                     td= @total_income
 
-              table.table.table-income-statement
-                tbody
                   - @products.each do |product|
                     tr
                       td= product.name
@@ -56,8 +54,6 @@
                     td
                     td= @total_cost
 
-              table.table.table-income-statement
-                tbody
                   tr
                     td
                       label Gross Profit
@@ -65,8 +61,6 @@
                     td
                     td= @gross_profit
 
-              table.table.table-income-statement
-                tbody
                   - @expenses.each do |expense|
                     tr
                       td= expense.name
@@ -86,8 +80,6 @@
                     td
                     td= @total_expenses
  
-              table.table.table-income-statement
-                tbody
                   tr
                     td
                       label Net Income

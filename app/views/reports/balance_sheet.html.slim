@@ -1,0 +1,90 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Balance Sheet
+  
+    .title_right
+      = link_to "Back", account_reports_path(current_account), class: "btn btn-primary pull-right"
+
+- content_for :content do
+  .row#balance-sheet
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          label= "As of 31 December #{@year}" 
+          .panel.panel-default
+            .panel-body
+              table.table.table-balance-sheet
+                tbody
+                  - @current_assets.each do |asset|
+                    tr
+                      td= asset.name
+                      td= asset.amount
+                      td
+                      td
+                  tr
+                    td
+                      label Total Current Assets
+                    td
+                    td= @total_current_assets
+                    td
+
+                  - @non_current_assets.each do |asset|
+                    tr
+                      td= asset.name
+                      td= asset.amount
+                      td
+                      td
+                  tr
+                    td
+                      label Total Non Current Assets
+                    td
+                    td= @total_non_current_assets
+                    td
+
+                  tr
+                    td
+                      label Total Assets
+                    td
+                    td
+                    td= @total_assets
+
+                  - @liabilities.each do |liability|
+                    tr
+                      td= liability.name
+                      td
+                      td= liability.amount
+                      td
+
+                  tr
+                    td
+                      label Total Liability
+                    td
+                    td
+                    td= @total_liabilities
+
+                  - @equity.each do |equity|
+                    tr
+                      td= equity.name
+                      td
+                      td= equity.amount
+                      td
+                  tr
+                    td Current Year Earnings
+                    td
+                    td= @net_income
+                    td
+                  tr
+                    td
+                      label Total Equity
+                    td
+                    td
+                    td= @total_equity
+
+                  tr
+                    td
+                      label Total Liability and Equity
+                    td
+                    td
+                    td= @asset
+

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :reports, only: [:index] do
       collection do
         get "income_statement"
+        get "balance_sheet"
       end
     end
     resources :transactions do

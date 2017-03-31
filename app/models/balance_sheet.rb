@@ -9,4 +9,9 @@ class BalanceSheet < ActiveRecord::Base
     categories["liability"] => ["Current Liability", "Non Current Liability"],
     categories["equity"] => ["Capital", "Withdrawals", "Retained Earnings"]
   }
+
+  scope :current_assets, -> { where(category: BalanceSheet.categories["current_asset"]) }
+  scope :non_current_assets, -> { where(category: BalanceSheet.categories["non_current_asset"]) }
+  scope :liabilities, -> { where(category: BalanceSheet.categories["liability"]) }
+  scope :equity, -> { where(category: BalanceSheet.categories["equity"]) }
 end

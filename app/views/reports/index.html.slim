@@ -12,13 +12,18 @@
         .x_content
           ul.list-group
             li.list-group-item
-              = form_tag income_statement_account_reports_path(current_account), method: "GET", id: "form-income-statement" do
-                .row
-                  .col-md-4
-                    .form-group
-                      = select_year Date.today, { start_year: 1990, end_year: 2050, include_blank: true }, { class: "form-control" }
+              .form-group
+                = select_year Date.today, { start_year: 1990, end_year: 2050, include_blank: true }, { class: "form-control" }
 
-                  .col-md-4
-                    .form-group
-                      = submit_tag "Income statement", class: "btn btn-primary"
+            li.list-group-item
+              = form_tag income_statement_account_reports_path(current_account), method: "GET", id: "form-income-statement" do
+                .form-group
+                  = hidden_field_tag "date_year", @default_year
+                  = submit_tag "Income statement", class: "btn-link"
+
+            li.list-group-item
+              = form_tag balance_sheet_account_reports_path(current_account), method: "GET", id: "form-balance-sheet" do
+                .form-group
+                  = hidden_field_tag "date_year", @default_year
+                  = submit_tag "Balance sheet", class: "btn-link"
  
