@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function(e) {
   // append quantity (invoice)
   forms.append_quantity.init();
 
-  // append quantity (invoice)
+  // append amount
   forms.append_amount.init();
 
   // append invoice

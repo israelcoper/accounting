@@ -34,6 +34,10 @@ forms.select_box = (function() {
       {
         'selector': 'select#transaction_payment_method',
         'placeholder': 'Select payment method'
+      },
+      {
+        'selector': 'select#date_year',
+        'placeholder': 'Select year'
       }
     ];
 

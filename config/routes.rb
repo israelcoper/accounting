@@ -5,6 +5,11 @@ Rails.application.routes.draw do
       get "new_chart", path: "chart-of-account"
       patch "chart"
     end
+    resources :reports, only: [:index] do
+      collection do
+        get "income_statement"
+      end
+    end
     resources :transactions do
       collection do
         get "sales"

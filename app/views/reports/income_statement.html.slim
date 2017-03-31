@@ -1,0 +1,97 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Income Statement
+  
+    .title_right
+      = link_to "Back", account_reports_path(current_account), class: "btn btn-primary pull-right"
+
+- content_for :content do
+  .row#income-statement
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          label= "For the year ended 31 December #{params[:date][:year]}" 
+          .panel.panel-default
+            .panel-body
+              table.table.table-income-statement
+                tbody
+                  - @products.each do |product|
+                    tr
+                      td= product.name
+                      td= product.income
+                      td
+                      td
+                  tr
+                    td
+                      label Sales
+                    td
+                    td= @total_income
+                    td
+                  tr
+                    td
+                      label Total Income
+                    td
+                    td
+                    td= @total_income
+
+              table.table.table-income-statement
+                tbody
+                  - @products.each do |product|
+                    tr
+                      td= product.name
+                      td= -product.cost
+                      td
+                      td
+                  tr
+                    td
+                      label Purchases
+                    td
+                    td= @total_cost
+                    td
+                  tr
+                    td
+                      label Total Cost of Sales
+                    td
+                    td
+                    td= @total_cost
+
+              table.table.table-income-statement
+                tbody
+                  tr
+                    td
+                      label Gross Profit
+                    td
+                    td
+                    td= @gross_profit
+
+              table.table.table-income-statement
+                tbody
+                  - @expenses.each do |expense|
+                    tr
+                      td= expense.name
+                      td= -expense.cost
+                      td
+                      td
+                  tr
+                    td
+                      label Expenses
+                    td
+                    td= @total_expenses
+                    td
+                  tr
+                    td
+                      label Total Expenses
+                    td
+                    td
+                    td= @total_expenses
+ 
+              table.table.table-income-statement
+                tbody
+                  tr
+                    td
+                      label Net Income
+                    td
+                    td
+                    td= @net_income
+

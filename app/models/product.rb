@@ -7,10 +7,10 @@ class Product < ActiveRecord::Base
 
   scope :inventory, -> { where(category: categories.fetch("inventory")) }
   scope :non_inventory, -> { where(category: categories.fetch("non_inventory")) }
+  scope :income_statement, ->(range) { where(created_at: range) }
 
   belongs_to :account
 
   validates :name, :unit, :product_number, presence: true
   validates :purchase_price, :selling_price, :quantity, numericality: true
-
 end

@@ -84,3 +84,18 @@ ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
 #preview .action {
   width: 50%;
 }
+
+.btn-link {
+  background: none !important;
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+  cursor: pointer;
+}
+
+.table-income-statement tr td {
+  width: 25%;
+  font-size: 12px;
+}
+

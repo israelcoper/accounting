@@ -22,4 +22,14 @@ class Account < ActiveRecord::Base
   def employees
     persons.employees
   end
+
+  def total_income(product)
+    return 0.0 if product.empty?
+    product.map(&:income).inject(:+)
+  end
+
+  def total_cost(product)
+    return 0.0 if product.empty?
+    -product.map(&:cost).inject(:+)
+  end
 end

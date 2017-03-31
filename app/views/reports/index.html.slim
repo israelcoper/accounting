@@ -1,0 +1,24 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3 Reports
+  
+    .title_right
+
+- content_for :content do
+  .row#reports
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_content
+          ul.list-group
+            li.list-group-item
+              = form_tag income_statement_account_reports_path(current_account), method: "GET", id: "form-income-statement" do
+                .row
+                  .col-md-4
+                    .form-group
+                      = select_year Date.today, { start_year: 1990, end_year: 2050, include_blank: true }, { class: "form-control" }
+
+                  .col-md-4
+                    .form-group
+                      = submit_tag "Income statement", class: "btn btn-primary"
+ 

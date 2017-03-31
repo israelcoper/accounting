@@ -21,6 +21,10 @@ RSpec.describe Product, type: :model do
   end
 
   context "scope" do
+    let(:year) { Date.today.strftime("%Y").to_i }
+    let(:from) { Date.new(year) }
+    let(:to) { Date.new(year, 12, 31) }
+
     let(:p1) { create(:inventory_product) }
     let(:p2) { create(:inventory_product) }
     let(:p3) { create(:non_inventory_product) }
@@ -32,6 +36,10 @@ RSpec.describe Product, type: :model do
 
     describe "non inventory" do
       it { expect(Product.non_inventory).to match_array [p3, p4] }
+    end
+
+    describe "income statement" do
+      it { expect(Product.income_statement(from..to)).to match_array [p1, p2, p3, p4] }
     end
   end
 

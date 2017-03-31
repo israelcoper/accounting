@@ -37,9 +37,33 @@ RSpec.describe Account, type: :model do
       end
     end
 
-     describe "employees" do
+    describe "employees" do
       it "returns person_type equals to employee" do
         expect(account.employees).to match_array [lore, bane]
+      end
+    end
+
+    context "account products income statement" do
+      let(:product) { build_stubbed :inventory_product, account: account, cost: 100.0, income: 150.0 }
+
+      describe "total income" do
+        describe "returns zero if product is empty" do
+          it { expect(account.total_income(account.products)).to eq(0.0) }
+        end
+
+        describe "returns total income if product is present" do
+          it { expect(account.total_income([product])).to eq(150.0) }
+        end
+      end
+
+      describe "total cost" do
+        describe "returns zero if product is empty" do
+          it { expect(account.total_cost(account.products)).to eq(0.0) }
+        end
+
+        describe "returns total cost if product is present" do
+          it { expect(account.total_cost([product])).to eq(-100.0) }
+        end
       end
     end
   end
