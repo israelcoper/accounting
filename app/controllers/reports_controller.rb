@@ -4,19 +4,7 @@ class ReportsController < ApplicationController
   end
 
   def income_statement
-    @year = params[:date_year].present? ? params[:date_year].to_i : Date.today.strftime("%Y").to_i      
-    from  = Date.new(@year)
-    to    = Date.new(@year, 12, 31)
-    range = from..to
-
-    @products = current_account.products.inventory.income_statement(range)
-    @expenses = current_account.products.non_inventory.income_statement(range)
-    @total_income = current_account.total_income(@products)
-    @total_cost = current_account.total_cost(@products)
-    @total_expenses = current_account.total_cost(@expenses)
-
-    @gross_profit = @total_income + @total_cost
-    @net_income = @gross_profit + @total_expenses
+    financial_statement
 
     respond_to do |format|
       format.html
@@ -25,7 +13,7 @@ class ReportsController < ApplicationController
   end
 
   def balance_sheet
-    income_statement
+    financial_statement
 
     @current_assets = current_account.balance_sheets.current_assets
     @non_current_assets = current_account.balance_sheets.non_current_assets
@@ -39,5 +27,27 @@ class ReportsController < ApplicationController
     @total_equity = @equity.map(&:amount).inject(:+) + @net_income
 
     @asset = @total_liabilities + @total_equity
+
+    respond_to do |format|
+      format.html
+      format.xlsx { render xlsx: "balance_sheet", filename: "Balance Sheet - 31 December #{@year}.xlsx" }
+    end
+  end
+
+  private
+  def financial_statement
+    @year = params[:date_year].present? ? params[:date_year].to_i : Date.today.strftime("%Y").to_i      
+    from  = Date.new(@year)
+    to    = Date.new(@year, 12, 31)
+    range = from..to
+
+    @products = current_account.products.inventory.income_statement(range)
+    @expenses = current_account.products.non_inventory.income_statement(range)
+    @total_income = current_account.total_income(@products)
+    @total_cost = current_account.total_cost(@products)
+    @total_expenses = current_account.total_cost(@expenses)
+
+    @gross_profit = @total_income + @total_cost
+    @net_income = @gross_profit + @total_expenses
   end
 end

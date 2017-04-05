@@ -1,0 +1,37 @@
+wb = xlsx_package.workbook
+borders = Hash.new do |hash,key|
+  hash[key] = wb.styles.add_style b: true, sz: 12, border: { style: :thin, color: "000000", edges: key.to_s.split('_').map(&:to_sym) } 
+end
+style = [borders[:top], borders[:top], borders[:top], borders[:top]]
+header = wb.styles.add_style b: true, sz: 16
+
+wb.add_worksheet(name: "Balance Sheet") do |sheet|
+  sheet.add_row ["Balance sheet as of 31 December #{@year}", nil, nil, nil], style: header
+  sheet.add_row [nil, nil, nil, nil]
+  @current_assets.each do |asset|
+    sheet.add_row [asset.name, asset.amount, nil, nil]
+  end
+  sheet.add_row ["Total Current Assets", nil, @total_current_assets, nil], style: style
+  sheet.add_row [nil, nil, nil, nil]
+  @non_current_assets.each do |asset|
+    sheet.add_row [asset.name, asset.amount, nil, nil]
+  end
+  sheet.add_row ["Total Non Current Assets", nil, @total_non_current_assets, nil], style: style
+  sheet.add_row [nil, nil, nil, nil]
+  sheet.add_row ["Total Assets", nil, nil, @total_assets], style: style
+  sheet.add_row [nil, nil, nil, nil]
+  @liabilities.each do |liability|
+    sheet.add_row [liability.name, nil, liability.amount, nil]
+  end
+  sheet.add_row ["Total Liabilities", nil, nil, @total_liabilities], style: style
+  sheet.add_row [nil, nil, nil, nil]
+  @equity.each do |equity|
+    sheet.add_row [equity.name, nil, equity.amount, nil]
+  end
+  sheet.add_row ["Current Year Earnings", nil, @net_income, nil]
+  sheet.add_row ["Total Equity", nil, nil, @total_equity], style: style
+  sheet.add_row [nil, nil, nil, nil]
+  sheet.add_row ["Total Liability and Equity", nil, nil, @asset], style: style
+
+  sheet.column_widths 25, 25, 25, 25
+end

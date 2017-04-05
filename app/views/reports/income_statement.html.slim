@@ -5,7 +5,7 @@
   
     .title_right
       = link_to "Back", account_reports_path(current_account), class: "btn btn-primary pull-right"
-      = link_to "Download", income_statement_account_reports_path(current_account, format: "xlsx"), class: "btn btn-default btn-xls pull-right"
+      = link_to "Download", income_statement_account_reports_path(current_account, format: "xlsx", date_year: @year), class: "btn btn-default btn-xls pull-right"
 
 - content_for :content do
   .row#income-statement
