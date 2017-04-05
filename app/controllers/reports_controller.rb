@@ -17,6 +17,11 @@ class ReportsController < ApplicationController
 
     @gross_profit = @total_income + @total_cost
     @net_income = @gross_profit + @total_expenses
+
+    respond_to do |format|
+      format.html
+      format.xlsx { render xlsx: "income_statement", filename: "Income statement - 31 December #{@year}.xlsx" }
+    end
   end
 
   def balance_sheet

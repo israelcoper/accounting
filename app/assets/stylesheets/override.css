@@ -94,6 +94,11 @@ ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
   cursor: pointer;
 }
 
+.btn-xls {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
 #income-statement table tr td, #balance-sheet table tr td {
   width: 25%;
   font-size: 12px;
