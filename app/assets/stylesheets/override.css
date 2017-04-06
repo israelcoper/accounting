@@ -104,3 +104,20 @@ ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
   font-size: 12px;
 }
 
+.timeline .block {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+h2.title {
+  font-size: 14px !important;
+}
+
+.byline {
+  padding: 0 !important;
+}
+
+.byline span {
+  font-size: 12px !important;
+}
+

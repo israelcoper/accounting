@@ -6,7 +6,7 @@ tr
   td= user.username
   td= user.role.capitalize
   td.action
-    a href="javascript:;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Activity"
+    a href="#{ account_user_path(current_account, user) }" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Activity"
       i class="fa fa-folder"
     a href="#{ reset_password_account_user_path(current_account, user) }" class="btn btn-dark btn-xs" data-toggle="tooltip" data-placement="top" title="Reset Password"
       i class="fa fa-wrench"

@@ -14,4 +14,11 @@ class BalanceSheet < ActiveRecord::Base
   scope :non_current_assets, -> { where(category: BalanceSheet.categories["non_current_asset"]) }
   scope :liabilities, -> { where(category: BalanceSheet.categories["liability"]) }
   scope :equity, -> { where(category: BalanceSheet.categories["equity"]) }
+
+  before_save :set_withdrawals_value, if: proc { |balance_sheet| balance_sheet.name.eql?("Withdrawals") }
+
+  protected
+  def set_withdrawals_value
+    self.amount = -amount
+  end
 end

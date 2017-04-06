@@ -18,6 +18,10 @@ class TransactionsController < ApplicationController
 
     @transaction.destroy
     @transaction.cancel_person_transaction!
+
+    # Activity log
+    current_user.activities.create(negotiation: @transaction, name: t('activity.cancel', transaction_number: @transaction.transaction_number))
+
     redirect_to options[:redirect], notice: "Transaction successfully cancelled"
   end
 
@@ -108,6 +112,18 @@ class TransactionsController < ApplicationController
 
     if @transaction.save
       @transaction.add_balance_to_person
+
+      # Activity log
+      activity = case @transaction.transaction_type
+                 when Transaction::Types[0]
+                   t('activity.invoice', transaction_number: @transaction.transaction_number)
+                 when Transaction::Types[2]
+                   t('activity.purchase', transaction_number: @transaction.transaction_number)
+                 else
+                   t('activity.expense', transaction_number: @transaction.transaction_number)
+                 end
+      current_user.activities.create(negotiation: @transaction, name: activity)
+
       flash[:notice] = "Transaction was successfully created"
       redirect_to options[:redirect]
     else
@@ -139,6 +155,15 @@ class TransactionsController < ApplicationController
 
     if @child_transaction.save
       @child_transaction.deduct_balance_of_person
+
+      # Activity log
+      activity = if @child_transaction.transaction_type.eql?(Transaction::Types[1])
+                   t('activity.payment', transaction_number: @transaction.transaction_number)
+                 else
+                   t('activity.payment_purchase', transaction_number: @transaction.transaction_number)
+                 end
+      current_user.activities.create(negotiation: @transaction, name: activity)
+
       flash[:notice] = "Payment was successfull created"
       redirect_to options[:redirect]
     else

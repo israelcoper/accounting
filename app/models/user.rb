@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   scope :non_admin, -> { where.not(role: 2) }
 
   belongs_to :account
+  has_many :activities, dependent: :destroy
 
   validates :username, :first_name, :last_name, :role, presence: true
   validates :username, uniqueness: true

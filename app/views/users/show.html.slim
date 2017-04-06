@@ -1,0 +1,24 @@
+- content_for :content_header do
+  .page-title
+    .title_left
+      h3= @user.full_name
+  
+    .title_right
+      = link_to "Back", account_users_path(current_account), class: "btn btn-primary pull-right", style: "margin-right: 10px;"
+
+- content_for :content do
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h4 Activities
+        .x_content
+          .dashboard-widget-content
+            ul.list-unstyled.timeline.widget
+              - @user.activities.each do |activity|
+                li
+                  .block
+                    .block_content
+                      h2.title= activity.name
+                      .byline
+                        span= time_ago_in_words(activity.created_at)

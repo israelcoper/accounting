@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
 
   context "associations" do
     it { should belong_to :account }
+    it { should have_many :activities }
   end
 
   context "validations" do

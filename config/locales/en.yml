@@ -25,3 +25,11 @@ en:
   flash:
     notice:
       reset_password: "Password was successfully reset."
+
+  activity:
+    invoice: "#%{transaction_number} - Create new invoice"
+    purchase: "#%{transaction_number} - Create new purchase"
+    expense: "#%{transaction_number} - Create new expense"
+    cancel: "#%{transaction_number} - Cancel transaction"
+    payment: "#%{transaction_number} - Payment for invoice"
+    payment_purchase: "#%{transaction_number} - Payment for purchase"
