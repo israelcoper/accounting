@@ -14,12 +14,13 @@ class Transaction < ActiveRecord::Base
 
   accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["amount"].blank? }
 
-  default_scope { order(transaction_number: "ASC") }
+  default_scope { where(cancelled: false).order(transaction_number: "ASC") }
   scope :sales, -> { where(transaction_type: Types.values_at(0)) }
   scope :purchases, -> { where(transaction_type: Types.values_at(2)) }
   scope :expenses, -> { where(transaction_type: Types.values_at(4)) }
   scope :invoice, -> { where(transaction_type: Types[0], status: [Status[0], Status[2]]) }
   scope :purchase, -> { where(transaction_type: Types[2], status: [Status[0], Status[2]]) }
+  scope :cancelled, -> { unscoped.where(cancelled: true) }
 
   # (Time.now - 30.days)..Time.now or 30.days.ago..Time.now
   scope :overdue, ->(type, due_date) { where(transaction_type: type, due_date: due_date).where.not(balance: 0.0) }

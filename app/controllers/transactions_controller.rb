@@ -16,7 +16,7 @@ class TransactionsController < ApplicationController
                 { redirect: expenses_account_transactions_path(current_account) }
               end
 
-    @transaction.destroy
+    @transaction.update(cancelled: true)
     @transaction.cancel_person_transaction!
 
     # Activity log
