@@ -33,21 +33,21 @@ class HomeController < ApplicationController
     q3 = Date.new(year, 7, 1)..Date.new(year, 9, 30)
     q4 = Date.new(year, 10, 1)..Date.new(year, 12, 31)
 
-    @invoice = current_account.transactions.invoice
-    @purchase = current_account.transactions.purchase 
-
-    @quarterly_purchases = [
-      @invoice.quarterly(q1).sum(:total).to_i,
-      @invoice.quarterly(q2).sum(:total).to_i,
-      @invoice.quarterly(q3).sum(:total).to_i,
-      @invoice.quarterly(q4).sum(:total).to_i
-    ]
+    @sales = current_account.transactions.sales
+    @purchases = current_account.transactions.purchases 
 
     @quarterly_sales = [
-      @purchase.quarterly(q1).sum(:total).to_i,
-      @purchase.quarterly(q2).sum(:total).to_i,
-      @purchase.quarterly(q3).sum(:total).to_i,
-      @purchase.quarterly(q4).sum(:total).to_i
+      @sales.quarterly(q1).sum(:total).to_i,
+      @sales.quarterly(q2).sum(:total).to_i,
+      @sales.quarterly(q3).sum(:total).to_i,
+      @sales.quarterly(q4).sum(:total).to_i
+    ]
+
+    @quarterly_purchases = [
+      @purchases.quarterly(q1).sum(:total).to_i,
+      @purchases.quarterly(q2).sum(:total).to_i,
+      @purchases.quarterly(q3).sum(:total).to_i,
+      @purchases.quarterly(q4).sum(:total).to_i
     ]
 
     # FETCH TODAY'S USERS ACTIVITIES

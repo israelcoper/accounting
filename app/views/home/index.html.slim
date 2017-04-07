@@ -26,7 +26,8 @@
             .x_title
               h5 Expenses
             .x_content
-              = bar_chart @summary_expenses
+              - if @summary_expenses.present?
+                = bar_chart @summary_expenses
 
           .x_panel
             .x_content

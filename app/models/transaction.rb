@@ -115,7 +115,7 @@ class Transaction < ActiveRecord::Base
   alias_method :update_status_of_parent_purchase, :update_status_of_parent_invoice
 
   def cancel_invoice
-    item.each do |item|
+    items.each do |item|
       item.product.quantity += item.quantity
       item.product.income -= item.amount
       item.product.save
@@ -123,7 +123,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def cancel_purchase
-    item.each do |item|
+    items.each do |item|
       item.product.quantity -= item.quantity
       item.product.cost -= item.amount
       item.product.save

@@ -9,7 +9,7 @@ class SuppliersController < ApplicationController
     last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
     over_90_days  = Date.parse(120.days.ago.strftime("%Y-%m-%d"))..Date.parse(91.days.ago.strftime("%Y-%m-%d"))
 
-     @transactions_summary = {
+    @summary_purchases = {
       overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
       overdue_last_60_days: current_account.transactions.overdue(type, last_60_days),
       overdue_last_90_days: current_account.transactions.overdue(type, last_90_days),
