@@ -14,16 +14,16 @@ class Transaction < ActiveRecord::Base
 
   accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["amount"].blank? }
 
-  default_scope { where(cancelled: false).order(transaction_number: "ASC") }
-  scope :sales, -> { where(transaction_type: Types.values_at(0)) }
-  scope :purchases, -> { where(transaction_type: Types.values_at(2)) }
-  scope :expenses, -> { where(transaction_type: Types.values_at(4)) }
-  scope :invoice, -> { where(transaction_type: Types[0], status: [Status[0], Status[2]]) }
-  scope :purchase, -> { where(transaction_type: Types[2], status: [Status[0], Status[2]]) }
-  scope :cancelled, -> { unscoped.where(cancelled: true) }
-
-  # (Time.now - 30.days)..Time.now or 30.days.ago..Time.now
-  scope :overdue, ->(type, due_date) { where(transaction_type: type, due_date: due_date).where.not(balance: 0.0) }
+  default_scope { order(transaction_number: "ASC") }
+  scope :active, -> { where(cancelled: false) }
+  scope :cancelled, -> { where(cancelled: true) }
+  scope :sales, -> { active.where(transaction_type: Types.values_at(0)) }
+  scope :purchases, -> { active.where(transaction_type: Types.values_at(2)) }
+  scope :expenses, -> { active.where(transaction_type: Types.values_at(4)) }
+  scope :invoice, -> { active.where(transaction_type: Types[0], status: [Status[0], Status[2]]) }
+  scope :purchase, -> { active.where(transaction_type: Types[2], status: [Status[0], Status[2]]) }
+  scope :overdue, ->(type, due_date) { active.where(transaction_type: type, due_date: due_date).where.not(balance: 0.0) }
+  scope :quarterly, ->(range) { where(created_at: range) }
 
   before_save :set_status, if: proc {|t| t.new_record? }
   before_save :generate_invoice_number, if: proc {|t| t.new_record? && t.transaction_type == Types[0]}
@@ -38,6 +38,11 @@ class Transaction < ActiveRecord::Base
   after_save :deduct_balance_of_parent_purchase, if: proc {|t| t.transaction_type == Types[3]}
   after_save :update_status_of_parent_invoice, if: proc {|t| t.transaction_type == Types[1]}
   after_save :update_status_of_parent_purchase, if: proc {|t| t.transaction_type == Types[3]}
+
+  ## CALLBACK FOR CANCELLED TRANSACTIONS
+  after_update :cancel_invoice, if: proc {|t| t.transaction_type == Transaction::Types[0] && t.cancelled? }
+  after_update :cancel_purchase, if: proc {|t| t.transaction_type == Transaction::Types[2] && t.cancelled? }
+  after_update :cancel_expense, if: proc {|t| t.transaction_type == Transaction::Types[4] && t.cancelled? }
 
   validates :balance, numericality: true, allow_blank: true
 
@@ -108,5 +113,28 @@ class Transaction < ActiveRecord::Base
     self.parent.update(status: new_status)
   end
   alias_method :update_status_of_parent_purchase, :update_status_of_parent_invoice
+
+  def cancel_invoice
+    item.each do |item|
+      item.product.quantity += item.quantity
+      item.product.income -= item.amount
+      item.product.save
+    end
+  end
+
+  def cancel_purchase
+    item.each do |item|
+      item.product.quantity -= item.quantity
+      item.product.cost -= item.amount
+      item.product.save
+    end
+  end
+
+  def cancel_expense
+    items.each do |item|
+      item.product.cost -= item.amount
+      item.product.save
+    end
+  end
 
 end

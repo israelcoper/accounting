@@ -6,6 +6,7 @@ class Account < ActiveRecord::Base
   has_many :products, dependent: :destroy
   has_many :transactions, dependent: :destroy
   has_many :balance_sheets, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   accepts_nested_attributes_for :balance_sheets, allow_destroy: true
 

@@ -13,12 +13,13 @@
         .x_title
           h4 Activities
         .x_content
-          .dashboard-widget-content
-            ul.list-unstyled.timeline.widget
+          table.table.table-striped
+            thead
+              tr
+                th Activity
+                th Date
+            tbody
               - @user.activities.each do |activity|
-                li
-                  .block
-                    .block_content
-                      h2.title= activity.name
-                      .byline
-                        span= time_ago_in_words(activity.created_at)
+                tr
+                  td= activity.name
+                  td= time_ago_in_words(activity.created_at)

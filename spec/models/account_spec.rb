@@ -8,6 +8,7 @@ RSpec.describe Account, type: :model do
     it { should have_many :transactions }
     it { should have_many :transactions }
     it { should have_many :balance_sheets }
+    it { should have_many :activities }
   end
 
   context "validations" do

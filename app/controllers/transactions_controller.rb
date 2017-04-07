@@ -20,7 +20,7 @@ class TransactionsController < ApplicationController
     @transaction.cancel_person_transaction!
 
     # Activity log
-    current_user.activities.create(negotiation: @transaction, name: t('activity.cancel', transaction_number: @transaction.transaction_number))
+    current_user.activities.create(account: current_account, negotiation: @transaction, name: t('activity.cancel', transaction_number: @transaction.transaction_number))
 
     redirect_to options[:redirect], notice: "Transaction successfully cancelled"
   end
@@ -33,7 +33,7 @@ class TransactionsController < ApplicationController
     last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
     over_90_days  = Date.parse(120.days.ago.strftime("%Y-%m-%d"))..Date.parse(91.days.ago.strftime("%Y-%m-%d"))
 
-    @transactions_summary = {
+    @summary_sales = {
       overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
       overdue_last_60_days: current_account.transactions.overdue(type, last_60_days),
       overdue_last_90_days: current_account.transactions.overdue(type, last_90_days),
@@ -54,7 +54,7 @@ class TransactionsController < ApplicationController
     last_90_days  = Date.parse(90.days.ago.strftime("%Y-%m-%d"))..Date.parse(61.days.ago.strftime("%Y-%m-%d"))
     over_90_days  = Date.parse(120.days.ago.strftime("%Y-%m-%d"))..Date.parse(91.days.ago.strftime("%Y-%m-%d"))
 
-     @transactions_summary = {
+    @summary_purchases = {
       overdue_last_30_days: current_account.transactions.overdue(type, last_30_days),
       overdue_last_60_days: current_account.transactions.overdue(type, last_60_days),
       overdue_last_90_days: current_account.transactions.overdue(type, last_90_days),
@@ -122,7 +122,7 @@ class TransactionsController < ApplicationController
                  else
                    t('activity.expense', transaction_number: @transaction.transaction_number)
                  end
-      current_user.activities.create(negotiation: @transaction, name: activity)
+      current_user.activities.create(account: current_account, negotiation: @transaction, name: activity)
 
       flash[:notice] = "Transaction was successfully created"
       redirect_to options[:redirect]
@@ -162,7 +162,7 @@ class TransactionsController < ApplicationController
                  else
                    t('activity.payment_purchase', transaction_number: @transaction.transaction_number)
                  end
-      current_user.activities.create(negotiation: @transaction, name: activity)
+      current_user.activities.create(account: current_account, negotiation: @transaction, name: activity)
 
       flash[:notice] = "Payment was successfull created"
       redirect_to options[:redirect]

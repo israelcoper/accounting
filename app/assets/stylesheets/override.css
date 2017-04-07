@@ -121,3 +121,6 @@ h2.title {
   font-size: 12px !important;
 }
 
+#dashboard #transaction_overview {
+  margin: 0 !important;
+}
