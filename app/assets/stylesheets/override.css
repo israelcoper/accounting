@@ -4,6 +4,10 @@ body .container {
   padding-right: 0;
 }
 
+.nav.child_menu li a:hover {
+  color: #00008B !important;
+}
+
 .left_col {
   z-index: 0 !important;
 }
