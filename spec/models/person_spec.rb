@@ -19,8 +19,8 @@ RSpec.describe Person, type: :model do
     it { should validate_numericality_of :credit_terms }
     it { should validate_numericality_of :credit_limit }
 
-    it { should validate_uniqueness_of(:first_name).scoped_to(:account_id, :person_type) }
-    it { should validate_uniqueness_of(:last_name).scoped_to(:account_id, :person_type) }
+    it { should validate_uniqueness_of(:first_name).scoped_to(:account_id, :person_type, :first_name, :last_name) }
+    it { should validate_uniqueness_of(:last_name).scoped_to(:account_id, :person_type, :first_name, :last_name) }
 
     it { should have_attached_file(:picture) }
     # it { should validate_attachment_presence(:picture) }

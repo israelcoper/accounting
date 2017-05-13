@@ -23,7 +23,7 @@ class Person < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
   # Change uniqueness validation
-  validates :first_name, :last_name, uniqueness: { scope: [:account_id, :person_type] }
+  validates :first_name, :last_name, uniqueness: { scope: [:account_id, :person_type, :first_name, :last_name] }
   validates :credit_limit, :credit_terms, presence: true, numericality: true, unless: Proc.new {|p| p.employee? }
 
   # validates_attachment_presence :picture, unless: Proc.new {|p| p.picture? }
