@@ -4,6 +4,8 @@ class Person < ActiveRecord::Base
 
   self.table_name = "persons"
 
+  CREDIT_TERMS = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300]
+
   paginates_per 10
   pg_search_scope :search, against: [:first_name, :last_name]
   has_attached_file :picture, styles: { small: "100x100>", medium: "200x200>", large: "300x300>" }, default_url: "/images/:style/missing.png"

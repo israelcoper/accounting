@@ -80,7 +80,7 @@
     .form-group
       label.control-label.col-md-3.col-sm-3 Credit terms *
       .col-md-9.col-sm-9.col-xs-12
-        = f.text_field :credit_terms, class: "form-control"
+        = f.select :credit_terms, options_for_select(Person::CREDIT_TERMS, selected: @customer.credit_terms), {}, { class: "form-control" }
 
   .col-md-6
     .form-group
