@@ -8,6 +8,11 @@ body .container {
   color: #00008B !important;
 }
 
+.profile-picture {
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
 .left_col {
   z-index: 0 !important;
 }

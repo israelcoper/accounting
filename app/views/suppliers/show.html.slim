@@ -1,7 +1,9 @@
 - content_for :content_header do
   .page-title
     .title_left
-      h3= @supplier.full_name
+      h3
+        = image_tag @supplier.picture.url(:small), size: "50", class: "profile-picture" if @supplier.picture?
+        = @supplier.full_name
   
     .title_right
       = link_to "Edit", edit_account_supplier_path(current_account, @supplier), class: "btn btn-default pull-right", style: "margin-right: 10px;"
