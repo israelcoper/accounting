@@ -1,5 +1,8 @@
 class ChartOfAccountsController < ApplicationController
-  before_action :find_account, only: [:new, :create]
+  before_action :find_account
+
+  def index
+  end
 
   def new
   end

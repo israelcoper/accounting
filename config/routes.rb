@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   resources :accounts, only: [:new, :create, :edit, :update, :show] do
+    member do
+      patch "update_chart_of_accounts"
+    end
+
     resources :chart_of_accounts
     resources :reports, only: [:index] do
       collection do

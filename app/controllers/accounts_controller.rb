@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   skip_before_action :current_user_has_account!
-  before_action :find_account, only: [:show, :edit, :update, :new_chart, :chart]
+  before_action :find_account, only: [:show, :edit, :update, :update_chart_of_accounts]
 
   def new
     @account = Account.new
@@ -40,12 +40,22 @@ class AccountsController < ApplicationController
     end
   end
 
+  def update_chart_of_accounts
+    @account.update_attributes chart_of_account_params
+    flash[:notice] = "Chart of accounts updated successfully"
+    redirect_to account_chart_of_accounts_path(@account)
+  end
+
   protected
 
   def account_params
     params.require(:account).permit(:name, :industry, balance_sheets_attributes: [:id, :header, :account_number, :name, :amount, :_destroy]).tap do |whitelist|
       whitelist[:address] = params[:account][:address]
     end
+  end
+
+  def chart_of_account_params
+    params.require(:account).permit(balance_sheets_attributes: [:id, :header, :account_number, :name, :amount, :_destroy])
   end
 
   def find_account

@@ -64,7 +64,7 @@ table.table-scroll {
   overflow-y: auto;
 }
 
-.table-content table tbody tr td span.header {
+.table-content table tbody tr td span.header, table tbody tr td input.header {
   font-weight: 500;
 }
 
