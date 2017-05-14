@@ -9,4 +9,8 @@ module ApplicationHelper
     date.strftime "%d %b %Y"
   end
 
+  def header(h)
+    return h ? "header" : ""
+  end
+
 end

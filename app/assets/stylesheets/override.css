@@ -8,6 +8,79 @@ body .container {
   color: #00008B !important;
 }
 
+#account-wizard {
+  padding: 50px 0;
+  background-color: lightgrey;
+}
+
+#wizard-wrapper {
+  width: 750px;
+  margin: 0 auto;
+}
+
+#wizard-wrapper ul li a {
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+#wizard-wrapper ul li:not(.active) {
+}
+
+#wizard-wrapper ul li:not(.active) a {
+  color: #000000;
+}
+
+#wizard-wrapper ul li:not(.active) a:hover {
+  background-color: lightgrey;
+}
+
+#wizard-wrapper .wizard-content {
+  padding: 10px;
+  border: 1px solid lightgrey;
+  border-top: 0;
+  background-color: #FFFFFF;
+}
+
+#wizard-wrapper .tab-content {
+  background-color: #FFFFFF;
+}
+
+#wizard-wrapper form.form-account {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.wizard .content section {
+  margin-left: 14px !important;
+}
+
+table.table-scroll {
+  table-layout: fixed;
+  font-size: 12px;
+}
+
+.table-content {
+  height:  380px;
+  overflow-y: auto;
+}
+
+.table-content table tbody tr td span.header {
+  font-weight: 500;
+}
+
+.table-content table tbody tr td span {
+  font-weight: 200;
+}
+
+.btn-save-account {
+  margin-top: -7px;
+}
+
+.wizard .steps ul li a {
+  font-size: 12px;
+  font-weight: 400 !important;
+}
+
 .profile-picture {
   margin-right: 10px;
   border-radius: 50%;

@@ -6,6 +6,15 @@ forms.validate_account = (function() {
       var $form = $('#form-account');
 
       if ( $form.length ) {
+        $("#wizard-wrapper #form-account").steps({
+          headerTag: "h3",
+          bodyTag: "section",
+          transitionEffect: "slideLeft",
+          stepsOrientation: "vertical",
+          enablePagination: false,
+          enableAllSteps: true
+        });
+
         $form.bootstrapValidator({
           framework: 'bootstrap',
           icon: {
@@ -13,6 +22,7 @@ forms.validate_account = (function() {
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
           },
+          excluded: ':disabled',
           fields: {
             'account[name]': {
               validators: {

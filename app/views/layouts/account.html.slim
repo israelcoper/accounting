@@ -13,13 +13,12 @@ html lang="en"
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-  body.login
+  body#account-wizard
     - if flash[:notice]
       .notice= notice
     - if flash[:alert]
       .devise-alert= alert
 
-    div
-      .login_wrapper
-        = yield
+    #wizard-wrapper
+      = yield
 

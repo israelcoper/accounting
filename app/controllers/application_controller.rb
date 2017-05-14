@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :current_user_has_account!
-  before_action :current_account_has_account_chart!
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -31,10 +30,6 @@ class ApplicationController < ActionController::Base
 
     def current_user_has_account!
       redirect_to new_account_path if user_signed_in? && current_user.account.nil?
-    end
-
-    def current_account_has_account_chart!
-      redirect_to new_chart_account_path(current_account) if user_signed_in? && current_account.balance_sheets.empty?
     end
 
     def after_sign_in_path_for(resource)

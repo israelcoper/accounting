@@ -23,6 +23,7 @@ gem 'jquery-datatables-rails'
 gem 'ajax-datatables-rails', '>= 0.3.1'
 gem 'chartkick'
 gem "highcharts-rails"
+gem 'rails-jquery-steps'
 
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc

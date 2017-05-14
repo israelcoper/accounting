@@ -21,6 +21,7 @@ class HomeController < ApplicationController
       overdue_over_90_days: current_account.transactions.overdue(purchases, over_90_days)
     }
 
+=begin
     # FETCH EXPENSES OF THE CURRENT YEAR
     year  = Date.today.strftime("%Y").to_i      
     from  = Date.new(year)
@@ -49,6 +50,7 @@ class HomeController < ApplicationController
       @purchases.quarterly(q3).sum(:total).to_i,
       @purchases.quarterly(q4).sum(:total).to_i
     ]
+=end
 
     # FETCH TODAY'S USERS ACTIVITIES
     @activities = current_account.activities.recent

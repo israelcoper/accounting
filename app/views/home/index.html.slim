@@ -22,16 +22,16 @@
               = render partial: "shared/popover_summary_overdue"
               = render partial: "shared/transaction_summary_purchases"
  
-          .x_panel
-            .x_title
-              h5 Expenses
-            .x_content
-              - if @summary_expenses.present?
-                = bar_chart @summary_expenses
+          // .x_panel
+          //   .x_title
+          //     h5 Expenses
+          //   .x_content
+          //     - if @summary_expenses.present?
+          //       = bar_chart @summary_expenses
 
-          .x_panel
-            .x_content
-              #profit-and-loss style="min-width: 310px; height: 400px; margin: 0 auto;" data-sales="#{@quarterly_sales}" data-purchases="#{@quarterly_purchases}"
+          // .x_panel
+          //   .x_content
+          //     #profit-and-loss style="min-width: 310px; height: 400px; margin: 0 auto;" data-sales="#{@quarterly_sales}" data-purchases="#{@quarterly_purchases}"
 
         .col-md-4.col-sm-4.col-xs-12
           .x_panel
