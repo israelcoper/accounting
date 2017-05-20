@@ -152,6 +152,14 @@ tbody#transactions {
   color: #FFFFFF;
 }
 
+.modal-content .item-unit span.select2-container {
+  width: 398px !important;
+}
+
+.modal-content .item-allocated-to span.select2-container {
+  width: 270px !important;
+}
+
 ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
   background-color: gray;
   color: #FFFFFF;

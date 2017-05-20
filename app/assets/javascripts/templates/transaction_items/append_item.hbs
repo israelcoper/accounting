@@ -1,0 +1,27 @@
+<tr>
+  <td class="item_name">
+    <span>{{ name }}</span>
+    <input type="hidden" name="transaction[transaction_items_attributes][][item_id]" class="transaction_item_item_id" value="{{id}}" />
+  </td>
+  <td class="item_desc">
+    <small>{{ description }}</small>
+  </td>
+  <td class="rate">
+    <span>{{ rate }}</span>
+    <input type="hidden" name="transaction[transaction_items_attributes][][rate]" value="{{rate}}" />
+  </td>
+  <td class="quantity">
+    <div class="form-group">
+      <input type="text" class="form-control" name="transaction[transaction_items_attributes][][quantity]" value="" />
+    </div>
+  </td>
+  <td class="amount">
+    <span></span>
+    <input type="hidden" name="transaction[transaction_items_attributes][][amount]" value="" />
+  </td>
+  <td style="text-align:center;">
+    <a href="#" class="remove-item">
+      <span class="glyphicon glyphicon-trash"></span>
+    </a>
+  </td>
+</tr>

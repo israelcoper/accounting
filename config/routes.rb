@@ -33,7 +33,7 @@ Rails.application.routes.draw do
         get "overdue"
       end
     end
-    resources :products
+    resources :items
     resources :users do
       member do
         get :reset_password, path: 'reset-password'

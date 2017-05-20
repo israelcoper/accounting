@@ -1,0 +1,60 @@
+- if @item.errors.any?
+  #error_explanation.center
+    h5
+      = pluralize(@item.errors.count, "error")
+      | &nbsp;
+      | prohibited this account from being saved:
+    ul
+      - @item.errors.full_messages.each do |message|
+        li= message
+
+= render partial: "items/form_item_number", locals: { f: f }
+
+.clearfix
+
+.row
+  .col-md-12
+    .form-group
+      label.control-label.col-md-3.col-sm-3.col-xs-12 Name *
+      .col-md-9.col-sm-9.col-xs-12
+        = f.text_field :name, class: "form-control"
+
+.clearfix
+
+.row
+  .col-md-12
+    .form-group
+      label.control-label.col-md-3.col-sm-3.col-xs-12 Description
+      .col-md-9.col-sm-9.col-xs-12
+        = f.text_area :description, class: "form-control"
+
+.clearfix
+
+.row
+  .col-md-12
+    .form-group.item-unit
+      label.control-label.col-md-3.col-sm-3.col-xs-12 Unit *
+      .col-md-9.col-sm-9.col-xs-12
+        = f.select :unit, options_for_select(Item::Units, selected: @item.unit), { prompt: "Select unit" }, { class: "form-control", id: "item_unit" }
+
+.ln_solid
+
+.row
+  .col-md-6.col-sm-6.col-xs-12
+    .form-group
+      label.control-label Purchase Price *
+      = f.text_field :purchase_price, class: "form-control"
+
+    .form-group.item-allocated-to
+      label.control-label Allocated to *
+      = f.select :allocated_to_purchase, options_for_select(@allocated_to_purchase.map {|i| [i.name, i.id]}, selected: @item.allocated_to_purchase), { include_blank: true }, { class: "form-control" }
+
+  .col-md-6.col-sm-6.col-xs-12
+    .form-group
+      label.control-label Selling Price *
+      = f.text_field :selling_price, class: "form-control"
+
+    .form-group.item-allocated-to
+      label.control-label Allocated to *
+      = f.select :allocated_to_selling, options_for_select(@allocated_to_selling.map {|i| [i.name, i.id]}, selected: @item.allocated_to_selling), { include_blank: true }, { class: "form-control" }
+

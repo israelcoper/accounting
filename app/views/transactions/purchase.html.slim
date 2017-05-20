@@ -50,10 +50,10 @@
                           label Balance due
                       .col-md-6
                         div
-                          span#transaction_total PHP0.00
+                          span#transaction-total PHP0.00
                           = f.hidden_field :total, value: 0.0
                         div
-                          span#transaction_balance PHP0.00
+                          span#transaction-balance PHP0.00
                           = f.hidden_field :balance, value: 0.0
 
             .ln_solid
@@ -65,5 +65,5 @@
                   = f.submit "Save", class: "btn btn-primary"
 
   = render 'modal_form_supplier' 
-  = render 'modal_form_product' 
+  = render 'modal_form_item' 
 

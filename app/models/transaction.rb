@@ -10,9 +10,9 @@ class Transaction < ActiveRecord::Base
   belongs_to :person
   belongs_to :parent, class_name: "Transaction"
   has_many :children, class_name: "Transaction", foreign_key: :parent_id
-  has_many :items, dependent: :destroy
+  has_many :transaction_items, dependent: :destroy
 
-  accepts_nested_attributes_for :items, allow_destroy: true, reject_if: proc {|attributes| attributes["amount"].blank? }
+  accepts_nested_attributes_for :transaction_items, allow_destroy: true, reject_if: proc {|attributes| attributes["amount"].blank? }
 
   default_scope { order(transaction_number: "ASC") }
   scope :active, -> { where(cancelled: false) }

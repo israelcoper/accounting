@@ -3,7 +3,7 @@ class Account < ActiveRecord::Base
 
   has_many :users, dependent: :destroy
   has_many :persons, dependent: :destroy
-  has_many :products, dependent: :destroy
+  has_many :items, dependent: :destroy
   has_many :transactions, dependent: :destroy
   has_many :balance_sheets, dependent: :destroy
   has_many :activities, dependent: :destroy

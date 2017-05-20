@@ -1,0 +1,12 @@
+tr
+  td= item.item_number
+  td= item.name
+  td= number_to_currency item.purchase_price, unit: "PHP"
+  td= number_to_currency item.selling_price, unit: "PHP"
+  td= item.unit.upcase
+  td.action
+    a href="#{ edit_account_item_path(current_account, item) }" class="btn btn-info btn-xs"
+      i class="fa fa-pencil"
+      | &nbsp;
+      | Edit
+

@@ -1,7 +1,7 @@
 - content_for :content_header do
   .page-title
     .title_left
-      h3 New product
+      h3 New item
 
 - content_for :content do
   .row
@@ -10,7 +10,7 @@
         .x_content
           .col-md-2
           .col-md-8
-            = form_for @product, url: account_products_path(current_account, @product), html: { id: "form-product" } do |f|
+            = form_for @item, url: account_items_path(current_account, @item), html: { id: "form-item" } do |f|
               = render partial: 'form', locals: { f: f }
 
               .ln_solid
@@ -18,6 +18,6 @@
               .form-group
                 .col-md-12.col-sm-12.col-xs-12
                   = f.submit "Submit", class: "btn btn-primary pull-right"
-                  = link_to "Cancel", account_products_path(current_account), class: "btn btn-default pull-right"
+                  = link_to "Cancel", account_items_path(current_account), class: "btn btn-default pull-right"
 
           .col-md-2

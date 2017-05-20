@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170513150527) do
+ActiveRecord::Schema.define(version: 20170520120424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,13 +46,21 @@ ActiveRecord::Schema.define(version: 20170513150527) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.decimal  "amount",         precision: 16, scale: 2, default: 0.0
-    t.integer  "transaction_id"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.integer  "product_id"
-    t.integer  "quantity",                                default: 0
-    t.decimal  "rate",           precision: 8,  scale: 2, default: 0.0
+    t.string   "name"
+    t.integer  "account_id"
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.text     "description"
+    t.decimal  "cost",                  precision: 16, scale: 2, default: 0.0
+    t.decimal  "income",                precision: 16, scale: 2, default: 0.0
+    t.integer  "quantity",                                       default: 0
+    t.decimal  "purchase_price",        precision: 10, scale: 2, default: 0.0
+    t.decimal  "selling_price",         precision: 10, scale: 2, default: 0.0
+    t.string   "unit",                                           default: "none",     null: false
+    t.string   "item_number",                                    default: "10000000", null: false
+    t.integer  "category",                                       default: 0,          null: false
+    t.integer  "allocated_to_selling"
+    t.integer  "allocated_to_purchase"
   end
 
   create_table "persons", force: :cascade do |t|
@@ -76,20 +84,14 @@ ActiveRecord::Schema.define(version: 20170513150527) do
     t.datetime "picture_updated_at"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "account_id"
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-    t.text     "description"
-    t.decimal  "cost",           precision: 16, scale: 2, default: 0.0
-    t.decimal  "income",         precision: 16, scale: 2, default: 0.0
+  create_table "transaction_items", force: :cascade do |t|
+    t.decimal  "amount",         precision: 16, scale: 2, default: 0.0
+    t.integer  "transaction_id"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.integer  "item_id"
     t.integer  "quantity",                                default: 0
-    t.decimal  "purchase_price", precision: 10, scale: 2, default: 0.0
-    t.decimal  "selling_price",  precision: 10, scale: 2, default: 0.0
-    t.string   "unit",                                    default: "none", null: false
-    t.string   "product_number"
-    t.integer  "category",                                default: 0,      null: false
+    t.decimal  "rate",           precision: 8,  scale: 2, default: 0.0
   end
 
   create_table "transactions", force: :cascade do |t|

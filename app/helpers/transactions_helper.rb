@@ -96,12 +96,8 @@ module TransactionsHelper
     current_account.employees.map {|person| [person.full_name, person.id]}.push ["---- Add employee ----", "new"]
   end
 
-  def option_inventory
-    current_account.products.inventory.map {|product| [product.name, product.id]}.push ["---- Add product ----", "new"]
-  end
-
-  def option_non_inventory
-    current_account.products.non_inventory.map {|product| [product.name, product.id]}.push ["---- Add product ----", "new"]
+  def option_items
+    current_account.items.map {|item| [item.name, item.id]}.push ["---- Add item ----", "new"]
   end
 
 end

@@ -52,6 +52,16 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def allocated_to_selling
+      income = current_account.balance_sheets.income
+      other_income = current_account.balance_sheets.other_income
+      @allocated_to_selling ||= income + other_income
+    end
+
+    def allocated_to_purchase
+      @allocated_to_purchase ||= current_account.balance_sheets.cost_of_sales
+    end
+
   private
 
     def user_not_authorized

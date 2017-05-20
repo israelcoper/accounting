@@ -1,11 +1,11 @@
 - content_for :content_header do
   .page-title
     .title_left
-      h3 Products
+      h3 Items
   
     .title_right
       .dropdown.pull-right
-        = link_to "Add Product", new_account_product_path(current_account), class: "btn btn-primary"
+        = link_to "Add Item", new_account_item_path(current_account), class: "btn btn-primary"
 
 - content_for :content do
   .row
@@ -15,11 +15,12 @@
           table.table.table-striped.projects
             thead
               tr
-                th style="width: 30%" Name
-                th Cost
-                th Income
-                th style="text-align:center;" Quantity in hand
+                th Item number
+                th Name
+                th Purchase price
+                th Selling price
+                th Unit
                 th.action Actions
             tbody
-              = render @products
+              = render @items
 

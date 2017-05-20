@@ -10,6 +10,6 @@
   .col-md-6.col-sm-6.col-xs-12
     .form-group
       label.control-label Unit *
-      = f.select :unit, options_for_select(Product::Units, selected: @product.unit), { prompt: "Select unit" }, { class: "form-control", id: "product_unit" }
+      = f.select :unit, options_for_select(Item::Units, selected: @item.unit), { prompt: "Select unit" }, { class: "form-control", id: "item_unit" }
 
 

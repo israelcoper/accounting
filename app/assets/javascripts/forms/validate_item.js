@@ -1,9 +1,9 @@
 var forms = forms || {};
 
-forms.validate_product = (function() {
+forms.validate_item = (function() {
   return {
     init: function() {
-      var $form = $('#form-product');
+      var $form = $('#form-item');
 
       if ( $form.length ) {
         $form.bootstrapValidator({
@@ -14,14 +14,14 @@ forms.validate_product = (function() {
             validating: 'glyphicon glyphicon-refresh'
           },
           fields: {
-            'product[name]': {
+            'item[name]': {
               validators: {
                 notEmpty: {
-                  message: 'The product name is required'
+                  message: 'The item name is required'
                 }
               }
             },
-            'product[purchase_price]': {
+            'item[purchase_price]': {
               validators: {
                 notEmpty: {
                   message: 'The purchase price is required'
@@ -32,7 +32,7 @@ forms.validate_product = (function() {
                 }
               }
             },
-            'product[selling_price]': {
+            'item[selling_price]': {
               validators: {
                 notEmpty: {
                   message: 'The selling price is required'
@@ -43,7 +43,7 @@ forms.validate_product = (function() {
                 }
               }
             },
-            'product[quantity]': {
+            'item[quantity]': {
               validators: {
                 notEmpty: {
                   message: 'The quantity is required'
@@ -53,24 +53,31 @@ forms.validate_product = (function() {
                 }
               }
             },
-            'product[unit]': {
+            'item[unit]': {
               validators: {
                 notEmpty: {
                   message: 'The unit is required'
                 }
               }
             },
-            'product[product_number]': {
+            'item[item_number]': {
               validators: {
                 notEmpty: {
-                  message: 'The product number is required'
+                  message: 'The item number is required'
                 }
               }
             },
-            'product[category]': {
+            'item[allocated_to_purchase]': {
               validators: {
                 notEmpty: {
-                  message: 'The category is required'
+                  message: 'The field is required'
+                }
+              }
+            },
+            'item[allocated_to_selling]': {
+              validators: {
+                notEmpty: {
+                  message: 'The field is required'
                 }
               }
             }

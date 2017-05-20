@@ -16,20 +16,24 @@ forms.select_box = (function() {
         'placeholder': 'Choose an employee'
       },
       {
-        'selector': 'select#product',
-        'placeholder': 'Choose a product/service'
+        'selector': 'select#item',
+        'placeholder': 'Choose an item'
       },
       {
         'selector': 'select#invoice_number',
         'placeholder': 'Select invoice number'
       },
       {
-        'selector': 'select#product_unit',
+        'selector': 'select#item_unit',
         'placeholder': 'Select unit'
       },
       {
-        'selector': 'select#product_category',
-        'placeholder': 'Select category'
+        'selector': 'select#item_allocated_to_selling',
+        'placeholder': 'Select'
+      },
+      {
+        'selector': 'select#item_allocated_to_purchase',
+        'placeholder': 'Select'
       },
       {
         'selector': 'select#transaction_payment_method',

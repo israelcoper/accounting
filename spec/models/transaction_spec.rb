@@ -12,7 +12,7 @@ RSpec.describe Transaction, type: :model do
     it { should belong_to :person }
     it { should belong_to :parent }
     it { should have_many :children }
-    it { should have_many :items }
+    it { should have_many :transaction_items }
   end
 
   context "validation" do

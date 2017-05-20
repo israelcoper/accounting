@@ -1,5 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :find_transaction, only: [:show, :destroy, :preview, :children, :payment, :payment_purchase, :payment_receive]
+  before_action :allocated_to_purchase, only: [:invoice, :purchase, :expense]
+  before_action :allocated_to_selling, only: [:invoice, :purchase, :expense]
 
   def show
     respond_to do |format|
@@ -77,25 +79,29 @@ class TransactionsController < ApplicationController
   def invoice
     @transaction = current_account.transactions.build
     @customer = Person.new
-    @product = Product.new
+    @item = Item.new
+    @item.item_number = @item.item_number << (current_account.items.count + 1).to_s
   end
 
   def purchase
     @transaction = current_account.transactions.build
     @supplier = Person.new
-    @product = Product.new
+    @item = Item.new
+    @item.item_number = @item.item_number << (current_account.items.count + 1).to_s
   end
 
   def expense
     @transaction = current_account.transactions.build
     @employee = Person.new
-    @product = Product.new
+    @item = Item.new
+    @item.item_number = @item.item_number << (current_account.items.count + 1).to_s
   end
 
   def create
     @transaction = current_account.transactions.build(transaction_params)
     @customer = Person.new
-    @product = Product.new
+    @item = Item.new
+    @item.item_number = @item.item_number << (current_account.items.count + 1).to_s
 
     options = if Transaction::Types.values_at(0).include?(@transaction.transaction_type)
                 { render: :invoice, redirect: sales_account_transactions_path(current_account), text: "quantity" }
@@ -195,7 +201,7 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(:transaction_type, :transaction_date, :due_date, :notes, :payment, :balance, :total, :person_id, :payment_method,
-                                        items_attributes: [:id, :product_id, :name, :description, :quantity, :rate, :amount, :_destroy]
+                                        transaction_items_attributes: [:id, :item_id, :name, :description, :quantity, :rate, :amount, :_destroy]
     )
   end
 
