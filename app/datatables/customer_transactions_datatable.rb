@@ -10,7 +10,6 @@ class CustomerTransactionsDatatable < TransactionDatatable
     records.map do |record|
       [
         format_date(record.transaction_date),
-        record.transaction_type,
         transaction_link(record),
         format_date(record.due_date),
         number_to_currency(record.total, unit: "PHP"),

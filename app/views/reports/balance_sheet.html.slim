@@ -17,75 +17,235 @@
             .panel-body
               table.table.table-balance-sheet
                 tbody
-                  - @current_assets.each do |asset|
+                  - @cash_equivalents_items.each do |bs|
                     tr
-                      td= asset.name
-                      td= asset.amount
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td= bs.try :current_balance
                       td
                       td
+                      td
+
                   tr
                     td
-                      label Total Current Assets
+                      span class="header"= @cash_equivalents.try :account_number
                     td
-                    td= @total_current_assets
+                      span class="header"= @cash_equivalents.try :name
+                    td
+                    td= @cash_equivalents.try :current_balance
+                    td
                     td
 
-                  - @non_current_assets.each do |asset|
+                  tr
+                    td
+                      span class="header"= @accounts_receivable.try :account_number
+                    td
+                      span class="header"= @accounts_receivable.try :name
+                    td
+                    td= @accounts_receivable.try :current_balance
+                    td
+                    td
+
+                  - @advances_to_employees_items.each do |bs|
                     tr
-                      td= asset.name
-                      td= asset.amount
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td= bs.try :current_balance
                       td
                       td
-                  tr
-                    td
-                      label Total Non Current Assets
-                    td
-                    td= @total_non_current_assets
-                    td
+                      td
 
                   tr
                     td
-                      label Total Assets
+                      span class="header"= @advances_to_employees.try :account_number
+                    td
+                      span class="header"= @advances_to_employees.try :name
+                    td
+                    td= @advances_to_employees.try :current_balance
                     td
                     td
-                    td= @total_assets
 
-                  - @liabilities.each do |liability|
+                  - @assets_a_items.each do |bs|
                     tr
-                      td= liability.name
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td= bs.try :current_balance
                       td
-                      td= liability.amount
+                      td
                       td
 
                   tr
                     td
-                      label Total Liability
+                      span class="header"= @assets_a.try :account_number
+                    td
+                      span class="header"= @assets_a.try :name
+                    td
+                    td= @assets_a.try :current_balance
                     td
                     td
-                    td= @total_liabilities
 
-                  - @equity.each do |equity|
+                  - @assets_b_items.each do |bs|
                     tr
-                      td= equity.name
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td= bs.try :current_balance
                       td
-                      td= equity.amount
                       td
-                  tr
-                    td Current Year Earnings
-                    td
-                    td= @net_income
-                    td
-                  tr
-                    td
-                      label Total Equity
-                    td
-                    td
-                    td= @total_equity
+                      td
 
                   tr
                     td
-                      label Total Liability and Equity
+                      span class="header"= @assets_b.try :account_number
+                    td
+                      span class="header"= @assets_b.try :name
+                    td
+                    td= @assets_b.try :current_balance
                     td
                     td
-                    td= @asset
+
+                  tr
+                    td
+                      span class="header"= @current_assets.try :account_number
+                    td
+                      span class="header" Total Current Assets
+                    td
+                    td
+                    td= @current_assets.try :current_balance
+                    td
+
+                  - @building_items.each do |bs|
+                    tr
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td= bs.try :current_balance
+                      td
+                      td
+                      td
+
+                  tr
+                    td
+                      span class="header"= @building.try :account_number
+                    td
+                      span class="header"= @building.try :name
+                    td
+                    td= @building.try :current_balance
+                    td
+                    td
+
+                  - @vehicles_items.each do |bs|
+                    tr
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td= bs.try :current_balance
+                      td
+                      td
+                      td
+
+                  tr
+                    td
+                      span class="header"= @vehicles.try :account_number
+                    td
+                      span class="header"= @vehicles.try :name
+                    td
+                    td= @vehicles.try :current_balance
+                    td
+                    td
+
+                  tr
+                    td
+                      span class="header"= @non_current_assets.try :account_number
+                    td
+                      span class="header" Total Non Current Assets
+                    td
+                    td
+                    td= @non_current_assets.try :current_balance
+                    td
+
+                  tr
+                    td
+                      span class="header"= @assets.try :account_number
+                    td
+                      span class="header" Total Assets
+                    td
+                    td
+                    td
+                    td= @assets.try :current_balance
+
+                  - @current_liability_items.each do |bs|
+                    tr
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td
+                      td= bs.try :current_balance
+                      td
+                      td
+
+                  tr
+                    td
+                      span class="header"= @current_liability.try :account_number
+                    td
+                      span class="header"= @current_liability.try :name
+                    td
+                    td
+                    td= @current_liability.try :current_balance
+                    td
+
+                  - @non_current_liability_items.each do |bs|
+                    tr
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td
+                      td= bs.try :current_balance
+                      td
+                      td
+
+                  tr
+                    td
+                      span class="header"= @non_current_liability.try :account_number
+                    td
+                      span class="header"= @non_current_liability.try :name
+                    td
+                    td
+                    td= @non_current_liability.try :current_balance
+                    td
+
+                  tr
+                    td
+                      span class="header"= @liability.try :account_number
+                    td
+                      span class="header" Total Liability
+                    td
+                    td
+                    td
+                    td= @liability.try :current_balance
+
+                  - @equities.each do |bs|
+                    tr
+                      td= bs.try :account_number
+                      td= bs.try :name 
+                      td
+                      td
+                      td= bs.try :current_balance
+                      td
+
+                  tr
+                    td
+                      span class="header"= @equity.try :account_number
+                    td
+                      span class="header" Total Equity
+                    td
+                    td
+                    td
+                    td= @equity.try :current_balance
+
+                  tr
+                    td
+                    td
+                      span class="header" Total Liability and Equity
+                    td
+                    td
+                    td
+                    td
+
+
 

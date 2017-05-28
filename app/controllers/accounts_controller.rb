@@ -15,7 +15,7 @@ class AccountsController < ApplicationController
     if @account.save
       flash[:notice] = "Welcome"
       current_user.update_attributes(role: User.roles["admin"], account: @account)
-      redirect_to account_products_path(@account)
+      redirect_to account_items_path(@account)
     else
       flash[:error] = "Something went wrong"
       render :new, layout: 'account'
@@ -49,13 +49,13 @@ class AccountsController < ApplicationController
   protected
 
   def account_params
-    params.require(:account).permit(:name, :industry, balance_sheets_attributes: [:id, :header, :account_number, :name, :amount, :_destroy]).tap do |whitelist|
+    params.require(:account).permit(:name, :industry, balance_sheets_attributes: [:id, :header, :account_number, :name, :opening_balance, :_destroy]).tap do |whitelist|
       whitelist[:address] = params[:account][:address]
     end
   end
 
   def chart_of_account_params
-    params.require(:account).permit(balance_sheets_attributes: [:id, :header, :account_number, :name, :amount, :_destroy])
+    params.require(:account).permit(balance_sheets_attributes: [:id, :header, :account_number, :name, :opening_balance, :_destroy])
   end
 
   def find_account

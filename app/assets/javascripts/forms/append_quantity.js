@@ -14,8 +14,8 @@ forms.append_quantity = (function() {
       parent.find("td.amount span").text("");
       parent.find("td.amount input[name='transaction[transaction_items_attributes][][amount]']").val("");
 
-      $("span#transaction-total, span#transaction-balance").text(spanText);
-      $("input#transaction-total, input#transaction-balance").val(amount);
+      $("span#transaction_total, span#transaction_balance").text(spanText);
+      $("input#transaction_total, input#transaction_balance").val(amount);
 
       // TODO: quantity validation to accept integers only -- note: disable submit button if user input is NaN and display error message
 
@@ -34,8 +34,8 @@ forms.append_quantity = (function() {
             spanText = "PHP" + amount;
           }
 
-          $("span#transaction-total, span#transaction-balance").text(spanText);
-          $("input#transaction-total, input#transaction-balance").val(amount);
+          $("span#transaction_total, span#transaction_balance").text(spanText);
+          $("input#transaction_total, input#transaction_balance").val(amount);
 
           // validate if quantity does not exceed remaining quantity of invoice transaction only
           /*

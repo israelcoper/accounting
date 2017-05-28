@@ -3,13 +3,13 @@ var forms = forms || {};
 forms.append_invoice = (function() {
   var appendInvoice = function() {
     if ($('form.form-payment').length > 0) {
-      var account_id = $("select#invoice_number").data("accountid");
-      var parent_id  = $("#transaction_parent_id").val();
-      var person_id  = $("select[name='transaction[person_id]'] option:selected").val();
+      var accountId = $("select#invoice_number").data("accountid");
+      var parentId  = $("#transaction_parent_id").val();
+      var personId  = $("select[name='transaction[person_id]'] option:selected").val();
 
       // append options to select invoice number
-      if (person_id.length > 0) {
-        appendOptionToSelectInvoiceNumber(account_id, person_id);
+      if (personId.length > 0) {
+        appendOptionToSelectInvoiceNumber(accountId, personId);
       }
 
       $("select[name='transaction[person_id]']").on("change", function(e) {
@@ -17,44 +17,44 @@ forms.append_invoice = (function() {
         $("select#invoice_number option").remove();
         $("tbody#transaction tr").remove();
         $("input#transaction_parent_id").val("");
-        if (person_id.length > 0)
-          appendOptionToSelectInvoiceNumber(account_id, person_id);
+        if (personId.length > 0)
+          appendOptionToSelectInvoiceNumber(accountId, personId);
       });
 
       // append invoice to payment transaction
-      if (parent_id.length > 0) {
-        appendTransaction(account_id, parent_id);
+      if (parentId.length > 0) {
+        appendTransaction(accountId, parentId);
       }
 
       $("select#invoice_number").on("change", function(e) {
-        parent_id = $(this).find("option:selected").val(); 
+        parentId = $(this).find("option:selected").val(); 
         $("tbody#transaction tr").remove();
-        if (parent_id.length > 0) {
-          appendTransaction(account_id, parent_id);
-          $("input#transaction_parent_id").val(parent_id);
+        if (parentId.length > 0) {
+          appendTransaction(accountId, parentId);
+          $("input#transaction_parent_id").val(parentId);
         } else {
           $("input#transaction_parent_id").val("")
         }
       });
 
       $(document).on("keyup keypress", "input[name='transaction[payment]']", function(e) {
-        var span_text = "PHP0.0";
-        var open_balance = $(".transaction_balance span").text();
+        var spanText = "PHP0.0";
+        var openBalance = $(".transaction_balance span").text();
         var payment = $(this).val();
 
-        open_balance = parseInt(open_balance);
+        openBalance = parseInt(openBalance);
         payment = parseInt(payment);
 
-        $("span#transaction_payment").text(span_text);
+        $("span#transaction_payment").text(spanText);
 
         if (e.which == 13) {
           // validate if value is positive integer
           if ( /^\d+$/.test(payment) ) {
-            span_text = "PHP" + payment;
-            $("span#transaction_payment").text(span_text);
+            spanText = "PHP" + payment;
+            $("span#transaction_payment").text(spanText);
 
             // validate if amount does not exceed open balance
-            if (payment > open_balance) {
+            if (payment > openBalance) {
               $(this).parent().addClass("has-error");
               if ($(this).parent().find("small").length == 0) {
                 $(this).parent().append("<small class='help-block'>Payment exceeds the open balance</small>");

@@ -111,7 +111,7 @@ class TransactionsController < ApplicationController
                 { render: :expense, redirect: expenses_account_transactions_path(current_account), text: "amount" }
               end
 
-    unless @transaction.items.present?
+    unless @transaction.transaction_items.present?
       flash[:error] = "You must select an item and enter #{options[:text]}"
       render options[:render] and return
     end

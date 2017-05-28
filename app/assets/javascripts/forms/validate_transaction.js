@@ -43,7 +43,7 @@ forms.validate_transaction = (function() {
             }
           }
         }).on('success.form.bv', function(e) {
-          if ($("input#transaction_total").val() == 0) {
+          if ($("input#transaction-total").val() == 0) {
             alert("Total must be a positive amount");
             $(this).attr('disabled', 'disabled');
             e.preventDefault();

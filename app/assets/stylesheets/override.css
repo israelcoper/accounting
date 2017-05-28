@@ -72,6 +72,10 @@ table.table-scroll {
   font-weight: 200;
 }
 
+span.header {
+  font-weight: 500;
+}
+
 .btn-save-account {
   margin-top: -7px;
 }
@@ -189,8 +193,12 @@ ul#select2-supplier_id-results li.add, ul#select2-customer_id-results li.add {
   margin-right: 5px !important;
 }
 
-#income-statement table tr td, #balance-sheet table tr td {
+#income-statement table tr td {
   width: 25%;
+  font-size: 12px;
+}
+
+#balance-sheet table tr td {
   font-size: 12px;
 }
 

@@ -4,11 +4,11 @@ forms.pop_over = (function() {
   var popOver = function() {
     // transaction children
     $(document).on("click", 'a.transaction-link', function(e) {
-      var account_id = $(this).data("account-id");
-      var transaction_id = $(this).data("transaction-id");
+      var accountId = $(this).data("account-id");
+      var transactionId = $(this).data("transaction-id");
 
       $.ajax({
-        url: ["/accounts", account_id, "transactions", transaction_id, "children.json"].join("/"),
+        url: ["/accounts", accountId, "transactions", transactionId, "children.json"].join("/"),
         data: {},
         success: function(data) {
           var context = {};
@@ -16,7 +16,7 @@ forms.pop_over = (function() {
 
           $.each(data, function(index,object) {
             context = {
-              account_id: account_id,
+              account_id: accountId,
               transaction_id: object.id,
               transaction_date: dateFormat(object.transaction_date),
               payment_method: humanize(object.payment_method),
@@ -25,7 +25,7 @@ forms.pop_over = (function() {
               status: object.status
             };
 
-            $("tbody#child-transactions").append(HandlebarsTemplates['items/append_children'](context));
+            $("tbody#child-transactions").append(HandlebarsTemplates['transaction_items/append_children'](context));
           });
         },
         error: function() {
@@ -46,14 +46,14 @@ forms.pop_over = (function() {
 
     // transaction summary
     $(document).on('click', 'a.overdue-link', function(e) {
-      var account_id  = $(this).data('account-id');
+      var accountId  = $(this).data('account-id');
       var type        = $(this).data('type');
-      var start_date  = dateFormat($(this).data('start-date'), 'yyyy-mm-dd');
-      var end_date    = dateFormat($(this).data('end-date'), 'yyyy-mm-dd');
+      var startDate  = dateFormat($(this).data('start-date'), 'yyyy-mm-dd');
+      var endDate    = dateFormat($(this).data('end-date'), 'yyyy-mm-dd');
 
       $.ajax({
-        url: ["/accounts", account_id, "transactions", "overdue.json"].join("/"),
-        data: { type: type, start_date: start_date, end_date: end_date },
+        url: ["/accounts", accountId, "transactions", "overdue.json"].join("/"),
+        data: { type: type, start_date: startDate, end_date: endDate },
         success: function(data) {
           var context = {};
           $("tbody#overdue-transactions").html("");
@@ -85,7 +85,7 @@ forms.pop_over = (function() {
               link: link
             };
 
-            $("tbody#overdue-transactions").append(HandlebarsTemplates['items/append_overdue_transaction'](context));
+            $("tbody#overdue-transactions").append(HandlebarsTemplates['transaction_items/append_overdue_transaction'](context));
           });
         },
         error: function() {

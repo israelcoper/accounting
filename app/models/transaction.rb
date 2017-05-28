@@ -2,7 +2,7 @@ class Transaction < ActiveRecord::Base
 
   Types = ["Invoice", "Payment", "Purchase Order", "Purchase Payment", "Expense"]
   Status = %w{ Open Closed Partial Paid }
-  Number = 1000
+  STARTING_NUMBER = 10000000
 
   enum payment_method: [:cash, :check, :bank_transfer]
 
@@ -68,18 +68,18 @@ class Transaction < ActiveRecord::Base
   protected
 
   def generate_invoice_number
-    number = (account.transactions.sales.count > 0) ? (account.transactions.sales.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (Number + 1)
-    self.transaction_number = ["INV" , number].join("_")
+    number = (account.transactions.sales.count > 0) ? (account.transactions.sales.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (STARTING_NUMBER + 1)
+    self.transaction_number = ["INV" , number].join
   end
 
   def generate_purchase_number
-    number = (account.transactions.purchases.count > 0) ? (account.transactions.purchases.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (Number + 1)
-    self.transaction_number = ["PO" , number].join("_")
+    number = (account.transactions.purchases.count > 0) ? (account.transactions.purchases.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (STARTING_NUMBER + 1)
+    self.transaction_number = ["PO" , number].join
   end
 
   def generate_expense_number
-    number = (account.transactions.expenses.count > 0) ? (account.transactions.expenses.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (Number + 1)
-    self.transaction_number = ["EXP" , number].join("_")
+    number = (account.transactions.expenses.count > 0) ? (account.transactions.expenses.last.transaction_number.match(/\d+/).to_s.to_i + 1) : (STARTING_NUMBER + 1)
+    self.transaction_number = ["EXP" , number]
   end
 
   def set_status
@@ -115,25 +115,55 @@ class Transaction < ActiveRecord::Base
   alias_method :update_status_of_parent_purchase, :update_status_of_parent_invoice
 
   def cancel_invoice
-    items.each do |item|
-      item.product.quantity += item.quantity
-      item.product.income -= item.amount
-      item.product.save
+    transaction_items.each do |ti|
+      bs = BalanceSheet.find ti.item.allocated_to_selling
+
+      bs.balances.find_by_transaction_item_id(ti.id).destroy
+      bs.current_balance -= ti.amount
+      bs.save
+
+      if BalanceSheet::INCOME.include?(bs.account_number)
+        parent = account.balance_sheets.where("account_number BETWEEN ? AND ?", "4-0000", "4-9000")
+        sales = parent[1]
+        income = parent[0]
+
+        sales.balances.find_by_transaction_item_id(ti.id).destroy
+        sales.current_balance -= ti.amount
+        sales.save
+
+        income.balances.find_by_transaction_item_id(ti.id).destroy
+        income.current_balance -= ti.amount
+        income.save
+      end
     end
   end
 
   def cancel_purchase
-    items.each do |item|
-      item.product.quantity -= item.quantity
-      item.product.cost -= item.amount
-      item.product.save
+    transaction_items.each do |ti|
+      bs = BalanceSheet.find ti.item.allocated_to_purchase
+
+      bs.balances.find_by_transaction_item_id(ti.id).destroy
+      bs.current_balance -= ti.amount
+      bs.save
+
+      if BalanceSheet::COST_OF_SALES.include?(bs.account_number)
+        parent = account.balance_sheets.where("account_number BETWEEN ? AND ?", "5-0000", "5-9000")
+        cost_of_sales = parent[1]
+        purchases = parent[0]
+
+        cost_of_sales.balances.find_by_transaction_item_id(ti.id).destroy
+        cost_of_sales.current_balance -= ti.amount
+        cost_of_sales.save
+
+        purchases.balances.find_by_transaction_item_id(ti.id).destroy
+        purchases.current_balance -= ti.amount
+        purchases.save
+      end
     end
   end
 
   def cancel_expense
-    items.each do |item|
-      item.product.cost -= item.amount
-      item.product.save
+    transaction_items.each do |ti|
     end
   end
 

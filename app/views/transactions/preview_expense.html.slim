@@ -38,10 +38,6 @@
                         small= @transaction.person.address["address"]
                         br
                         small= "#{@transaction.person.address["country"]}"
-                        br
-                        small Phone:
-                        | &nbsp;
-                        small= @transaction.person.try :phone
 
                 .col-xs-6.invoice-col
                   .row
@@ -54,10 +50,6 @@
                         small= current_account.address["address"]
                         br
                         small= current_account.address["country"]
-                        br
-                        small Phone:
-                        | &nbsp;
-                        small= current_account.address["business_phone"]
 
               .ln_solid
 
@@ -66,7 +58,7 @@
                   table.table.table-striped
                     thead
                       tr
-                        th Product
+                        th Name
                         th style="width: 50%" Description
                         th Total
                     tbody

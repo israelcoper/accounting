@@ -59,7 +59,7 @@ function dateFormat(date,format) {
   return date;
 }
 
-function appendOptionToSelectInvoiceNumber(account_id, person_id) {
+function appendOptionToSelectInvoiceNumber(accountId, personId) {
   var resource = "customers";
 
   if ($("form.form-payment").data("payment") == "purchase") {
@@ -67,7 +67,7 @@ function appendOptionToSelectInvoiceNumber(account_id, person_id) {
   }
 
   $.ajax({
-    url: ["/accounts", account_id, resource, person_id, "transactions.json"].join("/"),
+    url: ["/accounts", accountId, resource, personId, "transactions.json"].join("/"),
     data: {},
     success: function(data) {
       $("select#invoice_number").append("<option></option>");
@@ -81,9 +81,9 @@ function appendOptionToSelectInvoiceNumber(account_id, person_id) {
   });
 }
 
-function appendTransaction(account_id, parent_id) {
+function appendTransaction(accountId, parentId) {
   $.ajax({
-    url: ["/accounts", account_id, "transactions", parent_id+".json"].join("/"),
+    url: ["/accounts", accountId, "transactions", parentId+".json"].join("/"),
     data: {},
     success: function(data) {
       context = {
@@ -94,7 +94,7 @@ function appendTransaction(account_id, parent_id) {
         total: data.total,
         balance: data.balance
       };
-      $("tbody#transaction").append(HandlebarsTemplates['items/append_transaction'](context))
+      $("tbody#transaction").append(HandlebarsTemplates['transaction_items/append_transaction'](context))
     },
     error: function() {
       console.log("Something went wrong!")

@@ -46,7 +46,7 @@
               tr
                 th style="width: 30%;" Account Number
                 th Account Name
-                th style="text-align: left; width: 25%;" Balance
+                th style="text-align: left; width: 30%;" Opening Balance
           div class="table-content"
             table class="table table-striped table-scroll"
               tbody
@@ -59,8 +59,8 @@
                       span class="#{header(form.object.header)}"= form.object.name
                       = form.hidden_field :name, value: form.object.name
                       = form.hidden_field :header, value: form.object.header
-                    td style="text-align: right; width: 25%;"
-                      = form.text_field :amount, class: "form-control"
+                    td style="text-align: right; width: 30%;"
+                      = form.text_field :opening_balance, class: "form-control"
 
     .row
       .col-md-12.col-sm-12.col-xs-12.btn-save-account

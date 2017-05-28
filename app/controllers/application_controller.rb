@@ -53,13 +53,13 @@ class ApplicationController < ActionController::Base
     end
 
     def allocated_to_selling
-      income = current_account.balance_sheets.income
+      income = current_account.balance_sheets.sales_items
       other_income = current_account.balance_sheets.other_income
       @allocated_to_selling ||= income + other_income
     end
 
     def allocated_to_purchase
-      @allocated_to_purchase ||= current_account.balance_sheets.cost_of_sales
+      @allocated_to_purchase ||= current_account.balance_sheets.purchases_items
     end
 
   private

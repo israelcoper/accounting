@@ -15,18 +15,41 @@ class ReportsController < ApplicationController
   def balance_sheet
     financial_statement
 
-    @current_assets = current_account.balance_sheets.current_assets
-    @non_current_assets = current_account.balance_sheets.non_current_assets
-    @liabilities = current_account.balance_sheets.liabilities
-    @equity = current_account.balance_sheets.equity
+    # TODO: REFACTOR
+    # CURRENT ASSETS
+    @cash_equivalents_items = current_account.balance_sheets.cash_equivalents
+    @cash_equivalents = current_account.balance_sheets.find_by_account_number("1-1100")
+    @accounts_receivable = current_account.balance_sheets.find_by_account_number("1-1200")
+    @advances_to_employees_items = current_account.balance_sheets.advances_to_employees
+    @advances_to_employees = current_account.balance_sheets.find_by_account_number("1-1300")
+    @assets_a_items = current_account.balance_sheets.assets_a
+    @assets_a = current_account.balance_sheets.find_by_account_number("1-1400")
+    @assets_b_items = current_account.balance_sheets.assets_b
+    @assets_b = current_account.balance_sheets.find_by_account_number("1-1500")
+    @current_assets = current_account.balance_sheets.find_by_account_number("1-1000")
 
-    @total_current_assets = @current_assets.map(&:amount).inject(:+)
-    @total_non_current_assets = @non_current_assets.map(&:amount).inject(:+)
-    @total_assets = @total_current_assets + @total_non_current_assets
-    @total_liabilities = @liabilities.map(&:amount).inject(:+)
-    @total_equity = @equity.map(&:amount).inject(:+) + @net_income
+    # NON CURRENT ASSETS
+    @building_items = current_account.balance_sheets.building
+    @building = current_account.balance_sheets.find_by_account_number("1-2100")
+    @vehicles_items = current_account.balance_sheets.vehicles
+    @vehicles = current_account.balance_sheets.find_by_account_number("1-2200")
+    @non_current_assets = current_account.balance_sheets.find_by_account_number("1-2000")
 
-    @asset = @total_liabilities + @total_equity
+    @assets = current_account.balance_sheets.find_by_account_number("1-0000")
+
+    # CURRENT LIABILITY
+    @current_liability_items = current_account.balance_sheets.current_liabilities
+    @current_liability = current_account.balance_sheets.find_by_account_number("2-1000")
+
+    # NON CURRENT LIABILITY
+    @non_current_liability_items = current_account.balance_sheets.non_current_liabilities
+    @non_current_liability = current_account.balance_sheets.find_by_account_number("2-2000")
+
+    @liability = current_account.balance_sheets.find_by_account_number("2-0000")
+
+    # EQUITY
+    @equities = current_account.balance_sheets.equities
+    @equity = current_account.balance_sheets.find_by_account_number("3-0000")
 
     respond_to do |format|
       format.html
@@ -35,19 +58,26 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  # TODO: REFACTOR
   def financial_statement
     @year = params[:date_year].present? ? params[:date_year].to_i : Date.today.strftime("%Y").to_i      
-    from  = Date.new(@year)
-    to    = Date.new(@year, 12, 31)
-    range = from..to
+    @fr   = Date.new(@year)
+    @to   = Date.new(@year, 12, 31)
 
-    @products = current_account.products.inventory.income_statement(range)
-    @expenses = current_account.products.non_inventory.income_statement(range)
-    @total_income = current_account.total_income(@products)
-    @total_cost = current_account.total_cost(@products)
-    @total_expenses = current_account.total_cost(@expenses)
+    @sales_items = current_account.balance_sheets.sales_items
+    @sales = current_account.balance_sheets.find_by_account_number("4-1000")
+    @income = current_account.balance_sheets.find_by_account_number("4-0000")
 
-    @gross_profit = @total_income + @total_cost
-    @net_income = @gross_profit + @total_expenses
+    @purchases_items = current_account.balance_sheets.purchases_items
+    @purchases = current_account.balance_sheets.find_by_account_number("5-1000")
+    @cost_of_sales = current_account.balance_sheets.find_by_account_number("5-0000")
+
+    # @employment_expenses = current_account.balance_sheets.employment_expenses
+    # @food_expenses = current_account.balance_sheets.food_expenses
+    # @expenses = current_account.balance_sheets.expenses
+
+    @gross_profit = @income.income_statement(@fr, @to) - @cost_of_sales.income_statement(@fr, @to)
+    # @net_income = @gross_profit - @total_expenses
   end
 end

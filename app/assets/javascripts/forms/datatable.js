@@ -20,9 +20,9 @@ forms.datatable = (function() {
       "sPagingType": "full_numbers",
       "bLengthChange": false,
       "aoColumnDefs": [
-        {"bSearchable": false, "aTargets": [0, 4, 5, 6, 8]},
-        {"bSortable": false, "aTargets": [2, 4, 5, 6, 7, 8]},
-        {"className": "action", "targets": 8}
+        {"bSearchable": false, "aTargets": [0, 3, 4, 5, 7]},
+        {"bSortable": false, "aTargets": [1, 3, 4, 5, 6, 7]},
+        {"className": "action", "targets": 7}
       ],
       initComplete: function() {
         /*
@@ -57,9 +57,9 @@ forms.datatable = (function() {
       "sPagingType": "full_numbers",
       "bLengthChange": false,
       "aoColumnDefs": [
-        {"bSearchable": false, "aTargets": [0, 3, 4, 5, 6, 7]},
-        {"bSortable": false, "aTargets": [2, 3, 4, 5, 6, 7]},
-        {"className": "action", "targets": 7}
+        {"bSearchable": false, "aTargets": [1, 3, 4, 5, 6]},
+        {"bSortable": false, "aTargets": [1, 2, 3, 4, 5, 6]},
+        {"className": "action", "targets": 6}
       ]
     });
 
@@ -81,9 +81,9 @@ forms.datatable = (function() {
       "sPagingType": "full_numbers",
       "bLengthChange": false,
       "aoColumnDefs": [
-        {"bSearchable": false, "aTargets": [0, 4, 6]},
-        {"bSortable": false, "aTargets": [2, 3, 4, 5, 6]},
-        {"className": "action", "targets": 6}
+        {"bSearchable": false, "aTargets": [0, 3, 5]},
+        {"bSortable": false, "aTargets": [1, 2, 3, 4, 5]},
+        {"className": "action", "targets": 5}
       ]
     });
 

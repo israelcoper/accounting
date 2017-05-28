@@ -59,8 +59,8 @@ forms.append_item = (function() {
         spanText = "PHP" + amount;
       }
 
-      $("span#transaction-total, span#transaction-balance").text(spanText);
-      $("input#transaction-total, input#transaction-balance").val(amount);
+      $("span#transaction_total, span#transaction_balance").text(spanText);
+      $("input#transaction_total, input#transaction_balance").val(amount);
 
       e.preventDefault();
     });

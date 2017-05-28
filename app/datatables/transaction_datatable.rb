@@ -6,14 +6,12 @@ class TransactionDatatable < AjaxDatatablesRails::Base
   def sortable_columns
     @sortable_columns ||= [
       'Transaction.transaction_date',
-      'Transaction.transaction_type',
       'Person.first_name'
     ]
   end
 
   def searchable_columns
     @searchable_columns ||= [
-      'Transaction.transaction_type',
       'Transaction.transaction_number',
       'Transaction.status',
       'Person.first_name',

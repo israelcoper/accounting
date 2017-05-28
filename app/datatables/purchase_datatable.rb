@@ -10,7 +10,6 @@ class PurchaseDatatable < TransactionDatatable
     records.map do |record|
       [
         format_date(record.transaction_date),
-        record.transaction_type,
         transaction_link(record),
         record.person.try(:full_name),
         format_date(record.due_date),

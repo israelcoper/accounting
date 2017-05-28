@@ -45,10 +45,6 @@
                         small= @transaction.person.address["address"]
                         br
                         small= "#{@transaction.person.address["country"]}"
-                        br
-                        small Phone:
-                        | &nbsp;
-                        small= @transaction.person.try :phone
 
                 .col-xs-6.invoice-col
                   .row
@@ -61,10 +57,6 @@
                         small= current_account.address["address"]
                         br
                         small= current_account.address["country"]
-                        br
-                        small Phone:
-                        | &nbsp;
-                        small= current_account.address["business_phone"]
 
               .ln_solid
 
@@ -74,18 +66,18 @@
                     thead
                       tr
                         th Qty
-                        th Product
+                        th Name
                         th style="width: 50%" Description
                         th Price
                         th Subtotal
                     tbody
-                      - @transaction.items.each do |item|
+                      - @transaction.transaction_items.each do |ti|
                         tr
-                          td= item.quantity
-                          td= item.product.try :name
-                          td= item.product.try :description
-                          td= number_to_currency(item.rate, unit: "PHP")
-                          td= number_to_currency(item.amount, unit: "PHP")
+                          td= ti.quantity
+                          td= ti.item.try :name
+                          td= ti.item.try :description
+                          td= number_to_currency(ti.rate, unit: "PHP")
+                          td= number_to_currency(ti.amount, unit: "PHP")
 
               .row
                 .col-xs-6
